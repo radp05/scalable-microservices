@@ -1,0 +1,21 @@
+{
+  "name": "devices",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^7.2.0",
+    "@angular/core": "^7.2.0"
+  },
+  "main": "bundles/devices.umd.js",
+  "module": "fesm5/devices.js",
+  "es2015": "fesm2015/devices.js",
+  "esm5": "esm5/devices.js",
+  "esm2015": "esm2015/devices.js",
+  "fesm5": "fesm5/devices.js",
+  "fesm2015": "fesm2015/devices.js",
+  "typings": "devices.d.ts",
+  "metadata": "devices.metadata.json",
+  "sideEffects": false,
+  "dependencies": {
+    "tslib": "^1.9.0"
+  }
+}
