@@ -1,0 +1,35 @@
+http:
+  port: 8080
+
+# admin:
+#   port: 9876
+#   host: localhost
+
+apiEndpoints:
+  sample:
+    host: localhost
+    paths: '/sample/*'
+
+serviceEndpoints:
+  sampleService:
+    url: 'http://localhost:3000'
+
+policies:
+  - basic-auth
+  - cors
+  - expression
+  - key-auth
+  - log
+  - oauth2
+  - proxy
+  - rate-limit
+
+pipelines:
+  - name: sample
+    apiEndpoints:
+      - sample
+    policies:
+      - proxy:
+        - action:
+            serviceEndpoint: sampleService
+            changeOrigin: true
