@@ -11,7 +11,10 @@ const ROUTES: Routes = [
     },
     {
         path: 'devices',
-        component: DevicesComponent
+        component: DevicesComponent,
+        data: {
+            breadcrumb: 'Devices'
+        }
     }
 ];
 

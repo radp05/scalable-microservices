@@ -1,6 +1,6 @@
 
 .container {
-    padding: 40px 0 20px 0;
+    padding: 30px 0 20px 0;
     .grid-container {
         width: 90%;
         max-width: 1240px;
@@ -12,8 +12,11 @@
         grid-template-rows: auto;
         grid-gap: 20px;
 
-        .mat-card {
-            height: 75px;
+        .item {
+            cursor: pointer;
+            .mat-card {
+                height: 75px;
+            }
         }
 
         .flex {

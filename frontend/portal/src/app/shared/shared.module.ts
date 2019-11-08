@@ -3,19 +3,24 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { MaterialModule } from '../material.module';
+import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    BreadcrumbComponent
   ],
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    RouterModule
   ],
   exports: [
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    BreadcrumbComponent
   ]
 })
 export class SharedModule { }
