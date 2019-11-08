@@ -1,19 +1,37 @@
 import { Routes, RouterModule } from '@angular/router';
-import { DevicesComponent } from './devices.component';
 import { NgModule } from '@angular/core';
+import { DeviceListComponent } from './pages/device-list/device-list.component';
+import { DeviceFormComponent } from './pages/device-form/device-form.component';
 
 
 const ROUTES: Routes = [
     {
         path: '',
         redirectTo: 'devices',
-        pathMatch: 'full'
+        pathMatch: 'full',
+        data: {
+            breadcrumb: ''
+        }
     },
     {
         path: 'devices',
-        component: DevicesComponent,
+        component: DeviceListComponent,
         data: {
             breadcrumb: 'Devices'
+        }
+    },
+    {
+        path: 'device/add',
+        component: DeviceFormComponent,
+        data: {
+            breadcrumb: 'Add Device'
+        }
+    },
+    {
+        path: 'device/edit/:id',
+        component: DeviceFormComponent,
+        data: {
+            breadcrumb: 'Edit Device'
         }
     }
 ];
@@ -26,4 +44,4 @@ const ROUTES: Routes = [
         RouterModule
     ]
 })
-export class DevicesRoutingModule {}
+export class DevicesRoutingModule { }

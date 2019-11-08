@@ -18,3 +18,6 @@ egateway/.yo-rc.json
 #others
 notes.md
 .git
+
+# ignoring tar file packages
+frontend/portal/packages

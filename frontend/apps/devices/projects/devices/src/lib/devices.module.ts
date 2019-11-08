@@ -1,11 +1,51 @@
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { DevicesComponent } from './devices.component';
 import { DevicesRoutingModule } from './devices-routing.module';
+import { DeviceListComponent } from './pages/device-list/device-list.component';
+import {
+  MatTableModule,
+  MatPaginatorModule,
+  MatButtonModule,
+  MatIconModule,
+  MatListModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatDialogModule,
+  MatSnackBarModule
+} from '@angular/material';
+import { DeviceFormComponent } from './pages/device-form/device-form.component';
+import { ConfirmDialogModule } from './components/confirm-dialog/confirm-dialog.module';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
+import { SnackbarModule } from './components/snackbar/snackbar.module';
+import { SnackbarComponent } from './components/snackbar/snackbar.component';
 
 @NgModule({
-  declarations: [DevicesComponent],
+  declarations: [
+    DevicesComponent,
+    DeviceListComponent,
+    DeviceFormComponent
+  ],
   imports: [
-    DevicesRoutingModule
+    FormsModule,
+    HttpClientModule,
+    DevicesRoutingModule,
+    ConfirmDialogModule,
+    SnackbarModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatButtonModule,
+    MatIconModule,
+    MatListModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDialogModule,
+    MatSnackBarModule
+  ],
+  entryComponents: [
+    ConfirmDialogComponent,
+    SnackbarComponent
   ],
   exports: [DevicesComponent]
 })
