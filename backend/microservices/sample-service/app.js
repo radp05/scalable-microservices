@@ -7,7 +7,7 @@ const helmet = require('helmet');
 
 // Add custom dependencies
 const config = require('./config/config');
-const sampleRoutes = require('./routes/routes');
+const sampleRoutes = require('./routes/user');
 
 // Init dbConnection
 
@@ -31,7 +31,7 @@ app.use(helmet.frameguard());
 app.use(helmet.hidePoweredBy());
 
 // Add service routes
-app.use('/sample', sampleRoutes);
+app.use('/users', sampleRoutes);
 
 // Hanlde uncaughtExceptions here to prevent termination
 process.on('uncaughtException', (error) => {
