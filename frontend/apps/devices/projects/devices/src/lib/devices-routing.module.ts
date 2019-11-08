@@ -1,6 +1,7 @@
 import { Routes, RouterModule } from '@angular/router';
-import { DevicesComponent } from './devices.component';
 import { NgModule } from '@angular/core';
+import { DeviceListComponent } from './pages/device-list/device-list.component';
+import { DeviceFormComponent } from './pages/device-form/device-form.component';
 
 
 const ROUTES: Routes = [
@@ -11,7 +12,15 @@ const ROUTES: Routes = [
     },
     {
         path: 'devices',
-        component: DevicesComponent
+        component: DeviceListComponent
+    },
+    {
+        path: 'device/add',
+        component: DeviceFormComponent
+    },
+    {
+        path: 'device/edit/:id',
+        component: DeviceFormComponent
     }
 ];
 
@@ -23,4 +32,4 @@ const ROUTES: Routes = [
         RouterModule
     ]
 })
-export class DevicesRoutingModule {}
+export class DevicesRoutingModule { }
