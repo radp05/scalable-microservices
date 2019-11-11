@@ -1,3 +1,8 @@
+/**
+ * @module :: 
+ * @author ::
+ * @Date ::
+ */
 // Add module dependencies
 const express = require('express');
 const app = express();
@@ -21,7 +26,7 @@ app.use(express.static('dist'));
 //useNewUrlParser:The MongoDB Node.js driver rewrote the tool it uses to parse MongoDB connection strings. Because this is such a big change, they put the new connection string parser behind a flag
 //useUnifiedTopology : To use the new server discover and monitoring engine
 //useFindAndModify : findOneAndUpdate()` and `findOneAndDelete()` without the `useFindAndModify` option set to false are deprecated.
-mongoose.connect('mongodb://localhost/devicesDB', {
+mongoose.connect(config.DBURL, {
   useNewUrlParser: true ,
   useUnifiedTopology: true,
   useFindAndModify: false
@@ -81,6 +86,8 @@ app.use(cors());
 app.use('/devices', deviceRoutes);
 
 // Run the microservice app
-app.listen(config.PORT, () => {
+var server = app.listen(config.PORT, () => {
   console.log(`${config.APP} is running on ${config.PORT} Port`);
 });
+
+module.exports = server

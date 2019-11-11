@@ -2,7 +2,7 @@
 FROM node:lts-alpine
 
 # Labels
-LABEL Repository="radhika/devices" Creater="Radhika" email="radhika@gmail.com"
+LABEL Repository="radhika/devices" Creater="Radhika" email="rad7804@gmail.com"
 
 # Work Directory
 WORKDIR /home/app
