@@ -18,7 +18,8 @@ const userRoutes = require("./routes/users");
 mongoose.connect("mongodb://localhost/user_db", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useFindAndModify: false
+  useFindAndModify: false,
+  useCreateIndex: true
 });
 
 // App Middleware
