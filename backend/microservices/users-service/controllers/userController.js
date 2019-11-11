@@ -13,38 +13,25 @@ exports.editUser = async (req, res) => {
                     message: "userId is not valid"
                 });
         } else {
-            return res.status(500).json({
+            return res.status(400).json({
                 message: "userId is required"
             });
         }
 
         //check user is exist in database
-
         let userDetails = await user.findOne({ "_id": new ObjectID(req.body.userId) });
         if (!userDetails)
             return res.status(404).json({
                 message: "This user is not found."
             });
-        let update = { "updatedBy": "Admin" , "updatedAt" : moment().unix() };
 
-        if (typeof req.body.firstName != "undefined" && req.body.firstName != "")
-            update.firstName = req.body.firstName
-
-        if (typeof req.body.middleName != "undefined" && req.body.middleName != "")
-            update.middleName = req.body.middleName
-
-        if (typeof req.body.lastName != "undefined" && req.body.lastName != "")
-            update.lastName = req.body.lastName
-
-        if (typeof req.body.email != "undefined" && req.body.email != "")
-            update.email = req.body.email
-
-        if (typeof req.body.password != "undefined" && req.body.password != "")
-            update.password = await helper.becrypt.generateHashPasswword(req.body)
+        //generate hash password via bcrypt helpers
+        if (typeof req.body.password != 'undefined' && req.body.password != "")
+            req.body.password = await helper.becrypt.generateHashPasswword({ password: req.body.password })
 
         let filter = { "_id": new ObjectID(req.body.userId) };
 
-        let doc = await user.findOneAndUpdate(filter, update, {
+        let doc = await user.findOneAndUpdate(filter, req.body, {
             new: true
         });
         return res.status(200).json({
