@@ -1,4 +1,4 @@
 module.exports = {
 	APP : "Sample App",
-	PORT : "3000"
+	PORT : "3010"
 }

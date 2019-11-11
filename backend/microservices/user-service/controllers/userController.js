@@ -1,5 +1,11 @@
 var User = require('../models/user.js')
 
+exports.home = async (req, res) => {
+  res.status(200).json({
+    message: "Welcome to Sample Microservice API"
+  });
+}
+
 
 exports.deleteUser = async (req, res) => {
   try {
