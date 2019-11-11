@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const config = require('../config/config')
 
 let generateHashPasswword = async (params) => {
-    let salt = bcrypt.genSaltSync(config.SALTROUND);
+    let salt = bcrypt.genSaltSync(config.SALT_ROUND);
     let hash = bcrypt.hashSync(params.password, salt);
     return hash;
 }

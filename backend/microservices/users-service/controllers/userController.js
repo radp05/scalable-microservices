@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const helper = require('../helpers')
 const moment = require('moment')
 var ObjectID = require('mongodb').ObjectID;
-var user = require('../models/userModel')
+var user = require('../models/User')
 
 exports.editUser = async (req, res) => {
     try {

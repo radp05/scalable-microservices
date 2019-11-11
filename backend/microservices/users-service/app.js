@@ -4,11 +4,11 @@ const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const helmet = require('helmet');
-const mongodb = require('./models/mongoDB')
+const mongodb = require('./models/MongoDB')
 
 // Add custom dependencies
 const config = require('./config/config');
-const userRoutes = require('./routes/routes');
+const userRoutes = require('./routes/user');
 
 // Init dbConnection
 
