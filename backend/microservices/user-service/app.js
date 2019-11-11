@@ -12,7 +12,7 @@ const helmet = require("helmet");
 const mongoose = require("mongoose");
 // Add custom dependencies
 const config = require("./config/config");
-const userRoutes = require("./routes/users");
+const userRoutes = require("./routes/user");
 
 // Init dbConnection
 mongoose.connect("mongodb://localhost/user_db", {
@@ -53,7 +53,7 @@ app.use(userRoutes);
 // Hanlde uncaughtExceptions here to prevent termination
 process.on("uncaughtException", error => {
   console.log(error);
-});
+});   
 
 // Run the microservice app
 app.listen(config.PORT, () => {

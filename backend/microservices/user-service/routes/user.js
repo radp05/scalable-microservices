@@ -1,5 +1,5 @@
 const express = require('express');
-import {createUser,getUsers,loginUser} from '../controllers/users.js';
+import {createUser,getUsers,loginUser} from '../controllers/userController.js';
 const config=require('../config/config');
 import { validateUserForm,validateLoginForm } from "../validations/formValidation";
 import { authentication } from "../services/authenticationService.js";

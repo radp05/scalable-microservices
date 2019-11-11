@@ -1,5 +1,5 @@
 "use strict";
-import User from "../models/users";
+import User from "../models/User";
 const createUsr = async doc => {
 return await User.create(doc);
 };

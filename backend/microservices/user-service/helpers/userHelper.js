@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 let jwt = require('jsonwebtoken');
 
 const createHashPassword = async password => {
-    var salt = bcrypt.genSaltSync(config.ROUND_SALT);
+    var salt = bcrypt.genSaltSync(config.SALT_ROUND);
     var hash = bcrypt.hashSync(password, salt);
      return hash;
 };
