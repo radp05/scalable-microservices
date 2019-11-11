@@ -2,16 +2,18 @@ const mongoose = require('mongoose');
 var Device = require('../models/devicemodel.js')
 
 // Device model
-
+//add object // exports object
 exports.addDevice = async (req, res) => {
   try {
     var device = new Device({
       device_name: req.body.deviceName,
-      device_type: req.body.deviceType
+      device_type: req.body.deviceType,
+      device_ip: req.body.deviceIP
     });
-    await device.save();
+    let doc = await device.save();
     return res.status(200).json({
-      message: "success"
+      message: "success",
+      data: doc
     });
   } catch (error) {
     return res.status(500).json({
@@ -24,12 +26,18 @@ exports.addDevice = async (req, res) => {
 exports.updateDevice = async (req, res) => {
   try {
     const filter = { device_name: req.body.deviceName };
-    const update = { device_name: req.body.deviceName, device_type: req.body.deviceType };
+    const update = { device_name: req.body.deviceName, device_type: req.body.deviceType, device_ip: req.body.deviceIP };
     let doc = await Device.findOneAndUpdate(filter, update, {
       new: true
     });
+    if (doc == null) {
+      return res.status(500).json({
+        message: "No such device"
+      });
+    }
     return res.status(200).json({
-      message: doc
+      message: "Success",
+      data: doc
     });
   }
   catch (error) {
@@ -59,7 +67,7 @@ exports.deleteDevice = async (req, res) => {
 
 
 exports.getAllDevices = async (req, res) => {
-  var devices = await Device.find();
+  var devices = await Device.find({}).select({ "_id": 0 });
   return res.status(200).json({
     message: "success",
     data: devices

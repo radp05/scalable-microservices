@@ -4,8 +4,8 @@ const sampleController = require('../controllers/sample.controller');
 module.exports = (function () {
   var router = express.Router();
 
-  router.get('/', sampleController.home);
-  router.delete('/:id', sampleController.deleteUser);
+  router.get('/', sampleController.index);
+  router.get('/home', sampleController.home);
 
   return router;
 
