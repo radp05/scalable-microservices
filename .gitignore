@@ -17,6 +17,10 @@ egateway/.yo-rc.json
 
 #others
 notes.md
+mongodb/data
+mongodb/setup
+mongodb/keys
+mongodb/certs
 .git
 
 # ignoring tar file packages
