@@ -1,7 +1,7 @@
 <!-- breadcrumb -->
 <ol class="breadcrumb">
   <li *ngFor="let breadcrumb of breadcrumbs$ | async; index as i"
-      class="breadcrumb-item">
+      class="breadcrumb-item" [ngClass] = "{'hide': 0 === bcLength - 1}">
     <a [routerLink]="[breadcrumb.url]">
       {{ breadcrumb.label }}
     </a>

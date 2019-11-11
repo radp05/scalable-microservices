@@ -38,13 +38,16 @@ export class BreadcrumbComponent implements OnInit {
       label: label,
       url: nextUrl
     };
-    const newBreadcrumbs = [...breadcrumbs, breadcrumb];
+    let newBreadcrumbs = [...breadcrumbs];
+    const obj = breadcrumbs.find(item => item.label === breadcrumb.label && item.url === breadcrumb.url );
+    if (!obj) {
+      newBreadcrumbs = [...newBreadcrumbs, breadcrumb];
+    }
     if (route.firstChild) {
       //If we are not on our current path yet, 
       //there will be more children to look after, to build our breadcumb
       return this.buildBreadCrumb(route.firstChild, nextUrl, newBreadcrumbs);
     }
-    console.log(newBreadcrumbs);
     this.bcLength = newBreadcrumbs.length;
     return newBreadcrumbs;
   }
