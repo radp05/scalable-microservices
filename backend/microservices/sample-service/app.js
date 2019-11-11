@@ -17,6 +17,9 @@ const sampleRoutes = require('./routes/routes');
 appConf.port = appConf.port || config.PORT;
 appConf.appName = appConf.appName || config.APP_NAME;
 
+appConf.port = appConf.port || config.PORT;
+appConf.appName = appConf.appName || config.APP_NAME;
+
 // Init dbConnection
 if(config.LOCAL) mongoConf = {};
 let dbUrl;
