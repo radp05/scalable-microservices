@@ -9,10 +9,10 @@ const userSchema = new mongoose.Schema({
   status: { type: Number },
   password: { type: String },
   createdAt: { type: Date, default: Date.now },
-  updatedOn: { type: Date },
+  updatedOn: { type: Date, default: Date.now },
   updatedBy: { type: String },
   createdBy: { type: String }
 })
 
-var users = mongoose.model("users",userSchema)
+var users = mongoose.model("users", userSchema)
 module.exports = users
