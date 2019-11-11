@@ -1,0 +1,22 @@
+
+
+.breadcrumb {
+    list-style-type: none;
+    height: 30px;
+    margin: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    .breadcrumb-item {
+        display: inline;
+        a {
+            text-decoration: none;
+        }
+        .icon {
+            vertical-align: middle;
+        }
+    }
+    .hide {
+        display: none;
+    }
+}

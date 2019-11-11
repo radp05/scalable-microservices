@@ -1,0 +1,27 @@
+<div class="custom-container">
+  <div class="btn-position-left">
+    <button mat-fab color="primary" [routerLink]="['/devices']">
+      <mat-icon aria-label="Back Icon">arrow_back</mat-icon>
+    </button>
+  </div>
+  <form #form="ngForm">
+    <div class="mat-elevation-z8">
+      <div class="label-header">{{formLabel}}</div>
+      <div class="form-container">
+        <mat-form-field>
+          <input matInput placeholder="Device Type" required [(ngModel)]="device.type" name="deviceType">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Device Name" required [(ngModel)]="device.name" name="deviceName">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="IP Address" required [(ngModel)]="device.ipAddress" name="deviceIp">
+        </mat-form-field>
+      </div>
+      <div class="text-center padd-1">
+        <button [disabled]="!form.valid" mat-flat-button color="primary" class="btn-style-1"
+          (click)="onClickDeviceBtn()">{{btnLabel}}</button>
+      </div>
+    </div>
+  </form>
+</div>
