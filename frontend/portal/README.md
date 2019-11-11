@@ -13,7 +13,7 @@ Web application developed using [Angular CLI](https://github.com/angular/angular
   npm install -g @angular/cli
   ```
 
-2. Go to frontend/poratal folder and run the following command in gitbash:
+2. Go to frontend/poratal folder and run the following command:
  ```bash
  sh portal-dev-build.sh
  ```
@@ -28,10 +28,14 @@ Run `ng generate component component-name` to generate a new component. You can 
 
 ## Build Application for Prod
 
- Go to frontend/poratal folder and run the following command in gitbash:
+ Go to frontend/poratal folder and run the following command:
  ```bash
  sh portal-prod-build.sh
  ```
+
+## Note
+
+Windows users please run the sh commands in gitbash, since cmd doesn't support linux commnads.
 
 ## Running unit tests
 
