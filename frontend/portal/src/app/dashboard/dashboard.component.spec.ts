@@ -26,10 +26,10 @@ describe('DashboardComponent', () => {
       imports: [
         CommonModule,
         RouterTestingModule.withRoutes([
-          { path: 'devices', component: DummyComponent },
-          { path: 'orders', component: DummyComponent },
-          { path: 'users', component: DummyComponent },
-          { path: 'resources', component: DummyComponent }
+          { path: 'devices', component: DummyComponent, data: {breadcrumb: 'Device'} },
+          { path: 'orders', component: DummyComponent, data: {breadcrumb: 'Orders'} },
+          { path: 'users', component: DummyComponent, data: {breadcrumb: 'Users'} },
+          { path: 'resources', component: DummyComponent, data: {breadcrumb: 'Resource'} }
         ])
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
