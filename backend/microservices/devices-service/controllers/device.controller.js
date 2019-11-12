@@ -33,7 +33,7 @@ exports.updateDevice = async (req, res) => {
       new: true
     });
     if (doc == null) {
-      return res.status(500).json({
+      return res.status(404).json({
         message: "No such device"
       });
     }
