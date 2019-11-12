@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-var Device = require('../models/devicemodel.js')
+var Device = require('../models/device.model')
 var logger = require('../loggers/logger').logger
 
 exports.addDevice = async (req, res) => {
