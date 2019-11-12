@@ -3,7 +3,6 @@
 
 const mongoose = require('mongoose');
 const CONSTANTS=require('../constant');
-
 const userSchema = new mongoose.Schema({
   firstName: {
     type: String

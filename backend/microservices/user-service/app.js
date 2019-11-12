@@ -6,27 +6,32 @@ const z = require("babel-register")({
 });
 require("babel-core/register");
 require("babel-polyfill");
-const bodyParser = require("body-parser");
 const cors = require("cors");
 const helmet = require("helmet");
-const mongoose = require("mongoose");
+//const mongoose = require("mongoose");
 // Add custom dependencies
 const config = require("./config/config");
 const userRoutes = require("./routes/user");
 const groupRoutes=require("./routes/group")
 
 // Init dbConnection
-mongoose.connect("mongodb://localhost/user_db", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
-  useCreateIndex: true
-});
+// mongoose.connect("mongodb://localhost/user_db", {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+//   useFindAndModify: false,
+//   useCreateIndex: true
+// });
+const bodyParser = require('body-parser');
+const mongodb = require('./models/MongoDB')
+
+// Add custom dependencies
+
+// Init dbConnection
+mongodb.connect();
 
 // App Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
@@ -61,3 +66,4 @@ process.on("uncaughtException", error => {
 app.listen(config.PORT, () => {
   console.log(`${config.APP} is running on ${config.PORT} Port`);
 });
+
