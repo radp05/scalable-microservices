@@ -61,4 +61,31 @@ const validateLoginForm = async (req, res, next) => {
   });
   next();
 };
-export { validateUserForm, validateLoginForm };
+
+const validateGroupForm = (req, res, next) => {
+  var addGroup_form = forms.create({
+    groupName: fields.string({ required: true }),
+    groupDescription: fields.string({ required: true }),
+  });
+
+  addGroup_form.handle(req, {
+    success: function(form) {
+      // there is a request and the form is valid
+      // form.data contains the submitted data
+      req.isValid = true;
+      req.form = form.data;
+
+    },
+    error: function(form) {
+      req.isValid = false;
+      // the data in the request didn't validate,
+      // calling form.toHTML() again will render the error messages
+    },
+    empty: function(form) {
+      req.isValid = false;
+      // there was no form data in the request
+    }
+  });
+  next();
+};
+export { validateUserForm, validateLoginForm , validateGroupForm };

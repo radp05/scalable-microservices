@@ -13,6 +13,7 @@ const mongoose = require("mongoose");
 // Add custom dependencies
 const config = require("./config/config");
 const userRoutes = require("./routes/user");
+const groupRoutes=require("./routes/group")
 
 // Init dbConnection
 mongoose.connect("mongodb://localhost/user_db", {
@@ -49,6 +50,7 @@ app.use(helmet.hidePoweredBy());
 
 // Add service routes
 app.use(userRoutes);
+app.use(groupRoutes);
 
 // Hanlde uncaughtExceptions here to prevent termination
 process.on("uncaughtException", error => {
