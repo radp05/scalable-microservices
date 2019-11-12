@@ -12,7 +12,7 @@ let mongoConf = commonConf.databases.mongodb;
 
 // Add custom dependencies
 const config = require('./config/config');
-const sampleRoutes = require('./routes/routes');
+const sampleRoutes = require('./routes/user');
 
 appConf.port = appConf.port || config.PORT;
 appConf.appName = appConf.appName || config.APP_NAME;

@@ -1,5 +1,5 @@
 module.exports = {
-	APP : "Users App",
+	APP : "user App",
 	PORT : "3007",
 	SALT_ROUND : 10
 }

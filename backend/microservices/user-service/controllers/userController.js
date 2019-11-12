@@ -44,4 +44,26 @@ exports.editUser = async (req, res) => {
             error: err
         });
     }
+var User = require('../models/user.js')
+
+exports.home = async (req, res) => {
+  res.status(200).json({
+    message: "Welcome to Sample Microservice API"
+  });
+}
+
+
+exports.deleteUser = async (req, res) => {
+  try {
+    let userId = req.params.id;
+    let result = await User.findOneAndDelete({
+      userId: userId
+    })
+    return res.status(200).send({ "success": true, "message": "Success", "data": result });
+  }
+  catch (error) {
+    res.status(500).send({
+      message: error.message
+    });
+  }
 }

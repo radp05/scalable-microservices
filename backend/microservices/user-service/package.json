@@ -1,29 +1,25 @@
 {
   "name": "sample-service",
   "version": "1.0.0",
-  "description": "device service only",
+  "description": "sample service only",
   "main": "app.js",
   "scripts": {
-    "test": "mocha test"
+    "test": "mocha test",
+    "start": "nodemon app.js"
   },
   "keywords": [
     "sample",
     "service",
     "structure"
   ],
-  "author": "Radhika",
+  "author": "saibabanadh",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "helmet": "^3.21.2",
-    "minimist": "*",
-    "moment": "^2.24.0",
-    "mongodb": "^3.3.3",
-    "mongoose": "^5.7.8",
-    "swagger-node-express": "~2.0"
+    "mongoose": "^5.7.8"
   },
   "devDependencies": {
     "chai": "^4.2.0",
