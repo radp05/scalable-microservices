@@ -3,11 +3,10 @@ import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core
 import { BreadcrumbComponent } from './breadcrumb.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, Component, NgZone } from '@angular/core';
-import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { By } from '@angular/platform-browser';
 import { of } from 'rxjs';
 import { Location, CommonModule } from '@angular/common';
-import { distinctUntilChanged, filter, map } from 'rxjs/operators';
 
 import { isFunction } from 'lodash';
 
@@ -35,15 +34,16 @@ export function wrapRouterInNgZone(router: Router, ngZone: NgZone): Router {
   });
 }
 
-
 @Component({ template: '' })
 class ProxyComponent {}
+
+
 describe('BreadcrumbComponent', () => {
   let component: BreadcrumbComponent;
   let fixture: ComponentFixture<BreadcrumbComponent>;
   let location: Location;
   let router: Router;
-  let activatedRoute; ActivatedRoute;
+  let activatedRoute: ActivatedRoute;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -51,7 +51,7 @@ describe('BreadcrumbComponent', () => {
       imports: [
         CommonModule,
         RouterTestingModule.withRoutes([
-          { path: 'devices', component: ProxyComponent }
+          { path: 'devices', component: ProxyComponent, data: { breadcrumb: 'Device'} }
         ])
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
