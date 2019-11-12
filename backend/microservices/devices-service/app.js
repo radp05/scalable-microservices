@@ -15,11 +15,12 @@ var mongoose = require('mongoose')
 const config = require('./config/config');
 const deviceRoutes = require('./routes/routes');
 
-var logDir = '/logs'; // directory path you want to set
-if (!fs.existsSync(logDir)) {
-  // Create the directory if it does not exist
-  fs.mkdirSync(logDir);
-}
+ var logDir = path.join(__dirname,'logs'); // directory path you want to set
+ console.log(logDir)
+// if (!fs.existsSync(logDir)) {
+//   // Create the directory if it does not exist
+//   fs.mkdirSync(logDir);
+// }
 
 
 
@@ -33,7 +34,7 @@ mongoose.connect(config.DBURL, {
   useFindAndModify: false
 });
 
-var accessLogStream = fs.createWriteStream(path.join(__dirname, logDir, 'access.log'), { flags: 'a' })
+var accessLogStream = fs.createWriteStream(path.join(logDir, 'access.log'), { flags: 'a' })
 
 // setup the logger
 app.use(morgan('combined', { stream: accessLogStream }))

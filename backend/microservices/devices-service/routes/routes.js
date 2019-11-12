@@ -1,5 +1,5 @@
 const express = require('express');
-const deviceController = require('../controllers/devicecontroller');
+const deviceController = require('../controllers/device.controller');
 module.exports = (function () {
   var router = express.Router();
 
