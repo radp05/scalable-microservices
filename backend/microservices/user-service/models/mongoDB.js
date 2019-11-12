@@ -1,8 +1,8 @@
 //require mongoose module
 var mongoose = require('mongoose');
-
+const config = require('../config/config')
 //require database URL from properties file
-var dbURL = "mongodb://localhost/demo";
+var dbURL = "mongodb://" + config.DB_CONFIG.DB_HOST + '/' + config.DB_CONFIG.DB_NAME;
 
 
 //export this function and imported by server.js

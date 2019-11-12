@@ -1,5 +1,11 @@
 module.exports = {
-	APP : "user App",
-	PORT : "3007",
-	SALT_ROUND : 10
+	APP: "user App",
+	PORT: "3007",
+	SALT_ROUND: 10,
+	DB_CONFIG: {
+		DB_NAME: "demo",
+		DB_PORT: "27017",
+		DB_HOST: "localhost",
+		DB_USER: ""
+	}
 }
