@@ -5,7 +5,7 @@ module.exports = (function () {
 
   router.post('/add', deviceController.addDevice);
   router.get('/get', deviceController.getAllDevices);
-  router.get('/getRecord', deviceController.getADevice)
+  router.get('/getRecord', deviceController.getRecord)
   router.patch('/update', deviceController.updateDevice)
   router.delete('/delete', deviceController.deleteDevice)
 

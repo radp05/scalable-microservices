@@ -28,7 +28,7 @@ exports.updateDevice = async (req, res) => {
   try {
     logger.info("updateDevice", req.body)
     const filter = { deviceName: req.body.deviceName };
-    const update = { deviceName: req.body.deviceName, deviceType: req.body.deviceType, deviceIp: req.body.deviceIp};
+    const update = { deviceName: req.body.deviceName, deviceType: req.body.deviceType, deviceIp: req.body.deviceIp };
     let doc = await Device.findOneAndUpdate(filter, update, {
       new: true
     });
@@ -69,7 +69,6 @@ exports.deleteDevice = async (req, res) => {
   }
 }
 
-
 exports.getAllDevices = async (req, res) => {
   try {
     var devices = await Device.find({}).select({ "_id": 0 });
@@ -87,10 +86,9 @@ exports.getAllDevices = async (req, res) => {
 
 }
 
-
-exports.getADevice = async (req, res) => {
+exports.getRecord = async (req, res) => {
   try {
-    var devices = await Device.findOne({ deviceName: req.query.deviceName});
+    var devices = await Device.findOne({ deviceName: req.query.deviceName });
     return res.status(200).json({
       message: "success",
       data: devices
