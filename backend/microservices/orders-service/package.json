@@ -1,7 +1,7 @@
 {
-  "name": "sample-service",
+  "name": "order-service",
   "version": "1.0.0",
-  "description": "sample service only",
+  "description": "order service only",
   "main": "app.js",
   "scripts": {
     "test": "mocha test",
@@ -12,14 +12,18 @@
     "service",
     "structure"
   ],
-  "author": "saibabanadh",
+  "author": "balasubramanyam",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "helmet": "^3.21.2",
-    "mongoose": "^5.7.7"
+    "mongoose": "^5.7.7",
+    "morgan": "^1.9.1",
+    "swagger-ui-express": "^4.1.2",
+    "winston": "^3.2.1",
+    "winston-daily-rotate-file": "^4.2.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",

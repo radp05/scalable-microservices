@@ -1,7 +1,7 @@
 
 var mongoose = require('mongoose')
-const devicesSchema = new mongoose.Schema({
-  device_name: { type: String, unique: true, required: true },
+const deviceSchema = new mongoose.Schema({
+  device_name: { type: String, unique: true, required: true },//deviceName
   device_type: { type: String ,required: true  },
   device_ip: { type: String ,required: true },
   date: { type: Date, default: Date.now }
@@ -10,5 +10,5 @@ const devicesSchema = new mongoose.Schema({
 
 
 
-var devices = mongoose.model("device", devicesSchema)
+var devices = mongoose.model("Device", deviceSchema)
 module.exports = devices

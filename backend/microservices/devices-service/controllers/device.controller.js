@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-var Device = require('../models/devicemodel.js')
+var Device = require('../models/device.model')
 var logger = require('../loggers/logger').logger
 
 exports.addDevice = async (req, res) => {
@@ -33,7 +33,7 @@ exports.updateDevice = async (req, res) => {
       new: true
     });
     if (doc == null) {
-      return res.status(500).json({
+      return res.status(404).json({
         message: "No such device"
       });
     }
