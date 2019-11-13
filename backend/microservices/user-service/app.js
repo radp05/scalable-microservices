@@ -5,12 +5,11 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const helmet = require('helmet');
 const mongodb = require('./models/MongoDB')
+const logger = require('./logger')
 
 // Add custom dependencies
 const config = require('./config/config');
 const userRoutes = require('./routes/user');
-
-// Init dbConnection
 
 // App Middleware
 app.use(bodyParser.json());
@@ -20,8 +19,8 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS')
     res.setHeader('Access-Control-Allow-Header', 'X-Requested-With, content-type, Authorization');
-    res.setTimeout(300000,function(){
-        res.status(408).json({success:false, message:"Request has timed out."})
+    res.setTimeout(300000, function () {
+        res.status(408).json({ success: false, message: "Request has timed out." })
     })
     next();
 });
@@ -37,7 +36,10 @@ app.use('/user', userRoutes);
 
 // Hanlde uncaughtExceptions here to prevent termination
 process.on('uncaughtException', (error) => {
-    console.log(error);
+    logger.log({
+        level: 'error',
+        message: error.message
+    });
 });
 
 //make database connection
@@ -45,5 +47,9 @@ mongodb.connect();
 
 // Run the microservice app
 app.listen(config.PORT, () => {
-	console.log(`${config.APP} is running on ${config.PORT} Port`);
+    logger.log({
+        level: 'info',
+        message: `${config.APP} is running on ${config.PORT} Port`
+    });
+    //console.log(`${config.APP} is running on ${config.PORT} Port`);
 });
