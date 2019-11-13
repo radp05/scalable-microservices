@@ -8,7 +8,7 @@ exports.addDevice = async (req, res) => {
     var device = new Device({
       deviceName: req.body.deviceName,
       deviceType: req.body.deviceType,
-      deviceIp: req.body.deviceIP
+      deviceIp: req.body.deviceIp
     });
     let doc = await device.save();
     return res.status(200).json({
@@ -28,7 +28,7 @@ exports.updateDevice = async (req, res) => {
   try {
     logger.info("updateDevice", req.body)
     const filter = { deviceName: req.body.deviceName };
-    const update = { deviceName: req.body.deviceName, deviceType: req.body.deviceType, deviceIp: req.body.deviceIP };
+    const update = { deviceName: req.body.deviceName, deviceType: req.body.deviceType, deviceIp: req.body.deviceIp};
     let doc = await Device.findOneAndUpdate(filter, update, {
       new: true
     });
