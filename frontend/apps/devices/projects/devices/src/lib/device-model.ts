@@ -1,5 +1,5 @@
 export interface DeviceModel {
-    type: string;
-    name: string;
-    ipAddress: string;
+    deviceType: string;
+    deviceName: string;
+    deviceIP: string;
 }

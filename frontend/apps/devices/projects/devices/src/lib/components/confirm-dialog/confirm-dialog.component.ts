@@ -23,5 +23,5 @@ export class ConfirmDialogComponent implements OnInit {
 }
 
 export interface DialogData {
-  deviceId: string
+  deviceName: string
 }
