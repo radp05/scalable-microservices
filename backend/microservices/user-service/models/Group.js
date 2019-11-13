@@ -3,29 +3,13 @@
 
 const mongoose = require('mongoose');
 const CONSTANTS=require('../constant');
+
 const userSchema = new mongoose.Schema({
-  firstName: {
+  GroupName: {
     type: String
   },
-  lastName: {
+  groupDescription: {
     type: String
-  },
-  email: {
-    type: String,
-    unique: true,
-  },
-  userName:{
-   type:String
-  },
-  password: {
-    type: String
-  },
-  role: {
-    type: String,
-  },
-  groups: {
-    type: Array,
-    default:[]
   },
   status: {
     type: Number,
@@ -39,10 +23,6 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default:Date.now
   },
-  lastLogin: {
-    type: Date,
-    default:null
-  },
   createdBy:{
     type: String,
     default:null
@@ -52,5 +32,5 @@ const userSchema = new mongoose.Schema({
     default:null
   }
 });
-const User = mongoose.model('users', userSchema);
-module.exports = User
+const Group = mongoose.model('groups', userSchema);
+module.exports = Group
