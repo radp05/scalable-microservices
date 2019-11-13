@@ -6,6 +6,11 @@ const cors = require('cors');
 const helmet = require('helmet');
 const swaggerUi = require('swagger-ui-express');
 const mongoose = require('mongoose');
+const morgan = require('morgan');
+const fs = require('fs');
+const path = require('path');
+const mkdirp = require('mkdirp');
+
 const commonConf = require('./../common/config.json');
 const logger = require('./helpers/logger.helper');
 
@@ -16,9 +21,14 @@ let mongoConf = commonConf.databases.mongodb;
 const config = require('./config/config');
 const orderRoutes = require('./routes/routes');
 
+//Creating dependent folders
+mkdirp(config.LogStreamFilePath, function (err) {
+    if (err) logger.error(err)
+    else logger.info('Dependent folders created!');
+}); 
+
 appConf.port = appConf.port || config.PORT;
 appConf.appName = appConf.appName || config.APP_NAME;
-
 
 // Init dbConnection
 if(config.LOCAL) mongoConf = {};
@@ -37,19 +47,19 @@ if(dbConf.username != '' || dbConf.password != ''){
 }
 mongoose.connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true } );
 mongoose.connection.once('open', () => {
-    console.log("Connected to MongoDB Successfully.");
+    logger.info("Connected to MongoDB Successfully.");
 });
 mongoose.connection.on('connected', () => {
-    console.log('MongoDB connected');
+    logger.info('MongoDB connected');
 });
 mongoose.connection.on('disconnected', () => {
-    console.error("Mongodb is disconnected");
+    logger.error("Mongodb is disconnected");
 });
 mongoose.connection.on('reconnected', () => {
-    console.log('MongoDB reconnected');
+    logger.info('MongoDB reconnected');
 });
 mongoose.connection.on('error', (error) => {
-    console.log('MongoDB error :: ' + error);
+    logger.error('MongoDB error :: ' + error);
 });
 
 // App Middleware
@@ -70,6 +80,12 @@ app.use(helmet.noCache())
 app.use(helmet.xssFilter());
 app.use(helmet.frameguard());
 app.use(helmet.hidePoweredBy());
+
+// create a write stream (in append mode)
+let accessLogStream = fs.createWriteStream(path.join(__dirname, `${config.LogStreamFilePath}${'access.log'}`), { flags: 'a' })
+
+// setup the logger
+app.use(morgan('combined', { stream: accessLogStream }, { flags: 'a' }))
 
 // Add swagger api-docs
 const swaggerDocument = require('./swagger.json');

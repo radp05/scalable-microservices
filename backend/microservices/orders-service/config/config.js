@@ -9,6 +9,7 @@ module.exports = {
 		"password":"",
 		"dbName": "sample"
 	},
-	LogFilePath : "./var/logs/texting.log" 
+	LogFilePath: "./var/logs/",
+	LogStreamFilePath:"./var/streamlogs/"
 }
 
