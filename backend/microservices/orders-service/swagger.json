@@ -5,9 +5,40 @@
     "version": "1.0.0",
     "title": "order Service"
   },
-  "host": "localhost:3001",
+  "host": "localhost:3000",
   "basePath": "/api/v1/order",
   "paths": {
+    "/delete/{orderId}": {
+      "delete": {
+        "tags": [
+          "Order API"
+        ],
+        "summary": " Delete order details",
+        "description": "",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "orderId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Error"
+          }
+        }
+      }
+    },
     "/getAllOrders": {
       "get": {
         "tags": [
