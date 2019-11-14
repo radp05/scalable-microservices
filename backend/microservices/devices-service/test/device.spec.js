@@ -3,40 +3,9 @@ var Devices = require('../models/device.model')
 let chai = require('chai')
 let chaiHttp = require('chai-http')
 let server = require('../app')
-let should = chai.should();
-//let expect = chai.expect
+const should = chai.should()
 
 chai.use(chaiHttp)
-//empties the database
-describe('Devices', () => {
-  beforeEach((done) => {
-    Devices.deleteMany({}, (err) => {
-      done();
-    });
-  })
-  describe('/GET devices', () => {
-    it('it should GET all the devices', (done) => {
-      chai.request(server)
-        .get('/devices/get')
-        .end((err, res) => {
-          res.should.have.status(200);
-          res.body.should.be.a('object');
-          done();
-        });
-    });
-    it('it should GET only a single device details', (done) => {
-      chai.request(server)
-        .get('/devices/getRecord')
-        .end((err, res) => {
-          res.should.have.status(200);
-          res.body.should.be.a('object');
-          res.body.should.have.property("message").eql("success")
-          res.body.should.have.property("data").eql("null")
-          done();
-        });
-    });
-  })
-});
 
 describe('Devices', () => {
   beforeEach((done) => {
@@ -44,13 +13,37 @@ describe('Devices', () => {
       done();
     });
   })
+  it('it should GET all the devices', (done) => {
+    chai.request(server)
+      .get('/devices/get')
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('object');
+        res.body.should.have.property("data").eql([])
+        done();
+      });
+  });
+  it('it should GET only a single device detail', (done) => {
+    chai.request(server)
+      .get('/devices/getRecord?123')
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('object');
+        res.body.should.have.property("message").eql("success")
+        res.body.should.have.property("data").to.be.null
+        done();
+      });
+  });
+
+
+
+  
   describe('/POST devices', () => {
     it('it should POST a device', (done) => {
       chai.request(server)
         .post('/devices/add')
         .send({ deviceName: "cisco1908", deviceType: "router", deviceIp: "172.16.10.101" })
         .end((err, res) => {
-
           res.should.have.status(200);
           res.body.should.be.a('object');
           res.body.should.have.nested.property('data._id')
@@ -61,12 +54,31 @@ describe('Devices', () => {
 });
 
 
+
+
+
+describe('/GET device', () => {
+  it('it should GET all the devices in an non empty database', (done) => {
+    chai.request(server)
+      .get('/devices/get')
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('object');
+        res.body.should.have.property("data")
+        global.mongo_id = res.body.data[0]._id
+        done();
+      });
+  });
+})
+
+
+
+
 describe('/POST device', () => {
   it('it should not POST a device without the mandatory fields i.e device_name,device_type and device_ip', (done) => {
     let device = {
       deviceName: "cisco1908",
       deviceType: "switch"
-      // deviceIP:"175.79.45.10"
     }
     chai.request(server)
       .post('/devices/add')
@@ -99,8 +111,11 @@ describe('/POST device', () => {
 })
 
 
+
+
 describe('/PATCH device', () => {
-  it('it should UPDATE a device with the given deviceName', (done) => {
+  it('it should UPDATE a device with the given device _id', (done) => {
+
     var devices = new Devices({
       deviceName: "cisco1908",
       deviceType: "switchAndhub",
@@ -110,6 +125,7 @@ describe('/PATCH device', () => {
       chai.request(server)
         .patch('/devices/update')
         .send({
+          _id: mongo_id,
           deviceName: "cisco1908",
           deviceType: "switchAndhub",
           deviceIp: "175.79.45.10"
@@ -122,7 +138,7 @@ describe('/PATCH device', () => {
         });
     });
   });
-  it('it CANNOT UPDATE a device when DEVICE NAME DOESNT EXIST', (done) => {
+  it('it CANNOT UPDATE a device when DEVICE _id DOESNT EXIST', (done) => {
     var devices = new Devices({
       deviceName: "cisco_1908",
       deviceType: "switchAndhub",
@@ -132,14 +148,15 @@ describe('/PATCH device', () => {
       chai.request(server)
         .patch('/devices/update')
         .send({
+          _id: "5dcc1dae9ded372d34f8bceb",
           deviceName: "cisco_1908",
           deviceType: "switchAndhub",
           deviceIp: "175.79.45.10"
         })
         .end((err, res) => {
-          res.should.have.status(500);
+          res.should.have.status(404);
           res.body.should.be.a('object');
-          res.body.should.have.property('message').eql('No such device')
+          res.body.should.have.nested.property('message').eql('No such device')
           done();
         });
     });
@@ -147,12 +164,14 @@ describe('/PATCH device', () => {
 });
 
 
+
+
 describe('/DELETE device', () => {
-  it('it should DELETE a device with the given device_name', (done) => {
-    //  Devices.save((err, data) => {
+  it('it should DELETE a device with the given _id', (done) => {
     chai.request(server)
       .delete('/devices/delete')
       .send({
+        _id: mongo_id,
         deviceName: "cisco 780",
         deviceType: "switch",
         deviceIp: "175.79.45.10"
@@ -161,11 +180,8 @@ describe('/DELETE device', () => {
         res.should.have.status(200);
         res.body.should.be.a('object');
         res.body.should.have.property('message').eql('success');
-        // res.body.result.should.have.property('ok').eql(1);
-        // res.body.result.should.have.property('n').eql(1);
         done();
       });
-    //  });
   });
 });
 
