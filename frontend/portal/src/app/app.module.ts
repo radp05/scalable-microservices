@@ -10,6 +10,9 @@ import { MaterialModule } from './material.module';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { OrdersModule } from 'orders';
+// import { HeaderComponent } from './header/header.component';
+// import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +22,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    OrdersModule,
     DevicesModule,
     BrowserAnimationsModule,
     SharedModule,

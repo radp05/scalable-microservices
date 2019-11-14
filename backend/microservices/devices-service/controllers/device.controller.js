@@ -1,10 +1,8 @@
 const mongoose = require('mongoose');
 var Device = require('../models/device.model')
-var logger = require('../loggers/logger').logger
 
 exports.addDevice = async (req, res) => {
   try {
-    logger.info("addDevice", req.body)
     var device = new Device({
       deviceName: req.body.deviceName,
       deviceType: req.body.deviceType,
@@ -16,7 +14,6 @@ exports.addDevice = async (req, res) => {
       data: doc
     });
   } catch (error) {
-    //logger.info("THERE IS AN ERROR")
     return res.status(500).json({
       message: "Internal Error",
       error: error
@@ -26,8 +23,7 @@ exports.addDevice = async (req, res) => {
 
 exports.updateDevice = async (req, res) => {
   try {
-    logger.info("updateDevice", req.body)
-    const filter = { deviceName: req.body.deviceName };
+    const filter = { _id: req.body._id };
     const update = { deviceName: req.body.deviceName, deviceType: req.body.deviceType, deviceIp: req.body.deviceIp };
     let doc = await Device.findOneAndUpdate(filter, update, {
       new: true
@@ -52,14 +48,11 @@ exports.updateDevice = async (req, res) => {
 
 exports.deleteDevice = async (req, res) => {
   try {
-    logger.info("deleteDevice", req.body)
-    var deviceName = req.body.deviceName
-    await Device.findOneAndDelete({ deviceName: req.body.deviceName }, function (err, data) {
+    await Device.findOneAndDelete({ _id: req.body._id }, function (err, data) {
       return res.status(200).json({
         message: "success"
       });
     })
-
   }
   catch (error) {
     return res.status(500).json({
@@ -71,7 +64,7 @@ exports.deleteDevice = async (req, res) => {
 
 exports.getAllDevices = async (req, res) => {
   try {
-    var devices = await Device.find({}).select({ "_id": 0 });
+    var devices = await Device.find({});
     return res.status(200).json({
       message: "success",
       data: devices
@@ -83,7 +76,6 @@ exports.getAllDevices = async (req, res) => {
       error: error
     });
   }
-
 }
 
 exports.getRecord = async (req, res) => {
@@ -100,7 +92,6 @@ exports.getRecord = async (req, res) => {
       error: error
     });
   }
-
 }
 
 

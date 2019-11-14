@@ -1,0 +1,24 @@
+<div class="custom-container">
+  <div class="btn-position-left">
+    <button mat-fab color="primary" [routerLink]="['/orders']">
+      <mat-icon aria-label="Back Icon">arrow_back</mat-icon>
+    </button>
+  </div>
+  <form #form="ngForm">
+    <div class="mat-elevation-z8">  
+      <div class="label-header">{{formMode}}</div>
+      <div class="form-container">
+        <mat-form-field>
+          <input matInput placeholder="Item Name" required [(ngModel)]="order.itemName" name="itemName">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Quantity" required [(ngModel)]="order.quantity" name="quantity">
+        </mat-form-field>
+      </div>
+      <div class="text-center padd-1">
+        <button [disabled]="!form.valid" mat-flat-button color="primary" class="btn-style-1"
+          (click)="onClickOrderButton()">{{submitButton}}</button>
+      </div>
+    </div>
+  </form>
+</div>
