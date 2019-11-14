@@ -8,5 +8,7 @@ module.exports = {
 		"port":"27017",
 		"username":"",
 		"password":""
-	}
+	},
+	LogFilePath: "./var/logs/",
+	LogStreamFilePath:"./var/streamlogs/"
 }

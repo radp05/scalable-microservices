@@ -21,7 +21,17 @@ describe('Devices', () => {
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('object');
-          //res.body.data.length.should.be.eql(0);
+          done();
+        });
+    });
+    it('it should GET only a single device details', (done) => {
+      chai.request(server)
+        .get('/devices/getRecord')
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          res.body.should.have.property("message").eql("success")
+          res.body.should.have.property("data").eql("null")
           done();
         });
     });
@@ -38,9 +48,7 @@ describe('Devices', () => {
     it('it should POST a device', (done) => {
       chai.request(server)
         .post('/devices/add')
-        // .set('content-type', 'application/json')
-        //{"deviceName":"cisco1905","deviceType":"router","deviceIP":"172.16.10.5"}
-        .send({ deviceName: "cisco1908", deviceType: "router", deviceIP: "172.16.10.101" })
+        .send({ deviceName: "cisco1908", deviceType: "router", deviceIp: "172.16.10.101" })
         .end((err, res) => {
 
           res.should.have.status(200);
@@ -64,7 +72,6 @@ describe('/POST device', () => {
       .post('/devices/add')
       .send(device)
       .end((err, res) => {
-
         res.should.have.status(500);
         res.body.should.be.a('object');
         res.body.should.have.nested.property('error.name').eql('ValidationError')
@@ -75,13 +82,12 @@ describe('/POST device', () => {
     let device = {
       deviceName: "cisco1908",
       deviceType: "switch",
-      deviceIP: "175.79.45.10"
+      deviceIp: "175.79.45.10"
     }
     chai.request(server)
       .post('/devices/add')
       .send(device)
       .end((err, res) => {
-
         res.should.have.status(500);
         res.body.should.be.a('object');
         res.body.should.have.property('error');
@@ -98,7 +104,7 @@ describe('/PATCH device', () => {
     var devices = new Devices({
       deviceName: "cisco1908",
       deviceType: "switchAndhub",
-      deviceIP: "175.79.45.10"
+      deviceIp: "175.79.45.10"
     })
     devices.save((err, data) => {
       chai.request(server)
@@ -106,7 +112,7 @@ describe('/PATCH device', () => {
         .send({
           deviceName: "cisco1908",
           deviceType: "switchAndhub",
-          deviceIP: "175.79.45.10"
+          deviceIp: "175.79.45.10"
         })
         .end((err, res) => {
           res.should.have.status(200);
@@ -120,7 +126,7 @@ describe('/PATCH device', () => {
     var devices = new Devices({
       deviceName: "cisco_1908",
       deviceType: "switchAndhub",
-      deviceIP: "175.79.45.10"
+      deviceIp: "175.79.45.10"
     })
     devices.save((err, data) => {
       chai.request(server)
@@ -128,7 +134,7 @@ describe('/PATCH device', () => {
         .send({
           deviceName: "cisco_1908",
           deviceType: "switchAndhub",
-          deviceIP: "175.79.45.10"
+          deviceIp: "175.79.45.10"
         })
         .end((err, res) => {
           res.should.have.status(500);
@@ -149,7 +155,7 @@ describe('/DELETE device', () => {
       .send({
         deviceName: "cisco 780",
         deviceType: "switch",
-        deviceIP: "175.79.45.10"
+        deviceIp: "175.79.45.10"
       })
       .end((err, res) => {
         res.should.have.status(200);
