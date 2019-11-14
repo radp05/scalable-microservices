@@ -33,7 +33,7 @@ exports.addGroup = async (req, res) => {
  */
 exports.editGroup = async (req, res) => {
     try {
-        let filter = { _id: mongoose.Types.ObjectId(req.body.groupId) };
+        let filter = { _id: mongoose.Types.ObjectId(req.params.groupId) };
         let update = { groupName: req.body.groupName };
 
         let result = await Group.findOneAndUpdate(filter, update, {
