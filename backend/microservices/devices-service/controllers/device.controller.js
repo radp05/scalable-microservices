@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 var Device = require('../models/device.model')
-var logger = require('../loggers/logger').logger
 
 exports.addDevice = async (req, res) => {
   try {
@@ -49,9 +48,7 @@ exports.updateDevice = async (req, res) => {
 
 exports.deleteDevice = async (req, res) => {
   try {
-    logger.info("deleteDevice", req.body)
-    var deviceName = req.body.deviceName
-    await Device.findOneAndDelete({ deviceName: req.body.deviceName }, function (err, data) {
+    await Device.findOneAndDelete({_id: req.body._id}, function (err, data) {
       return res.status(200).json({
         message: "success"
       });
