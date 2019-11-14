@@ -4,7 +4,6 @@ var logger = require('../loggers/logger').logger
 
 exports.addDevice = async (req, res) => {
   try {
-    logger.info("addDevice", req.body)
     var device = new Device({
       deviceName: req.body.deviceName,
       deviceType: req.body.deviceType,
@@ -16,7 +15,6 @@ exports.addDevice = async (req, res) => {
       data: doc
     });
   } catch (error) {
-    //logger.info("THERE IS AN ERROR")
     return res.status(500).json({
       message: "Internal Error",
       error: error
@@ -26,8 +24,7 @@ exports.addDevice = async (req, res) => {
 
 exports.updateDevice = async (req, res) => {
   try {
-    logger.info("updateDevice", req.body)
-    const filter = { deviceName: req.body.deviceName };
+    const filter = { deviceName: req.body.searchString };
     const update = { deviceName: req.body.deviceName, deviceType: req.body.deviceType, deviceIp: req.body.deviceIp };
     let doc = await Device.findOneAndUpdate(filter, update, {
       new: true
