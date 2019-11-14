@@ -6,9 +6,9 @@ exports.addDevice = async (req, res) => {
   try {
     logger.info("addDevice", req.body)
     var device = new Device({
-      device_name: req.body.deviceName,
-      device_type: req.body.deviceType,
-      device_ip: req.body.deviceIP
+      deviceName: req.body.deviceName,
+      deviceType: req.body.deviceType,
+      deviceIp: req.body.deviceIp
     });
     let doc = await device.save();
     return res.status(200).json({
@@ -27,8 +27,8 @@ exports.addDevice = async (req, res) => {
 exports.updateDevice = async (req, res) => {
   try {
     logger.info("updateDevice", req.body)
-    const filter = { device_name: req.body.deviceName };
-    const update = { device_name: req.body.deviceName, device_type: req.body.deviceType, device_ip: req.body.deviceIP };
+    const filter = { deviceName: req.body.deviceName };
+    const update = { deviceName: req.body.deviceName, deviceType: req.body.deviceType, deviceIp: req.body.deviceIp };
     let doc = await Device.findOneAndUpdate(filter, update, {
       new: true
     });
@@ -53,8 +53,8 @@ exports.updateDevice = async (req, res) => {
 exports.deleteDevice = async (req, res) => {
   try {
     logger.info("deleteDevice", req.body)
-    var device_name = req.body.deviceName
-    await Device.findOneAndDelete({ device_name: req.body.deviceName }, function (err, data) {
+    var deviceName = req.body.deviceName
+    await Device.findOneAndDelete({ deviceName: req.body.deviceName }, function (err, data) {
       return res.status(200).json({
         message: "success"
       });
@@ -68,7 +68,6 @@ exports.deleteDevice = async (req, res) => {
     });
   }
 }
-
 
 exports.getAllDevices = async (req, res) => {
   try {
@@ -87,6 +86,21 @@ exports.getAllDevices = async (req, res) => {
 
 }
 
+exports.getRecord = async (req, res) => {
+  try {
+    var devices = await Device.findOne({ deviceName: req.query.deviceName });
+    return res.status(200).json({
+      message: "success",
+      data: devices
+    })
+  }
+  catch (error) {
+    return res.status(500).json({
+      message: "Internal Error",
+      error: error
+    });
+  }
 
+}
 
 
