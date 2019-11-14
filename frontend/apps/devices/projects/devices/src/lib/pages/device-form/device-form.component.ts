@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DevicesService } from '../../devices.service';
 import { DeviceModel } from '../../device-model';
-import { MatSnackBar } from '@angular/material';
-import { SnackbarComponent } from '../../components/snackbar/snackbar.component';
 import { HttpErrorResponse } from '@angular/common/http';
+import { SnackbarService } from '../../services/snackbar.service';
+import { ipAddressPattern } from '../../regex-pattern';
 
 @Component({
   selector: 'lib-device-form',
@@ -17,24 +17,51 @@ export class DeviceFormComponent implements OnInit {
   formLabel: string = 'Add Device';
   deviceId: string;
   device: DeviceModel = {
-    type: '',
-    name: '',
-    ipAddress: ''
+    deviceType: '',
+    deviceName: '',
+    deviceIp: ''
   };
-  durationInSeconds = 5;
+  beginProcess: boolean = false;
+  isViewForm: boolean = false;
+  ipAddressRegx: RegExp = ipAddressPattern;
 
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private devicesService: DevicesService,
-    private snackBar: MatSnackBar
+    private snackbarService: SnackbarService
   ) { }
 
   ngOnInit() {
     if (this.route.snapshot.paramMap.get('id')) {
       this.deviceId = this.route.snapshot.paramMap.get('id');
-      this.btnLabel = 'Update'
-      this.formLabel = 'Edit Device';
+      const url = this.router.url;
+      if (url.includes('view')) {
+        this.isViewForm = true;
+        this.formLabel = 'View Device';
+      } else {
+        this.btnLabel = 'Update'
+        this.formLabel = 'Edit Device';
+      }
+      this.initFormOnUpdate();
     }
+  }
+
+  initFormOnUpdate(): void {
+    this.spinner();
+    this.devicesService.getOneDevice(this.deviceId).subscribe(res => {
+      const data = res.data;
+      this.device = {
+        _id: data._id,
+        deviceType: data.deviceType,
+        deviceName: data.deviceName,
+        deviceIp: data.deviceIp
+      };
+    }, err => {
+      this.snackbarService.error(err.message);
+    }).add(() => {
+      this.spinner();
+    })
   }
 
   onClickDeviceBtn(): void {
@@ -48,28 +75,34 @@ export class DeviceFormComponent implements OnInit {
   }
 
   addDevice(): void {
+    this.spinner();
     const payload: DeviceModel = this.device;
     this.devicesService.addDevice(payload).subscribe(res => {
-
+      console.log('res', res);
+      this.snackbarService.success('Successfully added');
+      this.router.navigate(['/devices']);
     }, (err: HttpErrorResponse) => {
-      this.openSnackBar(err.message);
+      this.snackbarService.error(err.message);
+    }).add(() => {
+      this.spinner();
     });
   }
 
   updateDevice(): void {
     const payload: DeviceModel = this.device;
+    console.log('???payload', payload);
     this.devicesService.updateDevice(payload).subscribe(res => {
-
+      this.snackbarService.success('Successfully updated');
+      this.router.navigate(['/devices']);
     }, (err: HttpErrorResponse) => {
-      this.openSnackBar(err.message);
+      this.snackbarService.error(err.message);
+    }, () => {
+      this.spinner();
     });
   }
 
-  openSnackBar(errorMessage: string) {
-    this.snackBar.openFromComponent(SnackbarComponent, {
-      duration: this.durationInSeconds * 1000,
-      data: errorMessage
-    });
+  spinner(): void {
+    this.beginProcess = !this.beginProcess;
   }
 
 }

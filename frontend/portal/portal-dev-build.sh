@@ -1,3 +1,5 @@
+rm -R packages
+
 # Create directory to store generated tar file
 mkdir -p packages
 
@@ -11,4 +13,17 @@ mv ./*.tgz ../../../../portal/packages/
 cd ../../../../portal
 npm i ./packages/*.tgz --save # Need to change thi line for better script
 npm i # Portal npm install - Dependency
-ng serve --port 80
+
+# Build Order app
+cd ../apps/orders
+npm i # Library npm install - Dependency
+ng build orders
+cd dist/orders
+npm pack
+mv ./*.tgz ../../../../portal/packages/
+cd ../../../../portal
+npm i ./packages/*.tgz --save # Need to change thi line for better script
+npm i # Portal npm install - Dependency
+
+# Finally Serve
+ng serve
