@@ -4,7 +4,7 @@
 const mongoose = require('mongoose');
 
 const resourceSchema = new mongoose.Schema({
-    resourceName: { type: String }
+    resourceName: { type: String , unique: true }
 });
 
 resourceSchema.set('timestamps', true); // this will add createdAt and updatedAt timestamps
