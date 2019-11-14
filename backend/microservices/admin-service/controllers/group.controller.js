@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
+const logger = require('../helpers/winston.helper')
 var Group = require('../models/group.model')
-
+var Resource = require('../models/resource.model')
 
 /**
  * @description This function is used for add new group
@@ -9,8 +10,16 @@ var Group = require('../models/group.model')
 
 exports.addGroup = async (req, res) => {
     try {
+        let resourceDetails = await Resource.findById({ "_id": mongoose.Types.ObjectId(req.body.resourceId) })
+
+        if (!resourceDetails)
+            return res.status(404).json({
+                message: "This resource is not exist."
+            });
+
         let group = new Group({
-            groupName: req.body.groupName
+            groupName: req.body.groupName,
+            resourceId: mongoose.Types.ObjectId(req.body.resourceId)
         })
         let result = await group.save();
 
@@ -19,6 +28,7 @@ exports.addGroup = async (req, res) => {
             data: result
         });
     } catch (error) {
+        logger.log({ level: 'error', message: error.message });
         return res.status(500).json({
             message: "Internal Server Error",
             error: error.message
@@ -33,8 +43,21 @@ exports.addGroup = async (req, res) => {
  */
 exports.editGroup = async (req, res) => {
     try {
-        let filter = { _id: mongoose.Types.ObjectId(req.body.groupId) };
-        let update = { groupName: req.body.groupName };
+
+        let resourceDetails = await Resource.findById({ "_id": mongoose.Types.ObjectId(req.body.resourceId) })
+
+        if (!resourceDetails)
+            return res.status(404).json({
+                message: "This resource is not exist."
+            });
+
+        let filter = {
+            _id: mongoose.Types.ObjectId(req.body.groupId)
+        };
+        let update = {
+            groupName: req.body.groupName,
+            resourceId: mongoose.Types.ObjectId(req.body.resourceId)
+        };
 
         let result = await Group.findOneAndUpdate(filter, update, {
             new: true
@@ -49,7 +72,7 @@ exports.editGroup = async (req, res) => {
             data: result
         });
     } catch (error) {
-        console.log("-",error)
+        logger.log({ level: 'error', message: error.message });
         return res.status(500).json({
             message: "Internal Server Error",
             error: error.message
@@ -70,7 +93,7 @@ exports.fetchGroupAll = async (req, res) => {
             data: result
         });
     } catch (error) {
-        console.log(error)
+        logger.log({ level: 'error', message: error.message });
         return res.status(500).json({
             message: "Internal Server Error",
             error: error.message
@@ -80,7 +103,9 @@ exports.fetchGroupAll = async (req, res) => {
 
 exports.removeGroup = async (req, res) => {
     try {
-        let result = await Group.findByIdAndRemove({ "_id": mongoose.Types.ObjectId(req.params.groupId) })
+        let result = await Group.findByIdAndRemove({
+            "_id": mongoose.Types.ObjectId(req.params.groupId)
+        })
         if (!result)
             return res.status(404).json({
                 message: "No group found.",
@@ -90,6 +115,7 @@ exports.removeGroup = async (req, res) => {
             message: "group is successfully deleted."
         });
     } catch (error) {
+        logger.log({ level: 'error', message: error.message });
         return res.status(500).json({
             message: "Internal Server Error",
             error: "error.message"
