@@ -82,7 +82,31 @@ exports.editGroup = async (req, res) => {
 
 exports.fetchGroupAll = async (req, res) => {
     try {
-        let result = await Group.find({})
+        let result = await Group.aggregate([
+            {
+                $lookup:
+                {
+                    from: "resources",
+                    localField: "resourceId",
+                    foreignField: "_id",
+                    as: "resourceDetails"
+                }
+            },
+            {
+                $unwind: "$resourceDetails"
+            },
+            {
+                $project: {
+                   _id : 1,
+                   groupName : 1,
+                   resourceId : 1,
+                   resourceName : "$resourceDetails.resourceName",
+                   createdAt : 1,
+                   updatedAt : 1
+                }
+            }
+        ]);
+        
         if (result.length == 0)
             return res.status(404).json({
                 message: "No group found.",
