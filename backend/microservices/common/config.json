@@ -1,0 +1,29 @@
+{
+    "databases": {
+        "mongodb":{
+            "hostname":"mongo-node1",
+            "port":"27017",
+            "username":"appuser",
+            "password":"App123"
+        }
+    },
+    "services":{
+        "sample":{
+            "appName" : "Sample Application",
+            "port":"3000",
+            "dbName":"sample",
+            "apiBase":"/api/v1/sample"
+        },
+        "device":{
+            "appName" : "Device Application",
+            "port":"3001",
+            "dbName":"devices",
+            "apiBase":"/devices"
+        },
+        "order":{
+            "port":"3002",
+            "dbName":"orders",
+            "apiBase":"/api/v1/orders"
+        }
+    }
+}

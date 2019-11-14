@@ -1,12 +1,17 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
+import { DevicesModule } from 'devices';
+import { SharedModule } from './shared/shared.module';
+import { MaterialModule } from './material.module';
+
+
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 // import { DevicesModule } from 'devices';
 import { OrdersModule } from 'orders';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 
@@ -14,14 +19,15 @@ import { FooterComponent } from './footer/footer.component';
   declarations: [
     AppComponent,
     DashboardComponent,
-    HeaderComponent,
-    FooterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     OrdersModule,
-    BrowserAnimationsModule
+    DevicesModule,
+    BrowserAnimationsModule,
+    SharedModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
