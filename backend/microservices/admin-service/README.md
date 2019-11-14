@@ -1,3 +1,6 @@
 ## Readme Guide
 
-# Add Proper guidelines to run your app
+# To start the app
+
+# npm i
+# nodemon app.js
