@@ -23,6 +23,11 @@
             "port":"3002",
             "dbName":"orders",
             "apiBase":"/api/v1/orders"
+        },
+        "admin":{
+            "port":"3003",
+            "dbName":"demo",
+            "apiBase":"/api/v1/admin"
         }
     }
 }
