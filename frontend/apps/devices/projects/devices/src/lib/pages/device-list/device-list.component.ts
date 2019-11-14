@@ -57,17 +57,17 @@ export class DeviceListComponent implements OnInit {
     });
   }
 
-  deleteDevice(deviceName: string, actionIndex: number): void {
+  deleteDevice(deviceId: string, actionIndex: number): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '250px',
-      data: { deviceName: deviceName }
+      data: { deviceId: deviceId }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {
         this.spinner();
         this.deleteActionIndex = actionIndex;
-        this.devicesService.removeDevice({ deviceName: result }).subscribe(res => {
+        this.devicesService.removeDevice({ _id: result }).subscribe(() => {
           this.getData();
         }, err => {
           this.snackbarService.error(err.message);

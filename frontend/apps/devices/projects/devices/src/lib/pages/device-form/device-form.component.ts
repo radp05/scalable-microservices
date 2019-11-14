@@ -4,6 +4,7 @@ import { DevicesService } from '../../devices.service';
 import { DeviceModel } from '../../device-model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SnackbarService } from '../../services/snackbar.service';
+import { ipAddressPattern } from '../../regex-pattern';
 
 @Component({
   selector: 'lib-device-form',
@@ -14,7 +15,7 @@ export class DeviceFormComponent implements OnInit {
 
   btnLabel: string = 'Submit';
   formLabel: string = 'Add Device';
-  deviceName: string;
+  deviceId: string;
   device: DeviceModel = {
     deviceType: '',
     deviceName: '',
@@ -22,6 +23,7 @@ export class DeviceFormComponent implements OnInit {
   };
   beginProcess: boolean = false;
   isViewForm: boolean = false;
+  ipAddressRegx: RegExp = ipAddressPattern;
 
   constructor(
     private router: Router,
@@ -31,8 +33,8 @@ export class DeviceFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (this.route.snapshot.paramMap.get('deviceName')) {
-      this.deviceName = this.route.snapshot.paramMap.get('deviceName');
+    if (this.route.snapshot.paramMap.get('id')) {
+      this.deviceId = this.route.snapshot.paramMap.get('id');
       const url = this.router.url;
       if (url.includes('view')) {
         this.isViewForm = true;
@@ -47,8 +49,7 @@ export class DeviceFormComponent implements OnInit {
 
   initFormOnUpdate(): void {
     this.spinner();
-    this.devicesService.getOneDevice(this.deviceName).subscribe(res => {
-      console.log('?????res', res);
+    this.devicesService.getOneDevice(this.deviceId).subscribe(res => {
       const data = res.data;
       this.device = {
         _id: data._id,
@@ -64,7 +65,7 @@ export class DeviceFormComponent implements OnInit {
   }
 
   onClickDeviceBtn(): void {
-    if (this.deviceName) {
+    if (this.deviceId) {
       // Update device service
       this.updateDevice();
     } else {

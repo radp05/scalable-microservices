@@ -32,7 +32,7 @@
             <mat-icon aria-label="Edit icon">edit</mat-icon>
           </button>
           <button [disabled]="beginProcess" mat-icon-button color="warn"
-            (click)="deleteDevice(element.deviceName, actionIndex)">
+            (click)="deleteDevice(element._id, actionIndex)">
             <mat-icon aria-label="Delete icon">delete</mat-icon>
             <load-spinner *ngIf="beginProcess && actionIndex === deleteActionIndex"></load-spinner>
           </button>

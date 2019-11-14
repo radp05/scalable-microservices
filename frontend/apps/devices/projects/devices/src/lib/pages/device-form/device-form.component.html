@@ -15,8 +15,10 @@
           <input matInput placeholder="Device Name" required [(ngModel)]="device.deviceName" name="deviceName">
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="IP Address" required [(ngModel)]="device.deviceIp" name="deviceIp">
+          <input #ipAddress="ngModel" matInput placeholder="IP Address" required [(ngModel)]="device.deviceIp"
+            name="deviceIp" [pattern]="ipAddressRegx">
         </mat-form-field>
+        <div *ngIf="ipAddress.invalid && (ipAddress.dirty || ipAddress.touched)" class="error">Invalid IP Address</div>
       </div>
       <div class="text-center padd-1">
         <button *ngIf="!isViewForm" [disabled]="!form.valid || beginProcess" mat-flat-button color="primary"

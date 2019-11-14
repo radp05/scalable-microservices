@@ -28,14 +28,14 @@ const ROUTES: Routes = [
         }
     },
     {
-        path: 'device/edit/:deviceName',
+        path: 'device/edit/:id',
         component: DeviceFormComponent,
         data: {
             breadcrumb: 'Edit Device'
         }
     },
     {
-        path: 'device/view/:deviceName',
+        path: 'device/view/:id',
         component: DeviceFormComponent,
         data: {
             breadcrumb: 'View Device'
