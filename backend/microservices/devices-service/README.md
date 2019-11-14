@@ -1,3 +1,5 @@
 ## Readme Guide
 
-# Add Proper guidelines to run your app
+#Command to run the app : node app.js
+#The app runs in port 3001
+#CRUD operations for all device services

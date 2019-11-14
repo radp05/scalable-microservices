@@ -27,3 +27,9 @@
 .padd-1 {
     padding: 30px;
 }
+.disable-control {
+    pointer-events: none;
+}
+button {
+    margin: 0 10px;
+}

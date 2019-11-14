@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { DeviceModel } from './device-model';
 import { Observable } from 'rxjs';
 
-const URL = 'http://localhost:3001';
+const URL = 'http://localhost:3001/devices';
 
 @Injectable({
   providedIn: 'root'
@@ -15,18 +15,28 @@ export class DevicesService {
   ) { }
 
   addDevice(payload: DeviceModel): Observable<any> {
-    return this.http.post(`${URL}/device/add`, payload);
+    return this.http.post(`${URL}/add`, payload);
   }
 
   updateDevice(payload: DeviceModel): Observable<any> {
-    return this.http.put(`${URL}/device/update`, payload);
+    return this.http.patch(`${URL}/update`, payload);
   }
 
-  removeDevice(payload: string): Observable<any> {
-    return this.http.put(`${URL}/device/remove`, payload);
+  removeDevice(payload: object): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+      body: payload
+    };
+
+    return this.http.delete(`${URL}/delete`, httpOptions);
   }
 
   getAllDevices(): Observable<any> {
-    return this.http.get(`${URL}/device/all`);
+    return this.http.get(`${URL}/get`);
+  }
+
+  getOneDevice(deviceName: string): Observable<any> {
+    const param = new HttpParams().set('deviceName', deviceName);
+    return this.http.get(`${URL}/getRecord`, { params: param });
   }
 }

@@ -6,13 +6,21 @@ const cors = require('cors');
 const helmet = require('helmet');
 const swaggerUi = require('swagger-ui-express');
 const mongoose = require('mongoose');
+const mkdirp = require('mkdirp');
 const commonConf = require('./../common/config.json');
+const logger = require('./loggers/logger.js');
 const appConf = commonConf.services.device;
 let mongoConf = commonConf.databases.mongodb;
 
 // Add custom dependencies
 const config = require('./config/config');
 const deviceRoutes = require('./routes/routes');
+
+//creating folders where logs are stored
+mkdirp(config.LogStreamFilePath, function (err) {
+  if (err) logger.error(err)
+  else logger.info('Dependent folders created!');
+});
 
 appConf.port = appConf.port || config.PORT;
 appConf.appName = appConf.appName || config.APP_NAME;
@@ -34,19 +42,19 @@ if(dbConf.username != '' || dbConf.password != ''){
 }
 mongoose.connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true , useFindAndModify: true } );
 mongoose.connection.once('open', () => {
-    console.log("Connected to MongoDB Successfully.");
+  logger.info("Connected to MongoDB Successfully.")
 });
 mongoose.connection.on('connected', () => {
-    console.log('MongoDB connected');
+  logger.info('MongoDB connected');
 });
 mongoose.connection.on('disconnected', () => {
-    console.error("Mongodb is disconnected");
+    logger.error("Mongodb is disconnected");
 });
 mongoose.connection.on('reconnected', () => {
-    console.log('MongoDB reconnected');
+   logger.info('MongoDB reconnected');
 });
 mongoose.connection.on('error', (error) => {
-    console.log('MongoDB error :: ' + error);
+   logger.error('MongoDB error :: ' + error);
 });
 
 // App Middleware

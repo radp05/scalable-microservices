@@ -1,0 +1,48 @@
+@import '../../style.scss';
+.custom-container{
+    width: 90%;
+    max-width: 90%;
+    margin: auto;
+}
+table {
+    width: 100%;
+}
+.btn-position-right {
+    text-align: right;
+    padding-bottom: 10px;;
+}
+
+.container{
+    margin:5%;
+}
+.mobile-label {
+    display: none;
+  }
+
+.mat-header-cell {
+  color: #fafafa;
+  background-color: #363680;
+      position: sticky;
+      position: -webkit-sticky;
+      top: 0;
+
+}
+.mat-row {
+  color :black;
+  min-height: 4%;
+}
+
+mat-row:nth-child(even){
+  background-color:#dfdfee;
+}
+
+mat-row:nth-child(odd){
+  background-color:#b7b7d8;
+  }
+
+.profileHeader{
+    text-align: center;
+    font-weight: bold;
+    color: #040235 ;
+    font-size: 25px;
+  }

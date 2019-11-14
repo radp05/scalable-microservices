@@ -20,6 +20,8 @@ import { ConfirmDialogModule } from './components/confirm-dialog/confirm-dialog.
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { SnackbarModule } from './components/snackbar/snackbar.module';
 import { SnackbarComponent } from './components/snackbar/snackbar.component';
+import { CommonModule } from '@angular/common';
+import { SpinnerModule } from './components/spinner/spinner.module';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,7 @@ import { SnackbarComponent } from './components/snackbar/snackbar.component';
     DeviceFormComponent
   ],
   imports: [
+    CommonModule,
     FormsModule,
     HttpClientModule,
     DevicesRoutingModule,
@@ -41,7 +44,8 @@ import { SnackbarComponent } from './components/snackbar/snackbar.component';
     MatFormFieldModule,
     MatInputModule,
     MatDialogModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    SpinnerModule
   ],
   entryComponents: [
     ConfirmDialogComponent,
