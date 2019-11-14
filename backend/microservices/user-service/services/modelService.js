@@ -4,6 +4,7 @@ import Group from "../models/Group";
 
 //users
 const createUsr = async doc => {
+  console.log("docds to be created",doc);
   return await User.create(doc);
 };
 const getAllUsers = async (filter, options = {}) => {

@@ -8,5 +8,6 @@ module.exports={
     USER_ADD_FORM_ERR:'Invalid user form fields',
     AUTHENTICATION_ERR:'Authentication error',
     GROUP_ADD_FORM_ERR:'Invalid group form fields',
-    USER_ADD_SUCCESS:'Group has been added successfully.'
+    GROUP_ADD_SUCCESS:'Group has been added successfully.',
+    USER_ID_ERR:'User Id not found '
 }

@@ -16,7 +16,7 @@ const createGroup = async (req, res) => {
       await createGrp(req.form);
       return res.status(200).json({
         status: "success",
-        message: MESSAGES.USER_ADD_SUCCESS
+        message: MESSAGES.GROUP_ADD_SUCCESS
       });
     }
   } catch (error) {

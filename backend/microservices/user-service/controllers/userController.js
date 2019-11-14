@@ -9,13 +9,45 @@ var user = require('../models/User')
 const CONSTANTS = require("../constant");
 const MESSAGES = require("../messages");
 import { createHashPassword, createToken } from "../helpers/userHelper";
-import { createUsr, getAllUsers } from "../services/modelService";
+import { createUsr, getAllUsers,getUserById } from "../services/modelService";
+
+
+const createUser = async (req, res) => {
+  console.log("helo there");
+  
+  try {
+    if (!req.isValid) {
+      return res.status(400).json({
+        status: "error",
+        message: MESSAGES.USER_ADD_FORM_ERR
+      });
+    } else {
+      console.log("craete hash now");
+      
+      var hash = await createHashPassword(req.form.password);
+      req.form.password = hash;
+      await createUsr(req.form);
+      return res.status(200).json({
+        status: "success",
+        message: MESSAGES.USER_ADD_SUCCESS
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      message: MESSAGES.INTERNAL_SERVER_ERR,
+      error: error
+    });
+  }
+};
+
 
 const editUser = async (req, res) => {
   try {
+   let userId= req.params.id;
     //validate the user objectId is valid or not
-    if (typeof req.body.userId != "undefined" && req.body.userId != "") {
-      if (!ObjectID.isValid(req.body.userId))
+    if (typeof userId != "undefined" && userId != "") {
+      if (!ObjectID.isValid(userId))
         return res.status(500).json({
           message: "userId is not valid"
         });
@@ -26,7 +58,7 @@ const editUser = async (req, res) => {
     }
 
     //check user is exist in database
-    let userDetails = await user.findOne({ "_id": new ObjectID(req.body.userId) });
+    let userDetails = await user.findOne({ "_id": new ObjectID(userId) });
     if (!userDetails)
       return res.status(404).json({
         message: "This user is not found."
@@ -36,7 +68,7 @@ const editUser = async (req, res) => {
     if (typeof req.body.password != 'undefined' && req.body.password != "")
       req.body.password = await helper.becrypt.generateHashPasswword({ password: req.body.password })
 
-    let filter = { "_id": new ObjectID(req.body.userId) };
+    let filter = { "_id": new ObjectID(userId) };
 
     let doc = await user.findOneAndUpdate(filter, req.body, {
       new: true
@@ -67,30 +99,6 @@ const deleteUser = async (req, res) => {
     });
   }
 }
-const createUser = async (req, res) => {
-  try {
-    if (!req.isValid) {
-      return res.status(400).json({
-        status: "error",
-        message: MESSAGES.USER_ADD_FORM_ERR
-      });
-    } else {
-      var hash = await createHashPassword(req.form.password);
-      req.form.password = hash;
-      await createUsr(req.form);
-      return res.status(200).json({
-        status: "success",
-        message: MESSAGES.USER_ADD_SUCCESS
-      });
-    }
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({
-      message: MESSAGES.INTERNAL_SERVER_ERR,
-      error: error
-    });
-  }
-};
 
 const getUsers = async (req, res) => {
   let filter = {};
@@ -135,4 +143,34 @@ const loginUser = async (req, res) => {
   }
 };
 
-export { createUser, loginUser, getUsers,deleteUser,editUser };
+const getUser=async(req,res)=>{
+
+  let userId = req.params.id;
+console.log("user id",userId);
+
+  if(!userId){
+    return res.status(400).json({
+      status: "error",
+      message: MESSAGES.USER_ID_ERR
+    });
+  }
+  let options={}
+  options.password=CONSTANTS.NON_RETRIVAL;
+  try {
+    let user=await getUserById(userId,options);
+    return res.status(400).json({
+      status: "success",
+      data:user || {}
+    });
+
+  } catch (error) {
+    return res.status(400).json({
+      status: "error",
+      message: MESSAGES.USER_ID_MISSING
+    });
+  }
+
+
+}
+
+export { createUser, loginUser, getUsers,getUser,deleteUser,editUser };

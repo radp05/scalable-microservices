@@ -24,8 +24,8 @@ const userSchema = new mongoose.Schema({
     type: String,
   },
   groups: {
-    type: Array,
-    default:[]
+    type: String,
+    default:null
   },
   status: {
     type: Number,

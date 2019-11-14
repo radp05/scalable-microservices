@@ -1,3 +1,4 @@
+console.log("yes rh")
 var forms = require("forms");
 var fields = forms.fields;
 var validators = forms.validators;
