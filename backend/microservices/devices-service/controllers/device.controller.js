@@ -48,12 +48,11 @@ exports.updateDevice = async (req, res) => {
 
 exports.deleteDevice = async (req, res) => {
   try {
-    await Device.findOneAndDelete({_id: req.body._id}, function (err, data) {
+    await Device.findOneAndDelete({ _id: req.body._id }, function (err, data) {
       return res.status(200).json({
         message: "success"
       });
     })
-
   }
   catch (error) {
     return res.status(500).json({
@@ -77,7 +76,6 @@ exports.getAllDevices = async (req, res) => {
       error: error
     });
   }
-
 }
 
 exports.getRecord = async (req, res) => {
@@ -94,7 +92,6 @@ exports.getRecord = async (req, res) => {
       error: error
     });
   }
-
 }
 
 

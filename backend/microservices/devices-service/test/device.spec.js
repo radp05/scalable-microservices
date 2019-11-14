@@ -7,6 +7,7 @@ const should = chai.should()
 
 chai.use(chaiHttp)
 
+
 describe('Devices', () => {
   beforeEach((done) => {
     Devices.deleteMany({}, (err) => {
@@ -52,7 +53,6 @@ describe('Devices', () => {
     });
   });
 });
-
 
 
 
