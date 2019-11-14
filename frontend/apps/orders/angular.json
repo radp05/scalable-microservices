@@ -4,9 +4,9 @@
   "newProjectRoot": "projects",
   "projects": {
     "orders": {
-      "projectType": "library",
       "root": "projects/orders",
       "sourceRoot": "projects/orders/src",
+      "projectType": "library",
       "prefix": "lib",
       "architect": {
         "build": {
@@ -37,6 +37,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "orders"
 }
