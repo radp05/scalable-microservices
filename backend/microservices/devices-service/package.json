@@ -1,15 +1,15 @@
 {
-  "name": "sample-service",
+  "name": "device-service",
   "version": "1.0.0",
-  "description": "device service only",
+  "description": "CRUD operations for device services",
   "main": "app.js",
   "scripts": {
-    "test": "mocha test"
+    "test": "mocha --timeout 15000 test"
   },
   "keywords": [
-    "sample",
+    "device",
     "service",
-    "structure"
+    "CRUD"
   ],
   "author": "Radhika",
   "license": "ISC",
@@ -17,9 +17,11 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "helmet": "^3.21.2",
     "mongoose": "^5.7.8",
-    "swagger-node-express": "~2.0",
-    "minimist": "*"
+    "morgan": "^1.9.1",
+    "swagger-ui-express": "^4.1.2",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "chai": "^4.2.0",
