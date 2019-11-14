@@ -15,7 +15,11 @@ export class DeviceFormComponent implements OnInit {
   btnLabel: string = 'Submit';
   formLabel: string = 'Add Device';
   deviceName: string;
-  device: DeviceModel;
+  device: DeviceModel = {
+    deviceType: '',
+    deviceName: '',
+    deviceIp: ''
+  };
   beginProcess: boolean = false;
   isViewForm: boolean = false;
 
@@ -38,24 +42,16 @@ export class DeviceFormComponent implements OnInit {
         this.formLabel = 'Edit Device';
       }
       this.initFormOnUpdate();
-    } else {
-      this.initFormOnAddForm();
-    }
-  }
-
-  initFormOnAddForm(): void {
-    this.device = {
-      deviceType: '',
-      deviceName: '',
-      deviceIp: ''
     }
   }
 
   initFormOnUpdate(): void {
     this.spinner();
     this.devicesService.getOneDevice(this.deviceName).subscribe(res => {
+      console.log('?????res', res);
       const data = res.data;
       this.device = {
+        _id: data._id,
         deviceType: data.deviceType,
         deviceName: data.deviceName,
         deviceIp: data.deviceIp
@@ -84,7 +80,6 @@ export class DeviceFormComponent implements OnInit {
       console.log('res', res);
       this.snackbarService.success('Successfully added');
       this.router.navigate(['/devices']);
-      this.device
     }, (err: HttpErrorResponse) => {
       this.snackbarService.error(err.message);
     }).add(() => {
@@ -94,8 +89,10 @@ export class DeviceFormComponent implements OnInit {
 
   updateDevice(): void {
     const payload: DeviceModel = this.device;
+    console.log('???payload', payload);
     this.devicesService.updateDevice(payload).subscribe(res => {
-
+      this.snackbarService.success('Successfully updated');
+      this.router.navigate(['/devices']);
     }, (err: HttpErrorResponse) => {
       this.snackbarService.error(err.message);
     }, () => {
