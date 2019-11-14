@@ -4,7 +4,7 @@ const config = require('../config/config')
 const commonConf = require('../../common/config.json');
 const appConf = commonConf.services.admin;
 let mongoConf = commonConf.databases.mongodb;
-var logger = require('../logger')
+var logger = require('../helpers/winston.helper')
 
 appConf.port = appConf.port || config.PORT;
 appConf.appName = appConf.appName || config.APP_NAME;

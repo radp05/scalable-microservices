@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
+const logger = require('../helpers/winston.helper')
 var Resource = require('../models/resource.model')
-
 
 /**
  * @description This function is used for add new resource
@@ -15,10 +15,11 @@ exports.addResource = async (req, res) => {
         let result = await resource.save();
 
         return res.status(200).json({
-            message: "resource is successfully added.",
+            message: "Resource is successfully added.",
             data: result
         });
     } catch (error) {
+        logger.log({ level: 'error', message: error.message });
         return res.status(500).json({
             message: "Internal Server Error",
             error: error.message
@@ -49,6 +50,7 @@ exports.editResource = async (req, res) => {
             data: result
         });
     } catch (error) {
+        logger.log({ level: 'error', message: error.message });
         return res.status(500).json({
             message: "Internal Server Error",
             error: error.message
@@ -69,7 +71,7 @@ exports.fetchResourceAll = async (req, res) => {
             data: result
         });
     } catch (error) {
-        console.log(error)
+        logger.log({ level: 'error', message: error.message });
         return res.status(500).json({
             message: "Internal Server Error",
             error: error.message
@@ -89,14 +91,10 @@ exports.removeResource = async (req, res) => {
             message: "Resource is successfully deleted."
         });
     } catch (error) {
+        logger.log({ level: 'error', message: error.message });
         return res.status(500).json({
             message: "Internal Server Error",
             error: "error.message"
         });
     }
 }
-
-
-
-
-
