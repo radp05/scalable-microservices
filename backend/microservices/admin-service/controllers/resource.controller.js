@@ -34,7 +34,7 @@ exports.addResource = async (req, res) => {
  */
 exports.editResource = async (req, res) => {
     try {
-        let filter = { _id: mongoose.Types.ObjectId(req.body.resourceId) };
+        let filter = { _id: mongoose.Types.ObjectId(req.params.resourceId) };
         let update = { resourceName: req.body.resourceName };
 
         let result = await Resource.findOneAndUpdate(filter, update, {

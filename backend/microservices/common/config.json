@@ -27,7 +27,7 @@
         },
         "admin":{
             "port":"3003",
-            "dbName":"demo",
+            "dbName":"users",
             "apiBase":"/api/v1/admin"
         }
     }

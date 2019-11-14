@@ -11,12 +11,13 @@ const helmet = require("helmet");
 const config = require("./config/config");
 const bodyParser = require('body-parser');
 const mongodb = require('./libraries/mongodb.libraries')
-const logger = require('./helpers/winston.helper')
+const logger = require('./logger')
+const swaggerUi = require('swagger-ui-express');
 const userRoutes = require('./routes/user')
 const resourceRoutes = require('./routes/resource')
 const groupRoutes = require('./routes/group')
-
-// Add custom dependencies
+const commonConf = require('./../common/config.json');
+const appConf = commonConf.services.admin;// Add custom dependencies
 
 // App Middleware
 app.use(bodyParser.json());
@@ -42,6 +43,17 @@ app.use(userRoutes);
 app.use(resourceRoutes);
 app.use(groupRoutes);
 
+// Add swagger api-docs
+const swaggerDocument = require('./swagger.json');
+const options = {
+     customCss: '.swagger-ui .topbar { display: none }'
+};
+
+console.log("${appConf.apiBase}/api-docs",`${appConf.apiBase}/api-docs`);
+
+app.use(`${appConf.apiBase}/api-docs`, swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
+//swagger
+
 // Hanlde uncaughtExceptions here to prevent termination
 process.on('uncaughtException', (error) => {
     logger.log({
@@ -54,9 +66,11 @@ process.on('uncaughtException', (error) => {
 mongodb.connect();
 
 // Run the microservice app
-app.listen(config.PORT, () => {
+let server=app.listen(config.PORT, () => {
     logger.log({
         level: 'info',
         message: `${config.APP} is running on ${config.PORT} Port`
     });
 });
+
+module.exports=server;

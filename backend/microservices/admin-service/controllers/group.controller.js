@@ -52,7 +52,7 @@ exports.editGroup = async (req, res) => {
             });
 
         let filter = {
-            _id: mongoose.Types.ObjectId(req.body.groupId)
+            _id: mongoose.Types.ObjectId(req.params.groupId)
         };
         let update = {
             groupName: req.body.groupName,
