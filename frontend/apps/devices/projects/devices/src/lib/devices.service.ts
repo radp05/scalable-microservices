@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { DeviceModel } from './device-model';
 import { Observable } from 'rxjs';
 
@@ -33,5 +33,10 @@ export class DevicesService {
 
   getAllDevices(): Observable<any> {
     return this.http.get(`${URL}/get`);
+  }
+
+  getOneDevice(deviceName: string): Observable<any> {
+    const param = new HttpParams().set('deviceName', deviceName);
+    return this.http.get(`${URL}/getRecord`, { params: param });
   }
 }

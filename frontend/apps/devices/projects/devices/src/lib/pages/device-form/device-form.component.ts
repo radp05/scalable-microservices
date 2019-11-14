@@ -14,7 +14,7 @@ export class DeviceFormComponent implements OnInit {
 
   btnLabel: string = 'Submit';
   formLabel: string = 'Add Device';
-  deviceId: string;
+  deviceName: string;
   device: DeviceModel;
   beginProcess: boolean = false;
   isViewForm: boolean = false;
@@ -27,8 +27,8 @@ export class DeviceFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if (this.route.snapshot.paramMap.get('id')) {
-      this.deviceId = this.route.snapshot.paramMap.get('id');
+    if (this.route.snapshot.paramMap.get('deviceName')) {
+      this.deviceName = this.route.snapshot.paramMap.get('deviceName');
       const url = this.router.url;
       if (url.includes('view')) {
         this.isViewForm = true;
@@ -37,22 +37,38 @@ export class DeviceFormComponent implements OnInit {
         this.btnLabel = 'Update'
         this.formLabel = 'Edit Device';
       }
-      this.initForm();
+      this.initFormOnUpdate();
     } else {
-      this.initForm();
+      this.initFormOnAddForm();
     }
   }
 
-  initForm(): void {
+  initFormOnAddForm(): void {
     this.device = {
       deviceType: '',
       deviceName: '',
-      deviceIP: ''
+      deviceIp: ''
     }
   }
 
+  initFormOnUpdate(): void {
+    this.spinner();
+    this.devicesService.getOneDevice(this.deviceName).subscribe(res => {
+      const data = res.data;
+      this.device = {
+        deviceType: data.deviceType,
+        deviceName: data.deviceName,
+        deviceIp: data.deviceIp
+      };
+    }, err => {
+      this.snackbarService.error(err.message);
+    }).add(() => {
+      this.spinner();
+    })
+  }
+
   onClickDeviceBtn(): void {
-    if (this.deviceId) {
+    if (this.deviceName) {
       // Update device service
       this.updateDevice();
     } else {
