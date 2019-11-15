@@ -8,6 +8,7 @@ module.exports = (() => {
     router.post(config.API_PREFIX + '/groups', group.addGroup);
     router.patch(config.API_PREFIX + '/groups/:groupId', group.editGroup);
     router.get(config.API_PREFIX + '/groups', group.fetchGroupAll);
+    router.get(config.API_PREFIX + '/groups/:groupId', group.fetchGroupDetails);
     router.delete(config.API_PREFIX + '/groups/:groupId', group.removeGroup);
 
     return router;

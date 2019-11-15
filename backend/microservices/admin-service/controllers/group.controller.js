@@ -10,16 +10,26 @@ var Resource = require('../models/resource.model')
 
 exports.addGroup = async (req, res) => {
     try {
-        let resourceDetails = await Resource.findById({ "_id": mongoose.Types.ObjectId(req.body.resourceId) })
+        let resourceIds = [];
+        if ((req.body.resourceIds).length <= 0)
+            return res.status(400).json({
+                message: "Please provide resource Id in array"
+            });
 
-        if (!resourceDetails)
+        (req.body.resourceIds).map(function (value) {
+            resourceIds.push(mongoose.Types.ObjectId(value))
+        });
+
+        let resourceDetails = await Resource.find({ "_id": { "$in": resourceIds } })
+
+        if (resourceDetails.length == 0)
             return res.status(404).json({
                 message: "This resource is not exist."
             });
 
         let group = new Group({
             groupName: req.body.groupName,
-            resourceId: mongoose.Types.ObjectId(req.body.resourceId)
+            resourceIds: resourceIds
         })
         let result = await group.save();
 
@@ -44,9 +54,19 @@ exports.addGroup = async (req, res) => {
 exports.editGroup = async (req, res) => {
     try {
 
-        let resourceDetails = await Resource.findById({ "_id": mongoose.Types.ObjectId(req.body.resourceId) })
+        let resourceIds = [];
+        if ((req.body.resourceIds).length <= 0)
+            return res.status(400).json({
+                message: "Please provide resource Id in array"
+            });
 
-        if (!resourceDetails)
+        (req.body.resourceIds).map(function (value) {
+            resourceIds.push(mongoose.Types.ObjectId(value))
+        });
+
+        let resourceDetails = await Resource.find({ "_id": { "$in": resourceIds } })
+
+        if (resourceDetails.length == 0)
             return res.status(404).json({
                 message: "This resource is not exist."
             });
@@ -56,7 +76,7 @@ exports.editGroup = async (req, res) => {
         };
         let update = {
             groupName: req.body.groupName,
-            resourceId: mongoose.Types.ObjectId(req.body.resourceId)
+            resourceIds: resourceIds
         };
 
         let result = await Group.findOneAndUpdate(filter, update, {
@@ -87,26 +107,22 @@ exports.fetchGroupAll = async (req, res) => {
                 $lookup:
                 {
                     from: "resources",
-                    localField: "resourceId",
+                    localField: "resourceIds",
                     foreignField: "_id",
                     as: "resourceDetails"
                 }
             },
             {
-                $unwind: "$resourceDetails"
-            },
-            {
                 $project: {
-                   _id : 1,
-                   groupName : 1,
-                   resourceId : 1,
-                   resourceName : "$resourceDetails.resourceName",
-                   createdAt : 1,
-                   updatedAt : 1
+                    _id: 1,
+                    groupName: 1,
+                    resourceDetails: 1,
+                    createdAt: 1,
+                    updatedAt: 1
                 }
             }
         ]);
-        
+
         if (result.length == 0)
             return res.status(404).json({
                 message: "No group found.",
@@ -125,6 +141,56 @@ exports.fetchGroupAll = async (req, res) => {
     }
 }
 
+/**
+ * @description - This function is used for fetch group details
+ * @params - {objectId} groupId - group mongoId
+ * @returns - {object} result
+ */
+exports.fetchGroupDetails = async (req, res) => {
+    try {
+        let result = await Group.aggregate([
+            {
+                $match: {
+                    "_id": mongoose.Types.ObjectId(req.params.groupId)
+                }
+            },
+            {
+                $lookup:
+                {
+                    from: "resources",
+                    localField: "resourceIds",
+                    foreignField: "_id",
+                    as: "resourceDetails"
+                }
+            },
+            {
+                $project: {
+                    _id: 1,
+                    groupName: 1,
+                    resourceDetails : 1,
+                    createdAt: 1,
+                    updatedAt: 1
+                }
+            }
+        ]);
+
+        if (result.length == 0)
+            return res.status(404).json({
+                message: "No group found.",
+            });
+
+        return res.status(200).json({
+            message: "group details",
+            data: result
+        });
+    } catch (error) {
+        logger.log({ level: 'error', message: error.message });
+        return res.status(500).json({
+            message: "Internal Server Error",
+            error: error.message
+        });
+    }
+}
 exports.removeGroup = async (req, res) => {
     try {
         let result = await Group.findByIdAndRemove({
