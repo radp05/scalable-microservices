@@ -10,8 +10,8 @@ appConf.port = appConf.port || config.PORT;
 appConf.appName = appConf.appName || config.APP_NAME;
 
 // Init dbConnection
-if (config.LOCAL) mongoConf = {};
-let dbUrl;
+// if (config.LOCAL) mongoConf = {};
+ let dbUrl;
 // let dbConf = {
 //     "hostname": mongoConf.hostname || config.MONGO.hostname,
 //     "port": mongoConf.port || config.MONGO.port,

@@ -8,7 +8,7 @@ const validateUserForm = (req, res, next) => {
     firstName: fields.string({ required: true }),
     lastName: fields.string({ required: true }),
     role: fields.string({ required: true }),
-    groups: fields.string({ required: false }),
+    groupId: fields.string({ required: false }),
     password: fields.password({
       required: validators.required("You definitely want a password")
     }),

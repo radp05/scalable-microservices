@@ -1,8 +1,7 @@
+"use strict";
 
-'use strict'
-
-const mongoose = require('mongoose');
-const CONSTANTS=require('../constant');
+const mongoose = require("mongoose");
+const CONSTANTS = require("../constant");
 const userSchema = new mongoose.Schema({
   firstName: {
     type: String
@@ -12,45 +11,44 @@ const userSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    unique: true,
+    unique: true
   },
-  userName:{
-   type:String
+  userName: {
+    type: String
   },
   password: {
     type: String
   },
   role: {
-    type: String,
+    type: String
   },
-  groups: {
-    type: String,
-    default:null
+  groupId: {
+    type: mongoose.Schema.Types.ObjectId
   },
   status: {
     type: Number,
-    default:CONSTANTS.ACTIVE_STATUS
+    default: CONSTANTS.ACTIVE_STATUS
   },
   createdAt: {
     type: Date,
-    default:Date.now
+    default: Date.now
   },
   updatedAt: {
     type: Date,
-    default:Date.now
+    default: Date.now
   },
   lastLogin: {
     type: Date,
-    default:null
+    default: null
   },
-  createdBy:{
+  createdBy: {
     type: String,
-    default:null
+    default: null
   },
-  updatedBy:{
-    type:String,
-    default:null
+  updatedBy: {
+    type: String,
+    default: null
   }
 });
-const User = mongoose.model('users', userSchema);
-module.exports = User
+const User = mongoose.model("users", userSchema);
+module.exports = User;

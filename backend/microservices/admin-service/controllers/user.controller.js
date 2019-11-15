@@ -5,9 +5,10 @@ const helper = require('../helpers')
 const moment = require('moment')
 var ObjectID = require('mongodb').ObjectID;
 var user = require('../models/user.model')
-// import User from "../models/users";
 const CONSTANTS = require("../constant");
 const MESSAGES = require("../messages");
+
+
 import { createHashPassword, createToken } from "../helpers/user.helper";
 import { createUsr, getAllUsers,getUserById } from "../services/modelService";
 
@@ -19,11 +20,10 @@ const createUser = async (req, res) => {
         status: "error",
         message: MESSAGES.USER_ADD_FORM_ERR
       });
-    } else {
-      console.log("craete hash now");
-      
+    } else {      
       var hash = await createHashPassword(req.form.password);
       req.form.password = hash;
+      req.body.groupId=mongoose.Types.ObjectId(req.from.groupId)
       await createUsr(req.form);
       return res.status(200).json({
         status: "success",
@@ -31,7 +31,6 @@ const createUser = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
     return res.status(500).json({
       message: MESSAGES.INTERNAL_SERVER_ERR,
       error: error
@@ -98,8 +97,6 @@ const deleteUser = async (req, res) => {
 }
 
 const getUsers = async (req, res) => {
-
-  console.log("am in");
   
   let filter = {};
   filter.status = CONSTANTS.ACTIVE_STATUS;
@@ -112,7 +109,6 @@ const getUsers = async (req, res) => {
    */
   try {
     let users = await getAllUsers(filter, options);
-    console.log("users::",users)
     return res.status(200).json({
       status: "success",
       data: users
