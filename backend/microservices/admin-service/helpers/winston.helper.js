@@ -1,12 +1,13 @@
 const winston = require('winston');
+const config = require('../config/config')
 require('winston-daily-rotate-file');
 
 var transport = new (winston.transports.DailyRotateFile)({
     filename: './logs/application-%DATE%.log',
-    datePattern: 'YYYY-MM-DD-HH',
+    datePattern: config.WINSTON.datePattern,
     zippedArchive: true,
-    maxSize: '5m',
-    maxFiles: '4d'
+    maxSize: config.WINSTON.maxSize,
+    maxFiles: config.WINSTON.maxFiles
 });
 
 const logger = winston.createLogger({

@@ -10,6 +10,11 @@ module.exports = {
 		// "password": "",
 		"dbName": "user_db"
 	},
+	WINSTON: {
+		"datePattern": 'YYYY-MM-DD-HH',
+		"maxSize": '5m',
+		"maxFiles": '4d'
+	},
 	API_PREFIX: '/api/v1',
 	PRIVATE_KEY: "incedo-inc-pk"
 }
