@@ -1,9 +1,9 @@
 const express = require('express');
+
 import {createUser,getUsers,getUser,loginUser,editUser,deleteUser} from '../controllers/user.controller';
 const config=require('../config/config');
 import { validateUserForm,validateLoginForm } from "../validations/formValidation";
 import { authentication } from "../services/authenticationService.js";
-console.log("config.API_PREFIX",config.API_PREFIX);
 
 module.exports = (()=> {
   let router = express.Router();

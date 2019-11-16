@@ -1,18 +1,18 @@
 {
-  "name": "user-service",
+  "name": "admin-service",
   "version": "1.0.0",
-  "description": "sample service only",
+  "description": "admin service which includes user module , resource modules , group modules",
   "main": "app.js",
   "scripts": {
     "test": "mocha test",
     "start": "node app.js"
   },
   "keywords": [
-    "sample",
+    "admin",
     "service",
     "structure"
   ],
-  "author": "saibabanadh",
+  "author": "raju/aman",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^3.0.6",
