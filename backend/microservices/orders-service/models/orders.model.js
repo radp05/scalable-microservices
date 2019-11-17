@@ -5,7 +5,7 @@ const orderSchema = new mongoose.Schema({
     product_name: {type: String },
     date: { type: Date, default: Date.now }
    
-  });
+  },{timestamps: true});
      
-var devices = mongoose.model("orders", orderSchema);
-module.exports = devices
+var Order = mongoose.model("orders", orderSchema);
+module.exports = Order

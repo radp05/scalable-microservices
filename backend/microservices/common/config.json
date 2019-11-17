@@ -15,14 +15,20 @@
             "apiBase":"/api/v1/sample"
         },
         "device":{
+            "appName" : "Device Application",
             "port":"3001",
             "dbName":"devices",
-            "apiBase":"/api/v1/devices"
+            "apiBase":"/devices"
         },
         "order":{
             "port":"3002",
             "dbName":"orders",
             "apiBase":"/api/v1/orders"
+        },
+        "admin":{
+            "port":"3003",
+            "dbName":"users",
+            "apiBase":"/api/v1/admin"
         }
     }
 }

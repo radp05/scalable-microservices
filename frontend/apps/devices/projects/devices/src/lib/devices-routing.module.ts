@@ -33,7 +33,14 @@ const ROUTES: Routes = [
         data: {
             breadcrumb: 'Edit Device'
         }
-    }
+    },
+    {
+        path: 'device/view/:id',
+        component: DeviceFormComponent,
+        data: {
+            breadcrumb: 'View Device'
+        }
+    },
 ];
 
 @NgModule({
