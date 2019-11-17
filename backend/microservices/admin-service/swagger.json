@@ -1,0 +1,422 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Swagger API Documentation",
+    "description": "User service Swagger API Documentation"
+  },
+  "host": "localhost:3003",
+  "basePath": "/api/v1",
+  "tags": [
+    {
+      "name": "Users",
+      "description": "API for users in the DB"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "description": "Create new user in DB",
+        "parameters": [
+          {
+            "firstName": "user",
+            "in": "body",
+            "required": true,
+            "description": "User to create",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get all users in system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Users"
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "parameters": [
+        {
+          "name": "userId",
+          "in": "path",
+          "required": true,
+          "description": "ID of user that we want to find",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get user with given ID",
+        "responses": {
+          "200": {
+            "description": "User is found",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete user with given ID",
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "200": {
+            "description": "User has been successfully deleted",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update user with give ID",
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User with new values of properties",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User has been updated successfully.",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/groups": {
+      "post": {
+        "tags": [
+          "Groups"
+        ],
+        "description": "Create new group in DB",
+        "parameters": [
+          {
+            "groupName": "group",
+            "in": "body",
+            "required": true,
+            "description": "Group to create",
+            "schema": {
+              "$ref": "#/definitions/Group"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Groups"
+        ],
+        "summary": "Get all groups in system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Group"
+            }
+          }
+        }
+      }
+    },
+
+    "/groups/{groupId}": {
+      "parameters": [
+        {
+          "name": "groupId",
+          "in": "path",
+          "required": true,
+          "description": "ID of group that we want to find",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Groups"
+        ],
+        "summary": "Get group with given ID",
+        "responses": {
+          "200": {
+            "description": "Group is found",
+            "schema": {
+              "$ref": "#/definitions/Group"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete group with given ID",
+        "tags": [
+          "Groups"
+        ],
+        "responses": {
+          "200": {
+            "description": "Group has been successfully deleted",
+            "schema": {
+              "$ref": "#/definitions/Group"
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update group with give ID",
+        "tags": [
+          "Groups"
+        ],
+        "parameters": [
+          {
+            "name": "group",
+            "in": "body",
+            "description": "Group with new values of properties",
+            "schema": {
+              "$ref": "#/definitions/Group"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Group has been updated successfully.",
+            "schema": {
+              "$ref": "#/definitions/Group"
+            }
+          }
+        }
+      }
+    },
+    "/resources": {
+      "post": {
+        "tags": [
+          "Resources"
+        ],
+        "description": "Create new Resources in DB",
+        "parameters": [
+          {
+            "resourceName": "resource",
+            "in": "body",
+            "required": true,
+            "description": "Resource to create",
+            "schema": {
+              "$ref": "#/definitions/Resource"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Error"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Resources"
+        ],
+        "summary": "Get all Resources in system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Resource"
+            }
+          }
+        }
+      }
+    },
+    "/resources/{resourceId}": {
+      "parameters": [
+        {
+          "name": "resourceId",
+          "in": "path",
+          "required": true,
+          "description": "ID of resource that we want to find",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Resources"
+        ],
+        "summary": "Get resource with given ID",
+        "responses": {
+          "200": {
+            "description": "Resource is found",
+            "schema": {
+              "$ref": "#/definitions/Resource"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete resource with given ID",
+        "tags": [
+          "Resources"
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource has been successfully deleted",
+            "schema": {
+              "$ref": "#/definitions/Resource"
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update Resources with give ID",
+        "tags": [
+          "Resources"
+        ],
+        "parameters": [
+          {
+            "name": "resources",
+            "in": "body",
+            "description": "Resources with new values of properties",
+            "schema": {
+              "$ref": "#/definitions/Resource"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Resource has been updated successfully.",
+            "schema": {
+              "$ref": "#/definitions/Resource"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "required": [
+        "email",
+        "_id",
+        "userName"
+      ],
+      "properties": {
+        "_id": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "email": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "groups":{
+          "type": "string"
+        }
+      }
+    },
+    "Group": {
+      "required": [
+        "groupName"
+      ],
+      "properties": {
+        "groupName": {
+          "type": "string",
+          "uniqueItems": true
+        }
+      }
+    },
+    "Resource": {
+      "required": [
+        "resourceName"
+      ],
+      "properties": {
+        "resourceName": {
+          "type": "string",
+          "uniqueItems": true
+        }
+      }
+    },
+    "Users": {
+      "type": "array",
+      "$ref": "#/definitions/User"
+    },
+    "Groups": {
+      "type": "array",
+      "$ref": "#/definitions/Group"
+    },
+    "Resources": {
+      "type": "array",
+      "$ref": "#/definitions/Resource"
+    }
+  }
+}
+
+  
