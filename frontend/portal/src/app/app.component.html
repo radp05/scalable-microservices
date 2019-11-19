@@ -11,8 +11,8 @@
             <a mat-list-item [routerLink]="'orders'">
                 <mat-icon class="icon" color="primary">group_work</mat-icon> <span>Orders</span>
             </a>
-            <a mat-list-item [routerLink]="'users'">
-                <mat-icon class="icon" color="primary">face</mat-icon> <span>Users</span>
+            <a mat-list-item [routerLink]="'admin'">
+                <mat-icon class="icon" color="primary">face</mat-icon> <span>Admin</span>
             </a>
             <a mat-list-item [routerLink]="'resources'">
                 <mat-icon class="icon" color="primary">web</mat-icon> <span>Resources</span>
@@ -21,8 +21,10 @@
     </mat-sidenav>
 
     <mat-sidenav-content>
-        <!-- <app-breadcrumb></app-breadcrumb> -->
-        <router-outlet></router-outlet>
+        <app-breadcrumb></app-breadcrumb>
+        <div style="margin-top: 20px;">
+            <router-outlet></router-outlet>
+        </div>
     </mat-sidenav-content>
 </mat-sidenav-container>
 

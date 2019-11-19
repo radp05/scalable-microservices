@@ -68,7 +68,7 @@ export class GroupListComponent implements OnInit {
     //   this.dataSource = res.data;
     //   this.dataSource.paginator = this.paginator;
     // }, err => {
-    //   this.snackbarService.error(err.message);
+    //   this.snackbarService.error(err);
     // });
   }
 
@@ -85,7 +85,7 @@ export class GroupListComponent implements OnInit {
         this.groupService.removeGroup({ _id: result }).subscribe(() => {
           this.getData();
         }, err => {
-          this.snackbarService.error(err.message);
+          this.snackbarService.error(err);
         }).add(() => {
           this.spinner();
         });

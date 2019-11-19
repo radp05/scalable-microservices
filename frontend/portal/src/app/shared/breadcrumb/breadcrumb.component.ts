@@ -21,9 +21,9 @@ export class BreadcrumbComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private router: Router) {}
+    private router: Router) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
 
   buildBreadCrumb(route: ActivatedRoute, url: string = '',
@@ -33,13 +33,13 @@ export class BreadcrumbComponent implements OnInit {
     const path = route.routeConfig ? route.routeConfig.path : '';
     //In the routeConfig the complete path is not available, 
     //so we rebuild it each time
-    const nextUrl = `${url}${path}`;
+    const nextUrl = `${url}/${path}`;
     const breadcrumb = {
       label: label,
-      url: nextUrl
+      url: nextUrl.replace(/^\/|\/$/g, '')
     };
-    let newBreadcrumbs = [...breadcrumbs];
-    const obj = breadcrumbs.find(item => item.label === breadcrumb.label && item.url === breadcrumb.url );
+    let newBreadcrumbs = breadcrumbs;
+    const obj = breadcrumbs.find(item => item.label === breadcrumb.label && item.url === breadcrumb.url);
     if (!obj) {
       newBreadcrumbs = [...newBreadcrumbs, breadcrumb];
     }
@@ -49,6 +49,7 @@ export class BreadcrumbComponent implements OnInit {
       return this.buildBreadCrumb(route.firstChild, nextUrl, newBreadcrumbs);
     }
     this.bcLength = newBreadcrumbs.length;
+    console.log('??newBreadcrumbs', newBreadcrumbs);
     return newBreadcrumbs;
   }
 

@@ -68,7 +68,7 @@ export class GroupFormComponent implements OnInit {
     //     resourceIds: data.resourceIds
     //   };
     // }, err => {
-    //   this.snackbarService.error(err.message);
+    //   this.snackbarService.error(err);
     // }).add(() => {
     //   this.spinner();
     // })
@@ -93,7 +93,7 @@ export class GroupFormComponent implements OnInit {
     //   this.snackbarService.success('Successfully added');
     //   this.router.navigate(['/admin/groups']);
     // }, (err: HttpErrorResponse) => {
-    //   this.snackbarService.error(err.message);
+    //   this.snackbarService.error(err);
     // }).add(() => {
     //   this.spinner();
     // });
@@ -106,7 +106,7 @@ export class GroupFormComponent implements OnInit {
       this.snackbarService.success('Successfully updated');
       this.router.navigate(['/admin/groups']);
     }, (err: HttpErrorResponse) => {
-      this.snackbarService.error(err.message);
+      this.snackbarService.error(err);
     }, () => {
       this.spinner();
     });

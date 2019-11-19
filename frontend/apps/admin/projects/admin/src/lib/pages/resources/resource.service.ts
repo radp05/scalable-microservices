@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { ResourceModel } from './resource.model';
 import { Observable } from 'rxjs';
 
-const URL = 'http://localhost:3001/devices';
+const URL = 'http://localhost:3003/api/v1';
 
 @Injectable({
     providedIn: 'root'
@@ -15,28 +15,22 @@ export class ResourceService {
     ) { }
 
     addResource(payload: ResourceModel): Observable<any> {
-        return this.http.post(`${URL}/add`, payload);
+        return this.http.post(`${URL}/resources`, payload);
     }
 
-    updateResource(payload: ResourceModel): Observable<any> {
-        return this.http.patch(`${URL}/update`, payload);
+    updateResource(payload: ResourceModel, resourceId: string): Observable<any> {
+        return this.http.patch(`${URL}/resources/${resourceId}`, payload);
     }
 
-    removeResource(payload: object): Observable<any> {
-        const httpOptions = {
-            headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-            body: payload
-        };
-
-        return this.http.delete(`${URL}/delete`, httpOptions);
+    removeResource(resourceId: string): Observable<any> {
+        return this.http.delete(`${URL}/resources/${resourceId}`);
     }
 
     getAllResources(): Observable<any> {
-        return this.http.get(`${URL}/get`);
+        return this.http.get(`${URL}/resources`);
     }
 
-    getOneResource(deviceName: string): Observable<any> {
-        const param = new HttpParams().set('deviceName', deviceName);
-        return this.http.get(`${URL}/getRecord`, { params: param });
+    getOneResource(resourceId: string): Observable<any> {
+        return this.http.get(`${URL}/resources/${resourceId}`);
     }
 }

@@ -29,9 +29,9 @@ export class AppComponent implements OnInit {
 
   // For navigation (sidenav/toolbar). Isn't related to dynamic-theme-switching:
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-  .pipe(
-    map(result => result.matches)
-  );
+    .pipe(
+      map(result => result.matches)
+    );
 
   // `breakpointObserver` is for navigation (sidenav/toolbar). Isn't related to dynamic-theme-switching:
   constructor(
@@ -40,7 +40,7 @@ export class AppComponent implements OnInit {
     private utilService: UtilService
   ) {
     // Set default theme here:
-    this.setActiveTheme('pink-bluegrey', false);
+    this.setActiveTheme('indigo-pink', false);
   }
 
   ngOnInit() {

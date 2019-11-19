@@ -9,7 +9,7 @@ import { UtilService } from 'src/app/services/util.service';
 export class HeaderComponent implements OnInit {
 
   isThemeDark = false;
-  activeTheme = 'pink-bluegrey';
+  activeTheme = 'indigo-pink';
 
   @Output() sidenavStatus = new EventEmitter();
   constructor(private utilService: UtilService) { }

@@ -22,8 +22,7 @@ export class ResourceListComponent implements OnInit {
       resourceName: 'Resource Name'
     }
   ];
-  dataSource: any;
-  // dataSource: MatTableDataSource<ResourceModel>;
+  dataSource: MatTableDataSource<ResourceModel>;
   beginProcess: boolean = false;
   deleteActionIndex: number;
 
@@ -40,29 +39,12 @@ export class ResourceListComponent implements OnInit {
   }
 
   getData(): void {
-    const data: ResourceModel[] = [
-      {
-        resourceName: 'Resource 1'
-      },
-      {
-        resourceName: 'Resource 2'
-      },
-      {
-        resourceName: 'Resource 3'
-      },
-      {
-        resourceName: 'Resource 4'
-      }
-    ];
-    this.dataSource = data;;
-    this.dataSource.paginator = this.paginator;
-    // this.devicesService.getAllDevices().subscribe(res => {
-    //   console.log('??res', res);
-    //   this.dataSource = res.data;
-    //   this.dataSource.paginator = this.paginator;
-    // }, err => {
-    //   this.snackbarService.error(err.message);
-    // });
+    this.resourceService.getAllResources().subscribe(res => {
+      this.dataSource = res.data;
+      this.dataSource.paginator = this.paginator;
+    }, err => {
+      this.snackbarService.error(err);
+    });
   }
 
   deleteResource(deviceId: string, actionIndex: number): void {
@@ -75,10 +57,10 @@ export class ResourceListComponent implements OnInit {
       if (result !== undefined) {
         this.spinner();
         this.deleteActionIndex = actionIndex;
-        this.resourceService.removeResource({ _id: result }).subscribe(() => {
+        this.resourceService.removeResource(result).subscribe(() => {
           this.getData();
         }, err => {
-          this.snackbarService.error(err.message);
+          this.snackbarService.error(err);
         }).add(() => {
           this.spinner();
         });

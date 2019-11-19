@@ -98,3 +98,24 @@ exports.removeResource = async (req, res) => {
         });
     }
 }
+
+exports.fetchResourceById = async (req, res) => {
+    try {
+        let result = await Resource.findOne({ "_id": mongoose.Types.ObjectId(req.params.resourceId) });
+        if (result == null)
+            return res.status(404).json({
+                message: "No Resource found.",
+            });
+
+        return res.status(200).json({
+            message: "Resource detail",
+            data: result
+        });
+    } catch (error) {
+        logger.log({ level: 'error', message: error.message });
+        return res.status(500).json({
+            message: "Internal Server Error",
+            error: error.message
+        });
+    }
+}

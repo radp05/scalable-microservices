@@ -48,11 +48,10 @@ export class ResourceFormComponent implements OnInit {
     this.resourceService.getOneResource(this.resourceId).subscribe(res => {
       const data = res.data;
       this.resource = {
-        _id: data._id,
         resourceName: data.resourceName
       };
     }, err => {
-      this.snackbarService.error(err.message);
+      this.snackbarService.error(err);
     }).add(() => {
       this.spinner();
     })
@@ -72,11 +71,10 @@ export class ResourceFormComponent implements OnInit {
     this.spinner();
     const payload: ResourceModel = this.resource;
     this.resourceService.addResource(payload).subscribe(res => {
-      console.log('res', res);
       this.snackbarService.success('Successfully added');
       this.router.navigate(['/admin/resources']);
     }, (err: HttpErrorResponse) => {
-      this.snackbarService.error(err.message);
+      this.snackbarService.error(err);
     }).add(() => {
       this.spinner();
     });
@@ -84,12 +82,11 @@ export class ResourceFormComponent implements OnInit {
 
   updateResource(): void {
     const payload: ResourceModel = this.resource;
-    console.log('???payload', payload);
-    this.resourceService.updateResource(payload).subscribe(res => {
+    this.resourceService.updateResource(payload, this.resourceId).subscribe(res => {
       this.snackbarService.success('Successfully updated');
       this.router.navigate(['/admin/resources']);
     }, (err: HttpErrorResponse) => {
-      this.snackbarService.error(err.message);
+      this.snackbarService.error(err);
     }, () => {
       this.spinner();
     });
