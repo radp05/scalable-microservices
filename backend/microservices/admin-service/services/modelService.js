@@ -34,6 +34,14 @@ const createGrp = async doc => {
 const getAllGroups = async (filter, options = {}) => {
   return await Group.find(filter, options);
 };
+const getGroupById = async (groupId, options = {}) => {
+  try{
+    return await Group.findById(groupId, options);
+  }catch(err){
+     return undefined;
+  }
+};
+
 export {
   createUsr,
   getAllUsers,
@@ -42,5 +50,6 @@ export {
   updateUserById,
   findUserByCriteria,
   getAllGroups,
-  createGrp
+  createGrp,
+  getGroupById
 };
