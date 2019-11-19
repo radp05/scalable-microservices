@@ -16,17 +16,16 @@ import { GroupModel } from '../group.model';
 })
 export class GroupListComponent implements OnInit {
 
-  displayedColumnsKey: string[] = ['position', 'groupName', 'resourceIds', 'action'];
+  displayedColumnsKey: string[] = ['position', 'groupName', 'resourceDetails', 'action'];
   displayCoulmnsLabel: any[] = [
     {
       groupName: 'Group Name'
     },
     {
-      resourceIds: 'Resources'
+      resourceDetails: 'Resources'
     }
   ];
-  dataSource: any;
-  // dataSource: MatTableDataSource<GroupModel>;
+  dataSource: MatTableDataSource<GroupModel>;
   beginProcess: boolean = false;
   deleteActionIndex: number;
 
@@ -43,33 +42,13 @@ export class GroupListComponent implements OnInit {
   }
 
   getData(): void {
-    const data: GroupModel[] = [
-      {
-        groupName: 'Group 1',
-        resourceIds: ['kassidd1234', 'kassidd98283']
-      },
-      {
-        groupName: 'Group 2',
-        resourceIds: ['kassidd1234']
-      },
-      {
-        groupName: 'Group 3',
-        resourceIds: ['kassidd1234', 'kassidd98283', 'kosdhdg7364']
-      },
-      {
-        groupName: 'Group 4',
-        resourceIds: ['kassidd1234', 'kassidd98283']
-      }
-    ];
-    this.dataSource = data;;
-    this.dataSource.paginator = this.paginator;
-    // this.devicesService.getAllDevices().subscribe(res => {
-    //   console.log('??res', res);
-    //   this.dataSource = res.data;
-    //   this.dataSource.paginator = this.paginator;
-    // }, err => {
-    //   this.snackbarService.error(err);
-    // });
+    this.dataSource = null;
+    this.groupService.getAllGroups().subscribe(res => {
+      this.dataSource = res.data;
+      this.dataSource.paginator = this.paginator;
+    }, err => {
+      this.snackbarService.error(err);
+    });
   }
 
   deleteGroup(deviceId: string, actionIndex: number): void {
@@ -82,7 +61,7 @@ export class GroupListComponent implements OnInit {
       if (result !== undefined) {
         this.spinner();
         this.deleteActionIndex = actionIndex;
-        this.groupService.removeGroup({ _id: result }).subscribe(() => {
+        this.groupService.removeGroup(result).subscribe(() => {
           this.getData();
         }, err => {
           this.snackbarService.error(err);

@@ -14,7 +14,8 @@
         <mat-form-field>
           <mat-label>Resources</mat-label>
           <mat-select multiple required [(ngModel)]="group.resourceIds" name="resourceIds">
-            <mat-option *ngFor="let resource of resourceList" [value]="resource.id">{{resource.name}}</mat-option>
+            <mat-option *ngFor="let resource of resourceList" [value]="resource._id">{{resource.resourceName}}
+            </mat-option>
           </mat-select>
         </mat-form-field>
       </div>

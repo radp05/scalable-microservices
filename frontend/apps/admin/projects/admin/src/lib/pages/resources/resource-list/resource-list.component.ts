@@ -39,6 +39,7 @@ export class ResourceListComponent implements OnInit {
   }
 
   getData(): void {
+    this.dataSource = null;
     this.resourceService.getAllResources().subscribe(res => {
       this.dataSource = res.data;
       this.dataSource.paginator = this.paginator;

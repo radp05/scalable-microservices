@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { GroupModel } from './group.model';
 import { Observable } from 'rxjs';
 
-const URL = 'http://localhost:3001/devices';
+const URL = 'http://localhost:3003/api/v1';
 
 @Injectable({
     providedIn: 'root'
@@ -15,28 +15,22 @@ export class GroupService {
     ) { }
 
     addGroup(payload: GroupModel): Observable<any> {
-        return this.http.post(`${URL}/add`, payload);
+        return this.http.post(`${URL}/groups`, payload);
     }
 
-    updateGroup(payload: GroupModel): Observable<any> {
-        return this.http.patch(`${URL}/update`, payload);
+    updateGroup(payload: GroupModel, groupId: string): Observable<any> {
+        return this.http.patch(`${URL}/groups/${groupId}`, payload);
     }
 
-    removeGroup(payload: object): Observable<any> {
-        const httpOptions = {
-            headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
-            body: payload
-        };
-
-        return this.http.delete(`${URL}/delete`, httpOptions);
+    removeGroup(groupId: string): Observable<any> {
+        return this.http.delete(`${URL}/groups/${groupId}`);
     }
 
     getAllGroups(): Observable<any> {
-        return this.http.get(`${URL}/get`);
+        return this.http.get(`${URL}/groups`);
     }
 
-    getOneGroup(deviceName: string): Observable<any> {
-        const param = new HttpParams().set('deviceName', deviceName);
-        return this.http.get(`${URL}/getRecord`, { params: param });
+    getOneGroup(groupId: string): Observable<any> {
+        return this.http.get(`${URL}/groups/${groupId}`);
     }
 }

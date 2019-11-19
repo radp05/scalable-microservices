@@ -46,6 +46,7 @@ export class DeviceListComponent implements OnInit {
   }
 
   getData(): void {
+    this.dataSource = null;
     this.devicesService.getAllDevices().subscribe(res => {
       console.log('??res', res);
       this.dataSource = res.data;

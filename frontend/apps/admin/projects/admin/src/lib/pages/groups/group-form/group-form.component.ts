@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { GroupService } from '../group.service';
 import { SnackbarService } from '../../../services/snackbar.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { FormControl } from '@angular/forms';
+import { ResourceService } from '../../resources/resource.service';
 
 @Component({
   selector: 'lib-group-form',
@@ -28,7 +28,8 @@ export class GroupFormComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private groupService: GroupService,
-    private snackbarService: SnackbarService
+    private snackbarService: SnackbarService,
+    private resourceService: ResourceService
   ) {
     this.initResourceList();
   }
@@ -49,29 +50,27 @@ export class GroupFormComponent implements OnInit {
   }
 
   initResourceList(): void {
-    this.resourceList = [
-      { id: 1, name: 'Devices' },
-      { id: 2, name: 'Orders' },
-      { id: 3, name: 'Admin' }
-    ];
+    this.resourceService.getAllResources().subscribe(res => {
+      this.resourceList = res.data;
+    }, err => {
+      this.snackbarService.error(err);
+    });
   }
 
   initFormOnUpdate(): void {
-    this.group.groupName = 'Testing';
-    this.group.resourceIds = [1, 2]; // Pass resource ids here
-    // this.spinner();
-    // this.groupService.getOneGroup(this.groupId).subscribe(res => {
-    //   const data = res.data;
-    //   this.group = {
-    //     groupId: data.groupId,
-    //     groupName: data.groupName,
-    //     resourceIds: data.resourceIds
-    //   };
-    // }, err => {
-    //   this.snackbarService.error(err);
-    // }).add(() => {
-    //   this.spinner();
-    // })
+    this.spinner();
+    this.groupService.getOneGroup(this.groupId).subscribe(res => {
+      const data = res.data;
+      this.group = {
+        groupName: data.groupName,
+        resourceIds: data.resourceDetails.map((data: any) => data._id)
+      };
+      console.log('???group', this.group);
+    }, err => {
+      this.snackbarService.error(err);
+    }).add(() => {
+      this.spinner();
+    })
   }
 
   onClickGroupBtn(): void {
@@ -85,24 +84,22 @@ export class GroupFormComponent implements OnInit {
   }
 
   addGroup(): void {
-    console.log('???group', this.group);
-    // this.spinner();
-    // const payload: GroupModel = this.group;
-    // this.groupService.addGroup(payload).subscribe(res => {
-    //   console.log('res', res);
-    //   this.snackbarService.success('Successfully added');
-    //   this.router.navigate(['/admin/groups']);
-    // }, (err: HttpErrorResponse) => {
-    //   this.snackbarService.error(err);
-    // }).add(() => {
-    //   this.spinner();
-    // });
+    this.spinner();
+    const payload: GroupModel = this.group;
+    this.groupService.addGroup(payload).subscribe(res => {
+      console.log('res', res);
+      this.snackbarService.success('Successfully added');
+      this.router.navigate(['/admin/groups']);
+    }, (err: HttpErrorResponse) => {
+      this.snackbarService.error(err);
+    }).add(() => {
+      this.spinner();
+    });
   }
 
   updateGroup(): void {
     const payload: GroupModel = this.group;
-    console.log('???payload', payload);
-    this.groupService.updateGroup(payload).subscribe(res => {
+    this.groupService.updateGroup(payload, this.groupId).subscribe(res => {
       this.snackbarService.success('Successfully updated');
       this.router.navigate(['/admin/groups']);
     }, (err: HttpErrorResponse) => {
