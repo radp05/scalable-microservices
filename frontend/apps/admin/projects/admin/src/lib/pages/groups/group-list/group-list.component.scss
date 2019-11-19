@@ -1,0 +1,12 @@
+@import '../../../style.scss';
+table {
+    width: 100%;
+}
+.btn-position-right {
+    text-align: right;
+    padding-bottom: 10px;;
+}
+load-spinner {
+    position: relative;
+    top: -41px;
+}

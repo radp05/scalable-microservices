@@ -13,6 +13,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { OrdersModule } from 'orders';
 // import { HeaderComponent } from './header/header.component';
 // import { FooterComponent } from './footer/footer.component';
+import { AdminModule } from 'admin';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { OrdersModule } from 'orders';
     AppRoutingModule,
     OrdersModule,
     DevicesModule,
+    AdminModule,
     BrowserAnimationsModule,
     SharedModule,
     MaterialModule

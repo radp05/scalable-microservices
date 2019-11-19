@@ -8,8 +8,6 @@ import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-
 import { DevicesService } from '../../devices.service';
 import { SnackbarService } from '../../services/snackbar.service';
 
-
-
 @Component({
   selector: 'lib-device-list',
   templateUrl: './device-list.component.html',
