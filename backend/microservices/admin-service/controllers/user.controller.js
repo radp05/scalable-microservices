@@ -15,15 +15,20 @@ import { createUsr, getAllUsers,getUserById } from "../services/modelService";
 
 const createUser = async (req, res) => {  
   try {
+
+    console.log('ggg',req.isValid)
     if (!req.isValid) {
       return res.status(400).json({
         status: "error",
         message: MESSAGES.USER_ADD_FORM_ERR
       });
-    } else {      
-      var hash = await createHashPassword(req.form.password);
-      req.form.password = hash;
-      req.body.groupId=mongoose.Types.ObjectId(req.from.groupId)
+    } else {            
+      // var hash = await createHashPassword(req.form.password);
+      // req.form.password = hash;
+      try {
+        req.form.groupId=mongoose.Types.ObjectId(req.from.groupId);
+      } catch (error) {
+      }
       await createUsr(req.form);
       return res.status(200).json({
         status: "success",
@@ -33,7 +38,7 @@ const createUser = async (req, res) => {
   } catch (error) {
     return res.status(500).json({
       message: MESSAGES.INTERNAL_SERVER_ERR,
-      error: error
+      error: error && error.errors && error.errors.groupId ? error.message:error
     });
   }
 };
