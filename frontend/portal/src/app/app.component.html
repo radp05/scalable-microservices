@@ -1,6 +1,31 @@
-<app-header></app-header>
-<div class="main-container">
-    <app-breadcrumb></app-breadcrumb>
-    <router-outlet></router-outlet>
+<div class="example-header" color="primary">
+    <app-header (sidenavStatus)="sidenav.toggle()"></app-header>
 </div>
-<div style="padding-bottom: 30px;"></div>
+
+<mat-sidenav-container class="example-container">
+    <mat-sidenav #sidenav mode="side" opened class="example-sidenav">
+        <mat-nav-list>
+            <a mat-list-item [routerLink]="'devices'">
+                <mat-icon class="icon" color="primary">widgets</mat-icon> <span>Devices</span>
+            </a>
+            <a mat-list-item [routerLink]="'orders'">
+                <mat-icon class="icon" color="primary">group_work</mat-icon> <span>Orders</span>
+            </a>
+            <a mat-list-item [routerLink]="'users'">
+                <mat-icon class="icon" color="primary">face</mat-icon> <span>Users</span>
+            </a>
+            <a mat-list-item [routerLink]="'resources'">
+                <mat-icon class="icon" color="primary">web</mat-icon> <span>Resources</span>
+            </a>
+        </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <!-- <app-breadcrumb></app-breadcrumb> -->
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
+<mat-toolbar class="example-footer" color="primary">
+    <app-footer></app-footer>
+</mat-toolbar>

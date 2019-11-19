@@ -1,100 +1,89 @@
-const mongoose = require('mongoose');
-var Device = require('../models/device.model')
+
+const helpers = require('../helpers/device.helper')
+
 
 exports.addDevice = async (req, res) => {
-  try {
-    var device = new Device({
-      deviceName: req.body.deviceName,
-      deviceType: req.body.deviceType,
-      deviceIp: req.body.deviceIp
-    });
-    let doc = await device.save();
+  let result = await helpers.insertDevice(req.body.deviceName, req.body.deviceType, req.body.deviceIp)
+  if (result.status) {
     return res.status(200).json({
       message: "success",
-      data: doc
+      data: result.data
     });
-  } catch (error) {
+  }
+  else {
     return res.status(500).json({
       message: "Internal Error",
-      error: error
+      error: result.data
     });
   }
 }
 
 exports.updateDevice = async (req, res) => {
-  try {
-    const filter = { _id: req.body._id };
-    const update = { deviceName: req.body.deviceName, deviceType: req.body.deviceType, deviceIp: req.body.deviceIp };
-    let doc = await Device.findOneAndUpdate(filter, update, {
-      new: true
-    });
-    if (doc == null) {
-      return res.status(404).json({
-        message: "No such device"
+  let result = await helpers.update(req.body._id, req.body.deviceName, req.body.deviceType, req.body.deviceIp)
+  if (result.status) {
+    console.log(result.data)
+    if (result.data != null) {
+      return res.status(200).json({
+        message: "Success",
+        data: result.data
       });
     }
-    return res.status(200).json({
-      message: "Success",
-      data: doc
+    return res.status(404).json({
+      message: "No such device"
     });
+
   }
-  catch (error) {
-    return res.status(500).json({
-      message: "Internal Error",
-      error: error
-    });
-  }
+  return res.status(500).json({
+    message: "Internal Error",
+    error: result.data
+  });
 }
 
 exports.deleteDevice = async (req, res) => {
-  try {
-    await Device.findOneAndDelete({_id: req.body._id}, function (err, data) {
+  let result = await helpers.delete(req.body._id)
+  if (result.status) {
+    if (result.data != null) {
       return res.status(200).json({
         message: "success"
       });
-    })
+    }
+    return res.status(404).json({
+      message: "No such device"
+    });
 
   }
-  catch (error) {
-    return res.status(500).json({
-      message: "Internal Error",
-      error: error
-    });
-  }
+  return res.status(500).json({
+    message: "Internal Error",
+    error: result.data
+  });
 }
 
 exports.getAllDevices = async (req, res) => {
-  try {
-    var devices = await Device.find({});
+  let result = await helpers.list()
+  if (result.status) {
     return res.status(200).json({
       message: "success",
-      data: devices
+      data: result.data
     })
   }
-  catch (error) {
-    return res.status(500).json({
-      message: "Internal Error",
-      error: error
-    });
-  }
-
+  return res.status(500).json({
+    message: "Internal Error",
+    error: result.data
+  })
 }
 
 exports.getRecord = async (req, res) => {
-  try {
-    var devices = await Device.findOne({ deviceName: req.query.deviceName });
+  let result = await helpers.getRecord(req.query._id)
+  if (result.status) {
     return res.status(200).json({
       message: "success",
-      data: devices
+      data: result.data
     })
   }
-  catch (error) {
-    return res.status(500).json({
-      message: "Internal Error",
-      error: error
-    });
-  }
-
+  return res.status(500).json({
+    message: "Internal Error",
+    error: result.data
+  })
 }
 
 

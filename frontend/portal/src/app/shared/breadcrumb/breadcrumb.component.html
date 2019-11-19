@@ -1,5 +1,5 @@
 <!-- breadcrumb -->
-<ol class="breadcrumb">
+<ol class="breadcrumb" [ngClass] = "{'remove-border': bcLength - 1 <= 0}">
   <li *ngFor="let breadcrumb of breadcrumbs$ | async; index as i"
       class="breadcrumb-item" [ngClass] = "{'hide': 0 === bcLength - 1}">
     <a [routerLink]="[breadcrumb.url]">
