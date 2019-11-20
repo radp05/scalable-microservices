@@ -24,6 +24,8 @@ import { ResourceFormComponent } from './pages/resources/resource-form/resource-
 import { FormsModule } from '@angular/forms';
 import { GroupListComponent } from './pages/groups/group-list/group-list.component';
 import { GroupFormComponent } from './pages/groups/group-form/group-form.component';
+import { UserListComponent } from './pages/users/user-list/user-list.component';
+import { UserFormComponent } from './pages/users/user-form/user-form.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { GroupFormComponent } from './pages/groups/group-form/group-form.compone
     ResourceListComponent,
     ResourceFormComponent,
     GroupListComponent,
-    GroupFormComponent
+    GroupFormComponent,
+    UserListComponent,
+    UserFormComponent
   ],
   imports: [
     BrowserModule,
