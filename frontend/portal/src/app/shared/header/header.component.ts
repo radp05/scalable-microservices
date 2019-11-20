@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { UtilService } from 'src/app/services/util.service';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +8,36 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  isThemeDark = false;
+  activeTheme = 'indigo-pink';
+
+  @Output() sidenavStatus = new EventEmitter();
+  constructor(private utilService: UtilService) { }
+
+  themes: string[] = [
+    'deeppurple-amber',
+    'indigo-pink',
+    'pink-bluegrey',
+    'purple-green',
+  ];
 
   ngOnInit() {
+  }
+
+  toggle() {
+    this.sidenavStatus.emit();
+    // this.utilService.changeSiberStatus.next();
+  }
+
+  toggleDarkness() {
+    // this.isThemeDark = !this.isThemeDark;
+    this.utilService.themeStatus.next({ theme: this.activeTheme, darkness: this.isThemeDark });
+    console.log(this.isThemeDark);
+  }
+
+  setActiveTheme(theme: string, darkness: boolean = null) {
+    this.activeTheme = theme;
+    this.utilService.themeStatus.next({ theme: theme, darkness: darkness });
   }
 
 }

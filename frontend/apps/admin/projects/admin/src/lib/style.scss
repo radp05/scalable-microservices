@@ -1,0 +1,30 @@
+$primary-color: #3f51b5;
+$white-color: #ffffff;
+
+.custom-container-1{
+    width: 85%;
+    max-width: 85%;
+    margin: auto;
+}
+.custom-container-2{
+    width: 90%;
+    max-width: 90%;
+    margin: auto;
+}
+.label-header {
+    background: #3f51b5;
+    padding: 15px 10px;
+    color: #ffffff;
+    text-align: center;
+}
+.btn-style-1 {
+    padding: 8px 40px !important;
+}
+form {
+    background: #ffffff;
+}
+.error {
+    color: red;
+    font-size: 13px;
+    margin-top: -8px;
+}

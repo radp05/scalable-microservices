@@ -1,0 +1,34 @@
+<div class="custom-container-2">
+  <div class="btn-position-left">
+    <button mat-fab color="primary" [routerLink]="['/admin/groups']">
+      <mat-icon aria-label="Back Icon">arrow_back</mat-icon>
+    </button>
+  </div>
+  <form #form="ngForm">
+    <div class="mat-elevation-z8">
+      <div class="label-header">{{formLabel}}</div>
+      <div class="form-container" [ngClass]="{'disable-control': isViewForm}">
+        <mat-form-field>
+          <input matInput placeholder="Group Name" required [(ngModel)]="group.groupName" name="groupName">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Resources</mat-label>
+          <mat-select multiple required [(ngModel)]="group.resourceIds" name="resourceIds">
+            <mat-option *ngFor="let resource of resourceList" [value]="resource._id">{{resource.resourceName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="text-center padd-1">
+        <button *ngIf="!isViewForm" [disabled]="!form.valid || beginProcess" mat-flat-button color="primary"
+          class="btn-style-1" (click)="onClickGroupBtn()">
+          <span *ngIf="!beginProcess">{{btnLabel}}</span>
+          <load-spinner *ngIf="beginProcess"></load-spinner>
+        </button>
+        <button mat-stroked-button color="primary" class="btn-style-1" [routerLink]="'/admin/groups'">
+          Close
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

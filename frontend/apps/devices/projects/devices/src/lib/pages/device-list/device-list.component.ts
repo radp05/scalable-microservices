@@ -8,8 +8,6 @@ import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-
 import { DevicesService } from '../../devices.service';
 import { SnackbarService } from '../../services/snackbar.service';
 
-
-
 @Component({
   selector: 'lib-device-list',
   templateUrl: './device-list.component.html',
@@ -48,6 +46,7 @@ export class DeviceListComponent implements OnInit {
   }
 
   getData(): void {
+    this.dataSource = null;
     this.devicesService.getAllDevices().subscribe(res => {
       console.log('??res', res);
       this.dataSource = res.data;

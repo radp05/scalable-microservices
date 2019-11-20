@@ -167,7 +167,7 @@ exports.fetchGroupDetails = async (req, res) => {
                 $project: {
                     _id: 1,
                     groupName: 1,
-                    resourceDetails : 1,
+                    resourceDetails: 1,
                     createdAt: 1,
                     updatedAt: 1
                 }
@@ -181,7 +181,7 @@ exports.fetchGroupDetails = async (req, res) => {
 
         return res.status(200).json({
             message: "group details",
-            data: result
+            data: result[0]
         });
     } catch (error) {
         logger.log({ level: 'error', message: error.message });

@@ -9,6 +9,7 @@ module.exports = (() => {
     router.patch(config.API_PREFIX + '/resources/:resourceId', resource.editResource);
     router.get(config.API_PREFIX + '/resources', resource.fetchResourceAll);
     router.delete(config.API_PREFIX + '/resources/:resourceId', resource.removeResource);
+    router.get(config.API_PREFIX + '/resources/:resourceId', resource.fetchResourceById);
 
     return router;
 })();
