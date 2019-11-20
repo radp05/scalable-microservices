@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { GroupModel } from './user.model';
+import { HttpClient } from '@angular/common/http';
+import { UserModel } from './user.model';
 import { Observable } from 'rxjs';
 
 const URL = 'http://localhost:3003/api/v1';
@@ -14,23 +14,23 @@ export class UserService {
         private http: HttpClient
     ) { }
 
-    addGroup(payload: GroupModel): Observable<any> {
-        return this.http.post(`${URL}/groups`, payload);
+    addUser(payload: UserModel): Observable<any> {
+        return this.http.post(`${URL}/users`, payload);
     }
 
-    updateGroup(payload: GroupModel, groupId: string): Observable<any> {
-        return this.http.patch(`${URL}/groups/${groupId}`, payload);
+    updateUser(payload: UserModel, userId: string): Observable<any> {
+        return this.http.patch(`${URL}/users/${userId}`, payload);
     }
 
-    removeGroup(groupId: string): Observable<any> {
-        return this.http.delete(`${URL}/groups/${groupId}`);
+    removeUser(userId: string): Observable<any> {
+        return this.http.delete(`${URL}/users/${userId}`);
     }
 
-    getAllGroups(): Observable<any> {
-        return this.http.get(`${URL}/groups`);
+    getAllUser(): Observable<any> {
+        return this.http.get(`${URL}/users`);
     }
 
-    getOneGroup(groupId: string): Observable<any> {
-        return this.http.get(`${URL}/groups/${groupId}`);
+    getOneUser(userId: string): Observable<any> {
+        return this.http.get(`${URL}/users/${userId}`);
     }
 }

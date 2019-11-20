@@ -3,7 +3,7 @@ export interface UserModel {
     lastName: string
     email: string;
     userName: string;
-    password: string;
-    role: string;
+    password?: string;
+    role?: string;
     groupId: string;
 }

@@ -10,23 +10,23 @@ const MESSAGES = require("../messages");
 
 
 import { createHashPassword, createToken } from "../helpers/user.helper";
-import { createUsr, getAllUsers,getUserById } from "../services/modelService";
+import { createUsr, getAllUsers, getUserById } from "../services/modelService";
 
 
-const createUser = async (req, res) => {  
+const createUser = async (req, res) => {
   try {
 
-    console.log('ggg',req.isValid)
+    console.log('ggg', req.isValid)
     if (!req.isValid) {
       return res.status(400).json({
         status: "error",
         message: MESSAGES.USER_ADD_FORM_ERR
       });
-    } else {            
+    } else {
       // var hash = await createHashPassword(req.form.password);
       // req.form.password = hash;
       try {
-        req.form.groupId=mongoose.Types.ObjectId(req.from.groupId);
+        req.form.groupId = mongoose.Types.ObjectId(req.from.groupId);
       } catch (error) {
       }
       await createUsr(req.form);
@@ -38,14 +38,14 @@ const createUser = async (req, res) => {
   } catch (error) {
     return res.status(500).json({
       message: MESSAGES.INTERNAL_SERVER_ERR,
-      error: error && error.errors && error.errors.groupId ? error.message:error
+      error: error && error.errors && error.errors.groupId ? error.message : error
     });
   }
 };
 
 const editUser = async (req, res) => {
   try {
-   let userId= req.params.id;
+    let userId = req.params.id;
     //validate the user objectId is valid or not
     if (typeof userId != "undefined" && userId != "") {
       if (!ObjectID.isValid(userId))
@@ -102,7 +102,7 @@ const deleteUser = async (req, res) => {
 }
 
 const getUsers = async (req, res) => {
-  
+
   let filter = {};
   filter.status = CONSTANTS.ACTIVE_STATUS;
   let options = {};
@@ -145,23 +145,23 @@ const loginUser = async (req, res) => {
   }
 };
 
-const getUser=async(req,res)=>{
+const getUser = async (req, res) => {
 
   let userId = req.params.id;
 
-  if(!userId){
+  if (!userId) {
     return res.status(400).json({
       status: "error",
       message: MESSAGES.USER_ID_ERR
     });
   }
-  let options={}
-  options.password=CONSTANTS.NON_RETRIVAL;
+  let options = {}
+  options.password = CONSTANTS.NON_RETRIVAL;
   try {
-    let user=await getUserById(userId,options);
-    return res.status(400).json({
+    let user = await getUserById(userId, options);
+    return res.status(200).json({
       status: "success",
-      data:user || {}
+      data: user || {}
     });
 
   } catch (error) {
@@ -172,4 +172,4 @@ const getUser=async(req,res)=>{
   }
 }
 
-export { createUser, loginUser, getUsers,getUser,deleteUser,editUser };
+export { createUser, loginUser, getUsers, getUser, deleteUser, editUser };

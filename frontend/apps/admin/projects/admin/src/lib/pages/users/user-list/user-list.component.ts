@@ -16,13 +16,22 @@ import { UserModel } from '../user.model';
 })
 export class UserListComponent implements OnInit {
 
-  displayedColumnsKey: string[] = ['position', 'groupName', 'resourceDetails', 'action'];
+  displayedColumnsKey: string[] = ['position', 'firstName', 'lastName', 'email', 'userName', 'groupId', 'action'];
   displayCoulmnsLabel: any[] = [
     {
-      groupName: 'Group Name'
+      firstName: 'First Name'
     },
     {
-      resourceDetails: 'Resources'
+      lastName: 'Last Name'
+    },
+    {
+      email: 'Email'
+    },
+    {
+      userName: 'User Name'
+    },
+    {
+      groupId: 'Group'
     }
   ];
   dataSource: MatTableDataSource<UserModel>;
@@ -43,7 +52,7 @@ export class UserListComponent implements OnInit {
 
   getData(): void {
     this.dataSource = null;
-    this.userService.getAllGroups().subscribe(res => {
+    this.userService.getAllUser().subscribe(res => {
       this.dataSource = res.data;
       this.dataSource.paginator = this.paginator;
     }, err => {
@@ -51,7 +60,7 @@ export class UserListComponent implements OnInit {
     });
   }
 
-  deleteGroup(deviceId: string, actionIndex: number): void {
+  deleteUser(deviceId: string, actionIndex: number): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '250px',
       data: { deviceId: deviceId }
@@ -61,7 +70,7 @@ export class UserListComponent implements OnInit {
       if (result !== undefined) {
         this.spinner();
         this.deleteActionIndex = actionIndex;
-        this.userService.removeGroup(result).subscribe(() => {
+        this.userService.removeUser(result).subscribe(() => {
           this.getData();
         }, err => {
           this.snackbarService.error(err);
