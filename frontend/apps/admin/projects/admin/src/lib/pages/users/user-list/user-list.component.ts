@@ -18,7 +18,7 @@ import { scaleTransition } from '../../../components/animation/animation.compone
 })
 export class UserListComponent implements OnInit {
 
-  displayedColumnsKey: string[] = ['position', 'firstName', 'lastName', 'email', 'userName', 'groupId', 'action'];
+  displayedColumnsKey: string[] = ['position', 'firstName', 'lastName', 'email', 'userName', 'groupDetails', 'action'];
   displayCoulmnsLabel: any[] = [
     {
       firstName: 'First Name'
@@ -33,7 +33,7 @@ export class UserListComponent implements OnInit {
       userName: 'User Name'
     },
     {
-      groupId: 'Group'
+      groupDetails: 'Group'
     }
   ];
   dataSource: MatTableDataSource<UserModel>;

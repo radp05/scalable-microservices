@@ -19,12 +19,12 @@
         *ngFor="let headerKey of displayedColumnsKey | slice:1:6; let headerIndex=index">
         <th mat-header-cell *matHeaderCellDef> {{displayCoulmnsLabel[headerIndex][headerKey]}} </th>
         <td mat-cell *matCellDef="let element">
-          <div>{{element[headerKey]}}</div>
-          <!-- <div *ngIf="headerKey === 'resourceDetails'">
-            <div *ngFor="let resource of element[headerKey]">
-              {{resource?.resourceName}}
+          <div *ngIf="headerKey !== 'groupDetails'">{{element[headerKey]}}</div>
+          <div *ngIf="headerKey === 'groupDetails'">
+            <div *ngFor="let group of element[headerKey]">
+              {{group?.groupName}}
             </div>
-          </div> -->
+          </div>
         </td>
       </ng-container>
 

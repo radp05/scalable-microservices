@@ -38,7 +38,7 @@ export class UserFormComponent implements OnInit {
     private snackbarService: SnackbarService,
     private groupService: GroupService
   ) {
-    this.initResourceList();
+    this.initGroupList();
   }
 
   ngOnInit() {
@@ -56,7 +56,7 @@ export class UserFormComponent implements OnInit {
     }
   }
 
-  initResourceList(): void {
+  initGroupList(): void {
     this.groupService.getAllGroups().subscribe(res => {
       this.groupList = res.data;
     }, err => {
@@ -67,7 +67,7 @@ export class UserFormComponent implements OnInit {
   initFormOnUpdate(): void {
     this.spinner();
     this.userService.getOneUser(this.userId).subscribe(res => {
-      const data = res.data;
+      const data = res.data[0];
       this.user = {
         firstName: data.firstName,
         lastName: data.lastName,
