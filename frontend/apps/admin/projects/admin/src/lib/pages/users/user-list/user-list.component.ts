@@ -6,28 +6,37 @@ import {
 } from '@angular/material';
 import { SnackbarService } from '../../../services/snackbar.service';
 import { ConfirmDialogComponent } from '../../../components/confirm-dialog/confirm-dialog.component';
-import { GroupService } from '../group.service';
-import { GroupModel } from '../group.model';
+import { UserService } from '../user.service';
+import { UserModel } from '../user.model';
 import { scaleTransition } from '../../../components/animation/animation.component';
 
 @Component({
-  selector: 'lib-group-list',
-  templateUrl: './group-list.component.html',
-  styleUrls: ['./group-list.component.scss'],
+  selector: 'lib-user-list',
+  templateUrl: './user-list.component.html',
+  styleUrls: ['./user-list.component.scss'],
   animations: [scaleTransition()]
 })
-export class GroupListComponent implements OnInit {
+export class UserListComponent implements OnInit {
 
-  displayedColumnsKey: string[] = ['position', 'groupName', 'resourceDetails', 'action'];
+  displayedColumnsKey: string[] = ['position', 'firstName', 'lastName', 'email', 'userName', 'groupId', 'action'];
   displayCoulmnsLabel: any[] = [
     {
-      groupName: 'Group Name'
+      firstName: 'First Name'
     },
     {
-      resourceDetails: 'Resources'
+      lastName: 'Last Name'
+    },
+    {
+      email: 'Email'
+    },
+    {
+      userName: 'User Name'
+    },
+    {
+      groupId: 'Group'
     }
   ];
-  dataSource: MatTableDataSource<GroupModel>;
+  dataSource: MatTableDataSource<UserModel>;
   beginProcess: boolean = false;
   deleteActionIndex: number;
 
@@ -36,7 +45,7 @@ export class GroupListComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private snackbarService: SnackbarService,
-    private groupService: GroupService
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -45,7 +54,7 @@ export class GroupListComponent implements OnInit {
 
   getData(): void {
     this.dataSource = null;
-    this.groupService.getAllGroups().subscribe(res => {
+    this.userService.getAllUser().subscribe(res => {
       this.dataSource = res.data;
       this.dataSource.paginator = this.paginator;
     }, err => {
@@ -53,7 +62,7 @@ export class GroupListComponent implements OnInit {
     });
   }
 
-  deleteGroup(deviceId: string, actionIndex: number): void {
+  deleteUser(deviceId: string, actionIndex: number): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '250px',
       data: { deviceId: deviceId }
@@ -63,7 +72,7 @@ export class GroupListComponent implements OnInit {
       if (result !== undefined) {
         this.spinner();
         this.deleteActionIndex = actionIndex;
-        this.groupService.removeGroup(result).subscribe(() => {
+        this.userService.removeUser(result).subscribe(() => {
           this.getData();
         }, err => {
           this.snackbarService.error(err);

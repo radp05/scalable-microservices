@@ -1,59 +1,64 @@
 import { Component, OnInit } from '@angular/core';
-import { GroupModel } from '../group.model';
+import { UserModel } from '../user.model';
 import { Router, ActivatedRoute } from '@angular/router';
-import { GroupService } from '../group.service';
+import { UserService } from '../user.service';
 import { SnackbarService } from '../../../services/snackbar.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { ResourceService } from '../../resources/resource.service';
+import { GroupService } from '../../groups/group.service';
+import { emailPattern } from './regex-pattern';
 import { scaleTransition } from '../../../components/animation/animation.component';
 
 @Component({
-  selector: 'lib-group-form',
-  templateUrl: './group-form.component.html',
-  styleUrls: ['./group-form.component.scss'],
+  selector: 'lib-user-form',
+  templateUrl: './user-form.component.html',
+  styleUrls: ['./user-form.component.scss'],
   animations: [scaleTransition()]
 })
-export class GroupFormComponent implements OnInit {
+export class UserFormComponent implements OnInit {
 
   btnLabel: string = 'Submit';
-  formLabel: string = 'Add Group';
-  groupId: string;
-  group: GroupModel = {
-    groupName: '',
-    resourceIds: []
+  formLabel: string = 'Add User';
+  userId: string;
+  user: UserModel = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    userName: '',
+    groupId: ''
   };
   beginProcess: boolean = false;
   isViewForm: boolean = false;
-  resourceList: any[];
+  groupList: any[];
+  patternEmail: RegExp = emailPattern;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private groupService: GroupService,
+    private userService: UserService,
     private snackbarService: SnackbarService,
-    private resourceService: ResourceService
+    private groupService: GroupService
   ) {
     this.initResourceList();
   }
 
   ngOnInit() {
     if (this.route.snapshot.paramMap.get('id')) {
-      this.groupId = this.route.snapshot.paramMap.get('id');
+      this.userId = this.route.snapshot.paramMap.get('id');
       const url = this.router.url;
       if (url.includes('view')) {
         this.isViewForm = true;
-        this.formLabel = 'View Group';
+        this.formLabel = 'View User';
       } else {
         this.btnLabel = 'Update'
-        this.formLabel = 'Edit Group';
+        this.formLabel = 'Edit User';
       }
       this.initFormOnUpdate();
     }
   }
 
   initResourceList(): void {
-    this.resourceService.getAllResources().subscribe(res => {
-      this.resourceList = res.data;
+    this.groupService.getAllGroups().subscribe(res => {
+      this.groupList = res.data;
     }, err => {
       this.snackbarService.error(err);
     });
@@ -61,13 +66,16 @@ export class GroupFormComponent implements OnInit {
 
   initFormOnUpdate(): void {
     this.spinner();
-    this.groupService.getOneGroup(this.groupId).subscribe(res => {
+    this.userService.getOneUser(this.userId).subscribe(res => {
       const data = res.data;
-      this.group = {
-        groupName: data.groupName,
-        resourceIds: data.resourceDetails.map((data: any) => data._id)
+      this.user = {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        userName: data.userName,
+        groupId: data.groupId
       };
-      console.log('???group', this.group);
+      console.log('???user', this.user);
     }, err => {
       this.snackbarService.error(err);
     }).add(() => {
@@ -75,23 +83,23 @@ export class GroupFormComponent implements OnInit {
     })
   }
 
-  onClickGroupBtn(): void {
-    if (this.groupId) {
-      // Update group service
-      this.updateGroup();
+  onClickUserBtn(): void {
+    if (this.userId) {
+      // Update user service
+      this.updateUser();
     } else {
-      // Add group service
-      this.addGroup();
+      // Add user service
+      this.addUser();
     }
   }
 
-  addGroup(): void {
+  addUser(): void {
     this.spinner();
-    const payload: GroupModel = this.group;
-    this.groupService.addGroup(payload).subscribe(res => {
+    const payload: UserModel = this.user;
+    this.userService.addUser(payload).subscribe(res => {
       console.log('res', res);
       this.snackbarService.success('Successfully added');
-      this.router.navigate(['/admin/groups']);
+      this.router.navigate(['/admin/users']);
     }, (err: HttpErrorResponse) => {
       this.snackbarService.error(err);
     }).add(() => {
@@ -99,11 +107,11 @@ export class GroupFormComponent implements OnInit {
     });
   }
 
-  updateGroup(): void {
-    const payload: GroupModel = this.group;
-    this.groupService.updateGroup(payload, this.groupId).subscribe(res => {
+  updateUser(): void {
+    const payload: UserModel = this.user;
+    this.userService.updateUser(payload, this.userId).subscribe(res => {
       this.snackbarService.success('Successfully updated');
-      this.router.navigate(['/admin/groups']);
+      this.router.navigate(['/admin/users']);
     }, (err: HttpErrorResponse) => {
       this.snackbarService.error(err);
     }, () => {

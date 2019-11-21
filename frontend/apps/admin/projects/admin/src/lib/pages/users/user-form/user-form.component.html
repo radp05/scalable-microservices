@@ -1,0 +1,46 @@
+<div class="custom-container-2">
+  <div class="btn-position-left">
+    <button mat-fab color="primary" [routerLink]="['/admin/users']" [@routerTransition]>
+      <mat-icon aria-label="Back Icon">arrow_back</mat-icon>
+    </button>
+  </div>
+  <form #form="ngForm" [@routerTransition]>
+    <div class="mat-elevation-z8">
+      <div class="label-header">{{formLabel}}</div>
+      <div class="form-container" [ngClass]="{'disable-control': isViewForm}">
+        <mat-form-field>
+          <input matInput placeholder="First Name" required [(ngModel)]="user.firstName" name="firstName">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Last Name" required [(ngModel)]="user.lastName" name="lastName">
+        </mat-form-field>
+        <mat-form-field>
+          <input #email="ngModel" matInput placeholder="Email" required [(ngModel)]="user.email" name="email"
+            [pattern]="patternEmail">
+        </mat-form-field>
+        <div style="margin-bottom: 17px;" *ngIf="email.invalid && (email.dirty || email.touched)" class="error">Invalid
+          Email Address</div>
+        <mat-form-field>
+          <input matInput placeholder="User Name" required [(ngModel)]="user.userName" name="userName">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Group</mat-label>
+          <mat-select required [(ngModel)]="user.groupId" name="groupId">
+            <mat-option *ngFor="let group of groupList" [value]="group._id">{{group.groupName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="text-center padd-1">
+        <button *ngIf="!isViewForm" [disabled]="!form.valid || beginProcess" mat-flat-button color="primary"
+          class="btn-style-1" (click)="onClickUserBtn()">
+          <span *ngIf="!beginProcess">{{btnLabel}}</span>
+          <load-spinner *ngIf="beginProcess"></load-spinner>
+        </button>
+        <button mat-stroked-button color="primary" class="btn-style-1" [routerLink]="'/admin/users'">
+          Close
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

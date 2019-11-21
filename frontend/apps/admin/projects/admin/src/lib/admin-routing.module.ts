@@ -5,6 +5,8 @@ import { ResourceFormComponent } from './pages/resources/resource-form/resource-
 import { ResourceListComponent } from './pages/resources/resource-list/resource-list.component';
 import { GroupListComponent } from './pages/groups/group-list/group-list.component';
 import { GroupFormComponent } from './pages/groups/group-form/group-form.component';
+import { UserListComponent } from './pages/users/user-list/user-list.component';
+import { UserFormComponent } from './pages/users/user-form/user-form.component';
 
 const ROUTES: Routes = [
     {
@@ -96,6 +98,42 @@ const ROUTES: Routes = [
                         component: GroupFormComponent,
                         data: {
                             breadcrumb: 'View Group'
+                        }
+                    }
+                ]
+            },
+            {
+                path: 'users',
+                data: {
+                    breadcrumb: 'Users'
+                },
+                children: [
+                    {
+                        path: '',
+                        component: UserListComponent,
+                        data: {
+                            breadcrumb: 'Users'
+                        }
+                    },
+                    {
+                        path: 'add',
+                        component: UserFormComponent,
+                        data: {
+                            breadcrumb: 'Add User'
+                        }
+                    },
+                    {
+                        path: 'edit/:id',
+                        component: UserFormComponent,
+                        data: {
+                            breadcrumb: 'Edit User'
+                        }
+                    },
+                    {
+                        path: 'view/:id',
+                        component: UserFormComponent,
+                        data: {
+                            breadcrumb: 'View User'
                         }
                     }
                 ]

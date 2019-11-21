@@ -5,11 +5,13 @@ import { DeviceModel } from '../../device-model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SnackbarService } from '../../services/snackbar.service';
 import { ipAddressPattern } from '../../regex-pattern';
+import { routerTransition } from '../../components/animation/animation.component';
 
 @Component({
   selector: 'lib-device-form',
   templateUrl: './device-form.component.html',
-  styleUrls: ['./device-form.component.scss']
+  styleUrls: ['./device-form.component.scss'],
+  animations: [routerTransition()]
 })
 export class DeviceFormComponent implements OnInit {
 

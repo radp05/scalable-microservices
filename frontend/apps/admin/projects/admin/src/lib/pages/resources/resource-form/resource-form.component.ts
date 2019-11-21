@@ -4,11 +4,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ResourceService } from '../resource.service';
 import { SnackbarService } from '../../../services/snackbar.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { scaleTransition } from '../../../components/animation/animation.component';
 
 @Component({
   selector: 'lib-resource-form',
   templateUrl: './resource-form.component.html',
-  styleUrls: ['./resource-form.component.scss']
+  styleUrls: ['./resource-form.component.scss'],
+  animations: [scaleTransition()]
 })
 export class ResourceFormComponent implements OnInit {
 

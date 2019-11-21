@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { MatIconRegistry } from '@angular/material';
-import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { scaleTransition } from './components/animation/animation.component';
 
 @Component({
   selector: 'lib-admin',
   templateUrl: 'admin.component.html',
-  styleUrls: ['admin.component.scss']
+  styleUrls: ['admin.component.scss'],
+  animations: [scaleTransition()]
 })
 export class AdminComponent implements OnInit {
 
