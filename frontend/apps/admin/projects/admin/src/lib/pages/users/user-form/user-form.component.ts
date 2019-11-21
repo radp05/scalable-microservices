@@ -6,11 +6,13 @@ import { SnackbarService } from '../../../services/snackbar.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { GroupService } from '../../groups/group.service';
 import { emailPattern } from './regex-pattern';
+import { scaleTransition } from '../../../components/animation/animation.component';
 
 @Component({
   selector: 'lib-user-form',
   templateUrl: './user-form.component.html',
-  styleUrls: ['./user-form.component.scss']
+  styleUrls: ['./user-form.component.scss'],
+  animations: [scaleTransition()]
 })
 export class UserFormComponent implements OnInit {
 

@@ -7,11 +7,13 @@ import {
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
 import { DevicesService } from '../../devices.service';
 import { SnackbarService } from '../../services/snackbar.service';
+import { routerTransition } from '../../components/animation/animation.component';
 
 @Component({
   selector: 'lib-device-list',
   templateUrl: './device-list.component.html',
-  styleUrls: ['./device-list.component.scss']
+  styleUrls: ['./device-list.component.scss'],
+  animations: [routerTransition()]
 })
 export class DeviceListComponent implements OnInit {
 

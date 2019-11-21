@@ -1,10 +1,10 @@
 <div class="custom-container">
   <div class="btn-position-left">
-    <button mat-fab color="primary" [routerLink]="['/devices']">
+    <button mat-fab color="primary" [routerLink]="['/devices']" [@routerTransition]>
       <mat-icon aria-label="Back Icon">arrow_back</mat-icon>
     </button>
   </div>
-  <form #form="ngForm">
+  <form #form="ngForm" [@routerTransition]>
     <div class="mat-elevation-z8">
       <div class="label-header">{{formLabel}}</div>
       <div class="form-container" [ngClass]="{'disable-control': isViewForm}">

@@ -1,5 +1,5 @@
 <div class="grid-container">
-  <div class="item devices" [routerLink]="'devices'">
+  <div class="item devices" [routerLink]="'devices'" [@routerTransition]>
     <mat-card>
       <div class="flex">
         <mat-icon class="icon" color="primary">widgets</mat-icon>
@@ -7,7 +7,7 @@
       </div>
     </mat-card>
   </div>
-  <div class="item orders" [routerLink]="'orders'">
+  <div class="item orders" [routerLink]="'orders'" [@routerTransition]>
     <mat-card>
       <div class="flex">
         <mat-icon class="icon" color="primary">group_work</mat-icon>
@@ -15,7 +15,7 @@
       </div>
     </mat-card>
   </div>
-  <div class="item users" [routerLink]="'admin'">
+  <div class="item users" [routerLink]="'admin'" [@routerTransition]>
     <mat-card>
       <div class="flex">
         <mat-icon class="icon" color="primary">face</mat-icon>
@@ -23,7 +23,7 @@
       </div>
     </mat-card>
   </div>
-  <div class="item resources" [routerLink]="'resources'">
+  <div class="item resources" [routerLink]="'resources'" [@routerTransition]>
     <mat-card>
       <div class="flex">
         <mat-icon class="icon" color="primary">web</mat-icon>

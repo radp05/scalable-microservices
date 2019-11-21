@@ -5,11 +5,13 @@ import { GroupService } from '../group.service';
 import { SnackbarService } from '../../../services/snackbar.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ResourceService } from '../../resources/resource.service';
+import { scaleTransition } from '../../../components/animation/animation.component';
 
 @Component({
   selector: 'lib-group-form',
   templateUrl: './group-form.component.html',
-  styleUrls: ['./group-form.component.scss']
+  styleUrls: ['./group-form.component.scss'],
+  animations: [scaleTransition()]
 })
 export class GroupFormComponent implements OnInit {
 

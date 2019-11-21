@@ -1,10 +1,10 @@
 <div class="custom-container-2">
   <div class="btn-position-right">
-    <button mat-fab color="primary" [routerLink]="['/admin/users/add']">
+    <button mat-fab color="primary" [routerLink]="['/admin/users/add']" [@routerTransition]>
       <mat-icon aria-label="Add Icon">add</mat-icon>
     </button>
   </div>
-  <div class="mat-elevation-z8">
+  <div class="mat-elevation-z8" [@routerTransition]>
     <div class="label-header">Users</div>
     <table mat-table [dataSource]="dataSource">
 

@@ -13,6 +13,7 @@ import {
   MatSelectModule
 } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminRoutingModule } from './admin-routing.module';
 import { ResourceListComponent } from './pages/resources/resource-list/resource-list.component';
 import { SnackbarComponent } from './components/snackbar/snackbar.component';
@@ -39,6 +40,7 @@ import { UserFormComponent } from './pages/users/user-form/user-form.component';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     AdminRoutingModule,
     SnackbarModule,

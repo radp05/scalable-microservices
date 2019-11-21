@@ -8,11 +8,13 @@ import { SnackbarService } from '../../../services/snackbar.service';
 import { ConfirmDialogComponent } from '../../../components/confirm-dialog/confirm-dialog.component';
 import { GroupService } from '../group.service';
 import { GroupModel } from '../group.model';
+import { scaleTransition } from '../../../components/animation/animation.component';
 
 @Component({
   selector: 'lib-group-list',
   templateUrl: './group-list.component.html',
-  styleUrls: ['./group-list.component.scss']
+  styleUrls: ['./group-list.component.scss'],
+  animations: [scaleTransition()]
 })
 export class GroupListComponent implements OnInit {
 

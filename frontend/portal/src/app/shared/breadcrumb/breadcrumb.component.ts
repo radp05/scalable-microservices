@@ -2,12 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { filter, map, distinctUntilChanged } from 'rxjs/operators';
 import { BreadCrumb } from './breadcrumb.model';
+import { slideToRight } from '../animation/animation.component';
 
 
 @Component({
   selector: 'app-breadcrumb',
   templateUrl: './breadcrumb.component.html',
-  styleUrls: ['./breadcrumb.component.scss']
+  styleUrls: ['./breadcrumb.component.scss'],
+  animations: [slideToRight()]
 })
 export class BreadcrumbComponent implements OnInit {
 
@@ -49,7 +51,6 @@ export class BreadcrumbComponent implements OnInit {
       return this.buildBreadCrumb(route.firstChild, nextUrl, newBreadcrumbs);
     }
     this.bcLength = newBreadcrumbs.length;
-    console.log('??newBreadcrumbs', newBreadcrumbs);
     return newBreadcrumbs;
   }
 

@@ -8,11 +8,13 @@ import { SnackbarService } from '../../../services/snackbar.service';
 import { ConfirmDialogComponent } from '../../../components/confirm-dialog/confirm-dialog.component';
 import { UserService } from '../user.service';
 import { UserModel } from '../user.model';
+import { scaleTransition } from '../../../components/animation/animation.component';
 
 @Component({
   selector: 'lib-user-list',
   templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.scss']
+  styleUrls: ['./user-list.component.scss'],
+  animations: [scaleTransition()]
 })
 export class UserListComponent implements OnInit {
 
