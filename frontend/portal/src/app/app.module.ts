@@ -15,6 +15,7 @@ import { OrdersModule } from 'orders';
 // import { HeaderComponent } from './header/header.component';
 // import { FooterComponent } from './footer/footer.component';
 import { AdminModule } from 'admin';
+import { MdePopoverModule } from '@material-extended/mde';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { AdminModule } from 'admin';
     SharedModule,
     MaterialModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MdePopoverModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -36,7 +36,7 @@ export class DevicesService {
   }
 
   getOneDevice(deviceName: string): Observable<any> {
-    const param = new HttpParams().set('deviceName', deviceName);
+    const param = new HttpParams().set('_id', deviceName);
     return this.http.get(`${URL}/getRecord`, { params: param });
   }
 }

@@ -18,17 +18,19 @@
       <ng-container matColumnDef="{{headerKey}}"
         *ngFor="let headerKey of displayedColumnsKey | slice:1:4; let headerIndex=index">
         <th mat-header-cell *matHeaderCellDef> {{displayCoulmnsLabel[headerIndex][headerKey]}} </th>
-        <td mat-cell *matCellDef="let element"> {{element[headerKey]}} </td>
+        <td mat-cell *matCellDef="let element">
+          <custom-tooltip [data]="element" [headerElement]="headerKey"></custom-tooltip>
+        </td>
       </ng-container>
 
       <!-- Action Column -->
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef> Action </th>
         <td mat-cell *matCellDef="let element; let actionIndex=index">
-          <button mat-icon-button [routerLink]="'/device/view/' + element.deviceName">
+          <button mat-icon-button [routerLink]="'/device/view/' + element._id">
             <mat-icon aria-label="View icon">remove_red_eye</mat-icon>
           </button>
-          <button mat-icon-button color="primary" [routerLink]="'/device/edit/' + element.deviceName">
+          <button mat-icon-button color="primary" [routerLink]="'/device/edit/' + element._id">
             <mat-icon aria-label="Edit icon">edit</mat-icon>
           </button>
           <button [disabled]="beginProcess" mat-icon-button color="warn"

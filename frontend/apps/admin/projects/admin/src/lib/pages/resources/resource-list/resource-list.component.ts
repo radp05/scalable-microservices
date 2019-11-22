@@ -8,13 +8,13 @@ import { SnackbarService } from '../../../services/snackbar.service';
 import { ConfirmDialogComponent } from '../../../components/confirm-dialog/confirm-dialog.component';
 import { ResourceService } from '../resource.service';
 import { ResourceModel } from '../resource.model';
-import { scaleTransition } from '../../../components/animation/animation.component';
+import { routerTransition } from '../../../components/animation/animation.component';
 
 @Component({
   selector: 'lib-resource',
   templateUrl: './resource-list.component.html',
   styleUrls: ['./resource-list.component.scss'],
-  animations: [scaleTransition()]
+  animations: [routerTransition()]
 })
 export class ResourceListComponent implements OnInit {
 

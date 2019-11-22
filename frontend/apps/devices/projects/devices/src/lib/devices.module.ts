@@ -22,6 +22,7 @@ import { SnackbarModule } from './components/snackbar/snackbar.module';
 import { SnackbarComponent } from './components/snackbar/snackbar.component';
 import { CommonModule } from '@angular/common';
 import { SpinnerModule } from './components/spinner/spinner.module';
+import { CustomTooltipModule } from './components/custom-tooltip/custom-tooltip.module';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { SpinnerModule } from './components/spinner/spinner.module';
     HttpClientModule,
     DevicesRoutingModule,
     ConfirmDialogModule,
+    CustomTooltipModule,
     SnackbarModule,
     MatTableModule,
     MatPaginatorModule,

@@ -27,6 +27,7 @@ import { GroupListComponent } from './pages/groups/group-list/group-list.compone
 import { GroupFormComponent } from './pages/groups/group-form/group-form.component';
 import { UserListComponent } from './pages/users/user-list/user-list.component';
 import { UserFormComponent } from './pages/users/user-form/user-form.component';
+import { CustomTooltipModule } from './components/custom-tooltip/custom-tooltip.module';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { UserFormComponent } from './pages/users/user-form/user-form.component';
     SnackbarModule,
     SpinnerModule,
     ConfirmDialogModule,
+    CustomTooltipModule,
     MatGridListModule,
     MatIconModule,
     MatTableModule,

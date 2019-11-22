@@ -3,6 +3,9 @@
     width: 90%;
     max-width: 90%;
     margin: auto;
+    .mat-elevation-z8 {
+        overflow: auto;
+    }
 }
 table {
     width: 100%;

@@ -10,6 +10,9 @@ $white-color: #ffffff;
     width: 90%;
     max-width: 90%;
     margin: auto;
+    .mat-elevation-z8 {
+        overflow: auto;
+    }
 }
 .label-header {
     background: #3f51b5;

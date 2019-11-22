@@ -1,0 +1,36 @@
+<div *ngIf="!checkObject(data[headerElement])">
+  <div *ngIf="data[headerElement].length <= characterSizeOnTableTd">{{data[headerElement]}}</div>
+  <div *ngIf="data[headerElement].length > characterSizeOnTableTd">
+    <div [ngClass]="{'dot' : data[headerElement].length >= characterSizeOnTableTd}"
+      [ngStyle]="{'width' : (characterSizeOnTableTd * 7) + 'px'}" class="dot" [mdePopoverTriggerFor]="appPopover"
+      mdePopoverTriggerOn="hover">
+      {{data[headerElement]}}
+    </div>
+    <mde-popover #appPopover="mdePopover" [mdePopoverOverlapTrigger]="false">
+      <mat-card class="cutom-card-bg">
+        <mat-card-content>
+          {{data[headerElement]}}
+        </mat-card-content>
+      </mat-card>
+    </mde-popover>
+  </div>
+</div>
+<div *ngIf="checkObject(data[headerElement])">
+  <div *ngFor="let elem of data[headerElement]">
+    <div *ngIf="elem[multiLineFieldName].length <= characterSizeOnTableTd">{{elem[multiLineFieldName]}}</div>
+    <div *ngIf="elem[multiLineFieldName].length > characterSizeOnTableTd">
+      <div [ngClass]="{'dot' : elem[multiLineFieldName].length >= characterSizeOnTableTd}"
+        [ngStyle]="{'width' : (characterSizeOnTableTd * 7) + 'px'}" class="dot" [mdePopoverTriggerFor]="appMultiPopover"
+        mdePopoverTriggerOn="hover">
+        {{elem[multiLineFieldName]}}XXX
+      </div>
+      <mde-popover #appMultiPopover="mdePopover" [mdePopoverOverlapTrigger]="false">
+        <mat-card class="cutom-card-bg">
+          <mat-card-content>
+            {{elem[multiLineFieldName]}}
+          </mat-card-content>
+        </mat-card>
+      </mde-popover>
+    </div>
+  </div>
+</div>

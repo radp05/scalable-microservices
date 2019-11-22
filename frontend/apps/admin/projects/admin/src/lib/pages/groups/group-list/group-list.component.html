@@ -19,12 +19,8 @@
         *ngFor="let headerKey of displayedColumnsKey | slice:1:3; let headerIndex=index">
         <th mat-header-cell *matHeaderCellDef> {{displayCoulmnsLabel[headerIndex][headerKey]}} </th>
         <td mat-cell *matCellDef="let element">
-          <div *ngIf="headerKey === 'groupName'">{{element[headerKey]}}</div>
-          <div *ngIf="headerKey === 'resourceDetails'">
-            <div *ngFor="let resource of element[headerKey]">
-              {{resource?.resourceName}}
-            </div>
-          </div>
+          <custom-tooltip [data]="element" [headerElement]="headerKey" [multiLineFieldName]="'resourceName'">
+          </custom-tooltip>
         </td>
       </ng-container>
 
