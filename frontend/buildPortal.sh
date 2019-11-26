@@ -22,10 +22,6 @@ for app in $(pwd)/apps/*; do
 done
 
 cd $(pwd)/portal
-# Installing node_modules in portal app
-echo "### Installing node_modules in portal app ###"
-# rm -rf package-lock.json
-npm install --save
 
 # Install micro-apps in portal app
 echo "### Installing packages in Portal ###"
@@ -33,6 +29,11 @@ for tgz in $(pwd)/packages/*; do
     echo "Installing package : ${tgz##*/}"
     npm install $(pwd)/packages/"${tgz##*/}" --save
 done
+
+# Installing node_modules in portal app
+echo "### Installing node_modules in portal app ###"
+# rm -rf package-lock.json
+npm install --save
 
 # Build the portal
 ng build --prod
