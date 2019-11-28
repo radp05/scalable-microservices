@@ -4,6 +4,8 @@
 frontend/node_modules
 frontend/*/node_modules
 frontend/*/*/node_modules
+frontend/*/*/package-lock.json
+frontend/portal/packages
 
 #backend
 backend/node_modules
@@ -13,7 +15,6 @@ backend/*/*/logs
 
 #egateway
 egateway/node_modules
-egateway/config/models
 egateway/.yo-rc.json
 
 #others
@@ -23,6 +24,3 @@ mongodb/setup
 mongodb/keys
 mongodb/certs
 .git
-
-# ignoring tar file packages
-frontend/portal/packages
