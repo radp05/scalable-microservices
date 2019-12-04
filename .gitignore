@@ -16,6 +16,9 @@ backend/*/*/logs
 #egateway
 egateway/node_modules
 egateway/.yo-rc.json
+egateway/certs
+egateway/logs
+egateway/package-lock.json
 
 #others
 notes.md

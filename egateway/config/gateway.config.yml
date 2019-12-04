@@ -1,25 +1,28 @@
 http:
   port: 8080
 
-# admin:
-#   port: 9876
-#   host: localhost
+# https:
+#   port: 443
+#   tls:
+#     default:
+#       key: "./certs/ss-key.pem"
+#       cert: "./certs/ss-cert.pem"
+#       ca: ["./certs/ss-csr.pem"]
 
 apiEndpoints:
   sample:
-    host: localhost
-    paths: '/sample/*'
+    paths: '/api/v1/sample/*'
 
 serviceEndpoints:
   sampleService:
-    url: 'http://localhost:3000'
+    url: 'http://sample:3000'
 
 policies:
   - basic-auth
   - cors
   - expression
   - key-auth
-  - log
+  - egateway-logger
   - oauth2
   - proxy
   - rate-limit
@@ -29,6 +32,7 @@ pipelines:
     apiEndpoints:
       - sample
     policies:
+      - egateway-logger:
       - proxy:
         - action:
             serviceEndpoint: sampleService
