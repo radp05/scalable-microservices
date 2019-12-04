@@ -11,7 +11,8 @@ const userSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    unique: true
+    unique: true,
+
   },
   userName: {
     type: String
@@ -50,5 +51,12 @@ const userSchema = new mongoose.Schema({
     default: null
   }
 });
+
+userSchema.path('email').validate(function (email) {
+  var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+  return emailRegex.test(email); // Assuming email has a text attribute
+}, 'Invalid email.')
+
+
 const User = mongoose.model("users", userSchema);
 module.exports = User;

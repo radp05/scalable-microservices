@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
-const logger = require('../helpers/winston.helper')
-var Resource = require('../models/resource.model')
+const Resource = require('../models/resource.model');
+const helpers=require('../helpers/user.helper');
+
 
 /**
  * @description This function is used for add new resource
@@ -19,7 +19,6 @@ exports.addResource = async (req, res) => {
             data: result
         });
     } catch (error) {
-        logger.log({ level: 'error', message: error.message });
         return res.status(500).json({
             message: "Internal Server Error",
             error: error.message
@@ -34,23 +33,12 @@ exports.addResource = async (req, res) => {
  */
 exports.editResource = async (req, res) => {
     try {
-        let filter = { _id: mongoose.Types.ObjectId(req.params.resourceId) };
-        let update = { resourceName: req.body.resourceName };
-
-        let result = await Resource.findOneAndUpdate(filter, update, {
-            new: true
-        });
-        if (!result)
-            return res.status(404).json({
-                message: "This resource is not avilable."
-            });
-
+   let result=await helpers.editUserResources(req)
         return res.status(200).json({
             message: "Successfully updated.",
             data: result
         });
     } catch (error) {
-        logger.log({ level: 'error', message: error.message });
         return res.status(500).json({
             message: "Internal Server Error",
             error: error.message
@@ -60,18 +48,12 @@ exports.editResource = async (req, res) => {
 
 exports.fetchResourceAll = async (req, res) => {
     try {
-        let result = await Resource.find({})
-        if (result.length == 0)
-            return res.status(404).json({
-                message: "No Resource found.",
-            });
-
+        let result=await helpers.getUserResources();
         return res.status(200).json({
             message: "Resource details",
             data: result
         });
     } catch (error) {
-        logger.log({ level: 'error', message: error.message });
         return res.status(500).json({
             message: "Internal Server Error",
             error: error.message
@@ -81,17 +63,11 @@ exports.fetchResourceAll = async (req, res) => {
 
 exports.removeResource = async (req, res) => {
     try {
-        let result = await Resource.findByIdAndRemove({ "_id": mongoose.Types.ObjectId(req.params.resourceId) })
-        if (!result)
-            return res.status(404).json({
-                message: "No Resource found.",
-            });
-
+       await helpers.deleteUserResources(req);
         return res.status(200).json({
             message: "Resource is successfully deleted."
         });
     } catch (error) {
-        logger.log({ level: 'error', message: error.message });
         return res.status(500).json({
             message: "Internal Server Error",
             error: "error.message"
@@ -101,18 +77,13 @@ exports.removeResource = async (req, res) => {
 
 exports.fetchResourceById = async (req, res) => {
     try {
-        let result = await Resource.findOne({ "_id": mongoose.Types.ObjectId(req.params.resourceId) });
-        if (result == null)
-            return res.status(404).json({
-                message: "No Resource found.",
-            });
 
+        let result= await helpers.getUserResource(req);      
         return res.status(200).json({
             message: "Resource detail",
             data: result
         });
     } catch (error) {
-        logger.log({ level: 'error', message: error.message });
         return res.status(500).json({
             message: "Internal Server Error",
             error: error.message
