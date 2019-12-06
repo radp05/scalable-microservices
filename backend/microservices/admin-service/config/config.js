@@ -3,12 +3,12 @@ module.exports = {
 	PORT: "3003",
 	LOCAL: true,
 	SALT_ROUND: 10,
-	MONGO: {
-		"hostname": "localhost",
-		"port": "27017",
-		// "username": "",
-		// "password": "",
-		"dbName": "user_db"
+	MONGO:{
+		"hostname":"localhost",
+		"dbName":"user_db",
+		"port":"27017",
+		"username":"",
+		"password":""
 	},
 	WINSTON: {
 		"datePattern": 'YYYY-MM-DD-HH',
@@ -16,5 +16,7 @@ module.exports = {
 		"maxFiles": '4d'
 	},
 	API_PREFIX: '/api/v1',
-	PRIVATE_KEY: "incedo-inc-pk"
+	PRIVATE_KEY: "incedo-inc-pk",
+	LogFilePath: "./var/logs/",
+	LogStreamFilePath:"./var/streamlogs/"
 }
