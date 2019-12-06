@@ -1,5 +1,5 @@
 /*
- * Public API Surface of orders
+ * Public API Surface of devices
  */
 
 export * from './lib/orders.service';

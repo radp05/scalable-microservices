@@ -1,78 +1,110 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { OrdersService } from '../../orders.service';
-import { OrderModel } from '../../orders-model';
-import { MatSnackBar } from '@angular/material';
-import { SnackbarComponent } from '../../components/snackbar/snackbar.component';
+import { OrderModel } from '../../order-model';
 import { HttpErrorResponse } from '@angular/common/http';
-
+import { SnackbarService } from '../../services/snackbar.service';
+import { ipAddressPattern } from '../../regex-pattern';
+import { routerTransition } from '../../components/animation/animation.component';
 
 @Component({
   selector: 'lib-order-form',
   templateUrl: './order-form.component.html',
-  styleUrls: ['./order-form.component.css']
+  styleUrls: ['./order-form.component.scss'],
+  animations: [routerTransition()]
 })
 export class OrderFormComponent implements OnInit {
 
-  
-  submitButton: string = 'Submit';
-  formMode: string = 'Add order';
+  btnLabel = 'Submit';
+  formLabel = 'Add Order';
   orderId: string;
   order: OrderModel = {
-    itemName : '',
-    quantity: '',
-    description:'',
-    price:'',
-    orderDate: new Date
+    product_name: '',
+    product_Description: '',
+    date: new Date()
   };
-  durationInSeconds = 5;
+  beginProcess = false;
+  isViewForm = false;
+  ipAddressRegx: RegExp = ipAddressPattern;
 
-  constructor(private route: ActivatedRoute,
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
     private ordersService: OrdersService,
-    private snackBar: MatSnackBar) { }
+    private snackbarService: SnackbarService
+  ) { }
 
   ngOnInit() {
     if (this.route.snapshot.paramMap.get('id')) {
       this.orderId = this.route.snapshot.paramMap.get('id');
-      this.submitButton = 'Update'
-      this.formMode = 'Edit Device';
+      const url = this.router.url;
+      if (url.includes('view')) {
+        this.isViewForm = true;
+        this.formLabel = 'View Order';
+      } else {
+        this.btnLabel = 'Update';
+        this.formLabel = 'Edit Order';
+      }
+      this.initFormOnUpdate();
     }
   }
-  onClickOrderButton(): void {
+
+  initFormOnUpdate(): void {
+    this.spinner();
+    this.ordersService.getOneOrder(this.orderId).subscribe(res => {
+      const data = res.data;
+      this.order = {
+        _id: data._id,
+        product_name: data.product_name,
+        product_Description: data.product_Description,
+        date: data.date
+      };
+    }, err => {
+      this.snackbarService.error(err.message);
+    }).add(() => {
+      this.spinner();
+    });
+  }
+
+  onClickOrderBtn(): void {
     if (this.orderId) {
-      // Update device service
+      // Update order service
       this.updateOrder();
     } else {
-      // Add device service
+      // Add order service
       this.addOrder();
     }
   }
 
   addOrder(): void {
+    this.spinner();
     const payload: OrderModel = this.order;
-    this.ordersService.addorder(payload).subscribe(res => {
-
+    this.ordersService.addOrder(payload).subscribe(res => {
+      console.log('res', res);
+      this.snackbarService.success('Successfully added');
+      this.router.navigate(['/orders']);
     }, (err: HttpErrorResponse) => {
-      this.openSnackBar(err.message);
+      this.snackbarService.error(err.message);
+    }).add(() => {
+      this.spinner();
     });
   }
 
   updateOrder(): void {
     const payload: OrderModel = this.order;
+    console.log('???payload', payload);
     this.ordersService.updateOrder(payload).subscribe(res => {
-
+      this.snackbarService.success('Successfully updated');
+      this.router.navigate(['/orders']);
     }, (err: HttpErrorResponse) => {
-      this.openSnackBar(err.message);
+      this.snackbarService.error(err.message);
+    }, () => {
+      this.spinner();
     });
   }
 
-  openSnackBar(errorMessage: string) {
-    this.snackBar.openFromComponent(SnackbarComponent, {
-      duration: this.durationInSeconds * 1000,
-      data: errorMessage
-    });
+  spinner(): void {
+    this.beginProcess = !this.beginProcess;
   }
 
-  }
-
-
+}

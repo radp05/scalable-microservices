@@ -1,0 +1,15 @@
+<div *ngIf="data[headerElement].length <= characterSizeOnTableTd">{{data[headerElement]}}</div>
+<div *ngIf="data[headerElement].length > characterSizeOnTableTd">
+  <div [ngClass]="{'dot' : data[headerElement].length >= characterSizeOnTableTd}"
+    [ngStyle]="{'width' : (characterSizeOnTableTd * 7) + 'px'}" class="dot" [mdePopoverTriggerFor]="appPopover"
+    mdePopoverTriggerOn="hover">
+    {{data[headerElement]}}
+  </div>
+  <mde-popover #appPopover="mdePopover" [mdePopoverOverlapTrigger]="false">
+    <mat-card class="cutom-card-bg">
+      <mat-card-content>
+        {{data[headerElement]}}
+      </mat-card-content>
+    </mat-card>
+  </mde-popover>
+</div>

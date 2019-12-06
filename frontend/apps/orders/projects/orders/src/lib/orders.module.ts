@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
-import { OrdersComponent } from './orders.component';
-import { OrderListComponent } from './pages/order-list/order-list.component';
-import { OrderFormComponent } from './pages/order-form/order-form.component';
-import { OrderRoutingModule } from './order-routing.module';
-import { ConfirmDialogModule } from './components/confirm-dialog/confirm-dialog.module'
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { OrdersComponent } from './orders.component';
+import { OrdersRoutingModule } from './orders-routing.module';
+import { OrderListComponent } from './pages/order-list/order-list.component';
 import {
   MatTableModule,
   MatPaginatorModule,
@@ -15,27 +13,48 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatDialogModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatDatepickerModule, MatNativeDateModule
 } from '@angular/material';
+import { OrderFormComponent } from './pages/order-form/order-form.component';
+import { ConfirmDialogModule } from './components/confirm-dialog/confirm-dialog.module';
+import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { SnackbarModule } from './components/snackbar/snackbar.module';
+import { SnackbarComponent } from './components/snackbar/snackbar.component';
+import { CommonModule } from '@angular/common';
+import { SpinnerModule } from './components/spinner/spinner.module';
+import { CustomTooltipModule } from './components/custom-tooltip/custom-tooltip.module';
 
 @NgModule({
-  declarations: [OrdersComponent, OrderListComponent, OrderFormComponent],
+  declarations: [
+    OrdersComponent,
+    OrderListComponent,
+    OrderFormComponent
+  ],
   imports: [
-    OrderRoutingModule,
+    CommonModule,
     FormsModule,
     HttpClientModule,
+     OrdersRoutingModule ,
     ConfirmDialogModule,
+    CustomTooltipModule,
     SnackbarModule,
     MatTableModule,
     MatPaginatorModule,
     MatButtonModule,
     MatIconModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     MatListModule,
     MatFormFieldModule,
     MatInputModule,
     MatDialogModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    SpinnerModule
+  ],
+  entryComponents: [
+    ConfirmDialogComponent,
+    SnackbarComponent
   ],
   exports: [OrdersComponent]
 })

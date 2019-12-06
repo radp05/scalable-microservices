@@ -19,11 +19,11 @@
       "dom"
     ],
     "paths": {
-      "orders": [
-        "dist/orders"
+      "devices": [
+        "dist/devices"
       ],
-      "orders/*": [
-        "dist/orders/*"
+      "devices/*": [
+        "dist/devices/*"
       ]
     }
   }
