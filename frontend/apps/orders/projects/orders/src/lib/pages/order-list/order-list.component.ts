@@ -5,59 +5,88 @@ import {
   MatDialog
 } from '@angular/material';
 import { ConfirmDialogComponent } from '../../components/confirm-dialog/confirm-dialog.component';
-
+import { OrdersService } from '../../orders.service';
+import { SnackbarService } from '../../services/snackbar.service';
+import { routerTransition } from '../../components/animation/animation.component';
 
 @Component({
   selector: 'lib-order-list',
   templateUrl: './order-list.component.html',
-  styleUrls: ['./order-list.component.css']
+  styleUrls: ['./order-list.component.scss'],
+  animations: [routerTransition()]
 })
 export class OrderListComponent implements OnInit {
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'action'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  displayedColumnsKey: string[] = ['position', 'product_name', 'product_Description', 'date', 'action'];
+  displayCoulmnsLabel: any[] = [
+    {
+      product_name: 'Order Name'
+    },
+    {
+      product_Description: 'Product Description'
+    },
+    {
+      date: 'Order Date'
+    }
+  ];
+  dataSource: MatTableDataSource<DataResponse>;
+  beginProcess = false;
+  deleteActionIndex: number;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor( public dialog: MatDialog) { }
+  constructor(
+    public dialog: MatDialog,
+    private ordersService: OrdersService,
+    private snackbarService: SnackbarService
+  ) {
+    this.getData();
+  }
 
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
 
   }
 
-  deleteOrder(): void {
+  getData(): void {
+    this.dataSource = null;
+    this.ordersService.getAllOrders().subscribe(res => {
+      console.log('??res', res);
+      this.dataSource = res.data;
+      this.dataSource.paginator = this.paginator;
+    }, err => {
+      this.snackbarService.error(err.message);
+    });
+  }
+
+  deleteOrder(orderId: string, actionIndex: number): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '250px',
-      data: { orderId: 1000 }
+      data: { orderId: orderId }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed', result);
+      if (result !== undefined) {
+        this.spinner();
+        this.deleteActionIndex = actionIndex;
+        this.ordersService.removeOrder({ _id: result }).subscribe(() => {
+          this.getData();
+        }, err => {
+          this.snackbarService.error(err.message);
+        }).add(() => {
+          this.spinner();
+        });
+      }
     });
+  }
+
+  spinner(): void {
+    this.beginProcess = !this.beginProcess;
   }
 
 }
 
-export interface PeriodicElement {
-  itemName: string;
-  position: number;
-  itemDescription: string;
-  orderDate: string;
+export interface DataResponse {
+  product_name: string;
+  product_Description: number;
+  date: number;
 }
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, itemName: 'mouse', itemDescription: 'mouse', orderDate: '12-10'},
-  {position: 2, itemName: 'keyBoard', itemDescription: 'keyBoard', orderDate: '12-10'},
-  {position: 3, itemName: 'penDrive', itemDescription: 'penDrive', orderDate: '12-10'},
-  {position: 4, itemName: 'Mobile', itemDescription: 'Mobile', orderDate: '12-10'},
-  {position: 5, itemName: 'Router', itemDescription: 'Router', orderDate: '12-10'},
-  {position: 6, itemName: 'Monitor', itemDescription: 'Monitor', orderDate: '12-10'},
-  {position: 7, itemName: 'Charger', itemDescription: 'Charger', orderDate: '12-10'},
-  {position: 8, itemName: 'Battery', itemDescription: 'Battery', orderDate: '12-10'},
-  {position: 9, itemName: 'Joystick', itemDescription: 'Joystick', orderDate: '12-10'},
-  {position: 10, itemName: 'Printer', itemDescription:'Printer', orderDate: '12-10'},
-];
-
-
-
