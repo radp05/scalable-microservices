@@ -1,5 +1,5 @@
 
-const helpers=require('../helpers/user.helper');
+const helpers = require('../helpers/user.helper');
 
 /**
  * @description This function is used for add new group
@@ -9,7 +9,7 @@ const helpers=require('../helpers/user.helper');
 exports.addGroup = async (req, res) => {
     try {
 
-        let result=await helpers.addUserGroup(req)
+        let result = await helpers.addUserGroup(req)
         return res.status(200).json({
             message: "group is successfully added.",
             data: result
@@ -29,7 +29,7 @@ exports.addGroup = async (req, res) => {
  */
 exports.editGroup = async (req, res) => {
     try {
-        let result=await helpers.editUserGroup(req);
+        let result = await helpers.editUserGroup(req);
         return res.status(200).json({
             message: "Successfully updated.",
             data: result
@@ -44,9 +44,7 @@ exports.editGroup = async (req, res) => {
 
 exports.fetchGroupAll = async (req, res) => {
     try {
-       
-
-        let result=await helpers.getUserGroups(req)
+        let result = await helpers.getUserGroups(req)
 
         return res.status(200).json({
             message: "group details",
@@ -67,7 +65,7 @@ exports.fetchGroupAll = async (req, res) => {
  */
 exports.fetchGroupDetails = async (req, res) => {
     try {
-       let result=await helpers.getUserGroups(req);
+        let result = await helpers.getUserGroups(req);
         return res.status(200).json({
             message: "group details",
             data: result[0]

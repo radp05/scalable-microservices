@@ -9,10 +9,11 @@ exports.createUser = async (req, res) => {
   try {
     const form = req.body;
     form.groupId = mongoose.Types.ObjectId(form.groupId);
-    await helpers.createUsr(form);
+    let result = await helpers.createUsr(form);
     return res.status(200).json({
       status: "success",
-      message: MESSAGES.USER_ADD_SUCCESS
+      message: MESSAGES.USER_ADD_SUCCESS,
+      data: result
     });
 
   } catch (error) {
@@ -26,13 +27,13 @@ exports.createUser = async (req, res) => {
 exports.editUser = async (req, res) => {
 
   try {
-    const form=req.body;
-    if(form.groupId)
-    form.groupId = mongoose.Types.ObjectId(form.groupId);
+    const form = req.body;
+    if (form.groupId)
+      form.groupId = mongoose.Types.ObjectId(form.groupId);
 
-    const userId=req.params.id;
+    const userId = req.params.id;
 
-    let doc =await helpers.validateUserUpdate(form,userId);
+    let doc = await helpers.validateUserUpdate(form, userId);
     return res.status(200).json({
       message: "successfully updated",
       data: doc
@@ -57,7 +58,7 @@ exports.deleteUser = async (req, res) => {
 
   } catch (error) {
     res.status(500).send({
-      error:error,
+      error: error,
       message: MESSAGES.INTERNAL_SERVER_ERR,
     });
   }
@@ -86,7 +87,7 @@ exports.getUsers = async (req, res) => {
   }
 };
 
- exports.getUser = async (req, res) => {
+exports.getUser = async (req, res) => {
   let userId = req.params.id;
 
   if (!userId) {

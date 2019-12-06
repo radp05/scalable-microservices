@@ -1,5 +1,5 @@
 const Resource = require('../models/resource.model');
-const helpers=require('../helpers/user.helper');
+const helpers = require('../helpers/user.helper');
 
 
 /**
@@ -9,10 +9,7 @@ const helpers=require('../helpers/user.helper');
 
 exports.addResource = async (req, res) => {
     try {
-        let resource = new Resource({
-            resourceName: req.body.resourceName
-        })
-        let result = await resource.save();
+        let result = await helpers.insertResource(req)
 
         return res.status(200).json({
             message: "Resource is successfully added.",
@@ -33,7 +30,7 @@ exports.addResource = async (req, res) => {
  */
 exports.editResource = async (req, res) => {
     try {
-   let result=await helpers.editUserResources(req)
+        let result = await helpers.editUserResources(req)
         return res.status(200).json({
             message: "Successfully updated.",
             data: result
@@ -48,7 +45,7 @@ exports.editResource = async (req, res) => {
 
 exports.fetchResourceAll = async (req, res) => {
     try {
-        let result=await helpers.getUserResources();
+        let result = await helpers.getUserResources();
         return res.status(200).json({
             message: "Resource details",
             data: result
@@ -63,7 +60,7 @@ exports.fetchResourceAll = async (req, res) => {
 
 exports.removeResource = async (req, res) => {
     try {
-       await helpers.deleteUserResources(req);
+        await helpers.deleteUserResources(req);
         return res.status(200).json({
             message: "Resource is successfully deleted."
         });
@@ -78,10 +75,14 @@ exports.removeResource = async (req, res) => {
 exports.fetchResourceById = async (req, res) => {
     try {
 
-        let result= await helpers.getUserResource(req);      
-        return res.status(200).json({
-            message: "Resource detail",
-            data: result
+        let result = await helpers.getUserResource(req);
+        if (result)
+            return res.status(200).json({
+                message: "Resource detail",
+                data: result
+            });
+        return res.status(404).json({
+            message: "Resource not found",
         });
     } catch (error) {
         return res.status(500).json({

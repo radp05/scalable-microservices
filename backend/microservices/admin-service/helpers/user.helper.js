@@ -73,7 +73,9 @@ exports.validateUserUpdate = async (form, userId) => {
   }
 
   //check user is exist in database
-  let userDetails = await getUserById(userId);
+  let userDetails = await User.findById({
+    _id: mongoose.Types.ObjectId(userId)
+  });
 
   if (!userDetails) {
     throw new Error("user not found");
@@ -92,7 +94,7 @@ exports.addUserGroup = async req => {
   if (req.body.resourceIds.length <= 0)
     throw "Please provide resource Id in array";
 
-  req.body.resourceIds.map(function(value) {
+  req.body.resourceIds.map(function (value) {
     resourceIds.push(mongoose.Types.ObjectId(value));
   });
 
@@ -114,7 +116,7 @@ exports.editUserGroup = async req => {
   if (req.body.resourceIds.length <= 0)
     throw "Please provide resource Id in array";
 
-  req.body.resourceIds.map(function(value) {
+  req.body.resourceIds.map(function (value) {
     resourceIds.push(mongoose.Types.ObjectId(value));
   });
 
@@ -197,6 +199,13 @@ exports.deleteUserGroup = async req => {
 
 
 //resources
+
+exports.insertResource = async (req) => {
+  let resource = new Resource({
+    resourceName: req.body.resourceName
+  })
+  return await resource.save();
+}
 exports.editUserResources = async req => {
   let filter = { _id: mongoose.Types.ObjectId(req.params.resourceId) };
   let update = { resourceName: req.body.resourceName };
