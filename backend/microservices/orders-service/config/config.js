@@ -1,5 +1,5 @@
 module.exports = {
-	LOCAL: true,
+	LOCAL: process.env.LOCAL || true,
 	APP : "Order App",
 	PORT: "3002",
 	MONGO : {

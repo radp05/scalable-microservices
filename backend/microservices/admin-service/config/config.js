@@ -1,7 +1,7 @@
 module.exports = {
 	APP: "admin App",
 	PORT: "3003",
-	LOCAL: true,
+	LOCAL: process.env.LOCAL || true,
 	SALT_ROUND: 10,
 	MONGO:{
 		"hostname":"localhost",
@@ -15,7 +15,6 @@ module.exports = {
 		"maxSize": '5m',
 		"maxFiles": '4d'
 	},
-	API_PREFIX: '/api/v1',
 	PRIVATE_KEY: "incedo-inc-pk",
 	LogFilePath: "./var/logs/",
 	LogStreamFilePath:"./var/streamlogs/"

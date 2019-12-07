@@ -1,7 +1,7 @@
 {
     "databases": {
         "mongodb":{
-            "hostname":"mongo-node1",
+            "hostname":"mongodb",
             "port":"27017",
             "username":"appuser",
             "password":"App123"
@@ -17,17 +17,17 @@
         "device":{
             "appName" : "Device Application",
             "port":"3001",
-            "dbName":"devices",
-            "apiBase":"/devices"
+            "dbName":"devices_db",
+            "apiBase":"/api/v1/device"
         },
         "order":{
             "port":"3002",
-            "dbName":"orders",
-            "apiBase":"/api/v1/orders"
+            "dbName":"orders_db",
+            "apiBase":"/api/v1/order"
         },
         "admin":{
             "port":"3003",
-            "dbName":"users",
+            "dbName":"users_db",
             "apiBase":"/api/v1/admin"
         }
     }

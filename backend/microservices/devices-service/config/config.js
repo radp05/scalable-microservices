@@ -1,7 +1,7 @@
 module.exports = {
 	APP : "Devices App",
 	PORT : "3001",
-	LOCAL: true,
+	LOCAL: process.env.LOCAL || true,
 	MONGO:{
 		"hostname":"localhost",
 		"dbName":"devicesDB",

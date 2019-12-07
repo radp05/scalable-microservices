@@ -1,7 +1,6 @@
 module.exports = {
-	LOCAL: false,
+	LOCAL: process.env.LOCAL || true,
 	APP_NAME : "Sample App",
-	API_BASE : "/api/v1/sample",
 	PORT : "3000",
 	MONGO : {
 		"hostname":"localhost",
