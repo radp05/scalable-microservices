@@ -19,7 +19,7 @@ appConf.appName = appConf.appName || config.APP_NAME;
 appConf.apiBase = appConf.apiBase || config.API_BASE;
 
 // Init dbConnection
-if(config.LOCAL) mongoConf = {};
+if(config.LOCAL != 'no') mongoConf = {};
 let dbUrl;
 let dbConf = {
     "hostname" : mongoConf.hostname || config.MONGO.hostname,
@@ -46,7 +46,6 @@ if(dbConf.username != '' || dbConf.password != ''){
         "useUnifiedTopology" : true 
     });
 }
-
 mongoose.connection.once('open', () => {
     console.log("Connected to MongoDB Successfully.");
 });
