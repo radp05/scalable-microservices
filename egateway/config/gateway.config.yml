@@ -1,21 +1,33 @@
 http:
-  port: 8080
+  port: 80
 
-# https:
-#   port: 443
-#   tls:
-#     default:
-#       key: "./certs/ss-key.pem"
-#       cert: "./certs/ss-cert.pem"
-#       ca: ["./certs/ss-csr.pem"]
+https:
+  port: 443
+  tls:
+    default:
+      key: "./config/certs/ss-key.pem"
+      cert: "./config/certs/ss-cert.pem"
+      ca: ["./config/certs/ss-csr.pem"]
 
 apiEndpoints:
   sample:
     paths: '/api/v1/sample/*'
+  device:
+    paths: '/api/v1/device/*'
+  order:
+    paths: '/api/v1/order/*'
+  admin:
+    paths: '/api/v1/admin/*'
 
 serviceEndpoints:
   sampleService:
     url: 'http://sample:3000'
+  deviceService:
+    url: 'http://device:3001'
+  orderService:
+    url: 'http://order:3002'
+  adminService:
+    url: 'http://admin:3003'
 
 policies:
   - basic-auth
@@ -36,4 +48,34 @@ pipelines:
       - proxy:
         - action:
             serviceEndpoint: sampleService
+            changeOrigin: true
+  
+  - name: device
+    apiEndpoints:
+      - device
+    policies:
+      - egateway-logger:
+      - proxy:
+        - action:
+            serviceEndpoint: deviceService
+            changeOrigin: true
+
+  - name: order
+    apiEndpoints:
+      - order
+    policies:
+      - egateway-logger:
+      - proxy:
+        - action:
+            serviceEndpoint: orderService
+            changeOrigin: true
+    
+  - name: admin
+    apiEndpoints:
+      - admin
+    policies:
+      - egateway-logger:
+      - proxy:
+        - action:
+            serviceEndpoint: adminService
             changeOrigin: true
