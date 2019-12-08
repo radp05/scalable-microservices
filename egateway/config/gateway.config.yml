@@ -18,6 +18,8 @@ apiEndpoints:
     paths: '/api/v1/order/*'
   admin:
     paths: '/api/v1/admin/*'
+  portal:
+    paths: '/*'
 
 serviceEndpoints:
   sampleService:
@@ -28,6 +30,8 @@ serviceEndpoints:
     url: 'http://order:3002'
   adminService:
     url: 'http://admin:3003'
+  portalService:
+    url: 'http://portal:80'
 
 policies:
   - basic-auth
@@ -78,4 +82,13 @@ pipelines:
       - proxy:
         - action:
             serviceEndpoint: adminService
+            changeOrigin: true
+  
+  - name: portal
+    apiEndpoints:
+      - portal
+    policies:
+      - proxy:
+        - action:
+            serviceEndpoint: portalService
             changeOrigin: true
