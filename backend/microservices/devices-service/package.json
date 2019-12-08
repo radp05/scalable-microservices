@@ -4,7 +4,8 @@
   "description": "CRUD operations for device services",
   "main": "app.js",
   "scripts": {
-    "test": "mocha --timeout 15000 test"
+    "test": "mocha --timeout 15000 test",
+    "start": "node app.js"
   },
   "keywords": [
     "device",
