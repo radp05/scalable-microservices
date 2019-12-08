@@ -31,21 +31,33 @@ appConf.port = appConf.port || config.PORT;
 appConf.appName = appConf.appName || config.APP_NAME;
 
 // Init dbConnection
-if(config.LOCAL) mongoConf = {};
+if(config.LOCAL != 'no') mongoConf = {};
 let dbUrl;
 let dbConf = {
     "hostname" : mongoConf.hostname || config.MONGO.hostname,
     "port" : mongoConf.port || config.MONGO.port,
     "username" : mongoConf.username || config.MONGO.username,
     "password" : mongoConf.password || config.MONGO.password,
+    "replicaSet": mongoConf.replicaSet || config.MONGO.replicaSet,
     "dbName": appConf.dbName || config.MONGO.dbName
 };
 if(dbConf.username != '' || dbConf.password != ''){
     dbUrl = `mongodb://${dbConf.username}:${dbConf.password}@${dbConf.hostname}:${dbConf.port}/${dbConf.dbName}`;
+    if(dbConf.replicaSet){
+        dbUrl += `?replicaSet=${dbConf.replicaSet}`;
+    }
+    mongoose.connect(dbUrl, { 
+        "auth" : { "authSource": "admin" },
+        "useNewUrlParser" : true, 
+        "useUnifiedTopology" : true 
+    });
 }else{
     dbUrl = `mongodb://${dbConf.hostname}:${dbConf.port}/${dbConf.dbName}`;
+    mongoose.connect(dbUrl, { 
+        "useNewUrlParser" : true, 
+        "useUnifiedTopology" : true 
+    });
 }
-mongoose.connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true } );
 mongoose.connection.once('open', () => {
     logger.info("Connected to MongoDB Successfully.");
 });

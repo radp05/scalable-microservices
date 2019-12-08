@@ -1,5 +1,5 @@
 module.exports = {
-	LOCAL: process.env.LOCAL || true,
+	LOCAL: process.env.LOCAL,
 	APP : "Order App",
 	PORT: "3002",
 	MONGO : {
@@ -9,7 +9,7 @@ module.exports = {
 		"password":"",
 		"dbName": "sample"
 	},
-	LogFilePath: "./var/logs/",
-	LogStreamFilePath:"./var/streamlogs/"
+	LogFilePath: "./logs/",
+	LogStreamFilePath:"./logs/streamlogs/"
 }
 
