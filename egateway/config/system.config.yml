@@ -6,7 +6,7 @@ db:
 
 plugins:
   egateway-logger:
-    package: '../../../plugins/manifest.js'
+    package: './plugins/manifest.js'
 
 crypto:
   cipherKey: sensitiveKey

@@ -10,6 +10,8 @@ https:
       ca: ["./config/certs/ss-csr.pem"]
 
 apiEndpoints:
+  # api:
+  #   paths: '/ip'
   sample:
     paths: '/api/v1/sample/*'
   device:
@@ -22,6 +24,8 @@ apiEndpoints:
     paths: '/*'
 
 serviceEndpoints:
+  # httpbin:
+  #   url: 'https://httpbin.org'
   sampleService:
     url: 'http://sample:3000'
   deviceService:
@@ -37,18 +41,35 @@ policies:
   - basic-auth
   - cors
   - expression
-  - key-auth
   - egateway-logger
-  - oauth2
+  - jwt
   - proxy
   - rate-limit
 
 pipelines:
+  # - default:
+  #   apiEndpoints:
+  #     - api
+  #   policies:
+  #     - egateway-logger:
+  #     - jwt:
+  #       - action:
+  #           secretOrPublicKey: ${JWT_SECRET}
+  #           checkCredentialExistence: false
+  #     - proxy:
+  #         - action:
+  #             serviceEndpoint: httpbin 
+  #             changeOrigin: true
+
   - name: sample
     apiEndpoints:
       - sample
     policies:
       - egateway-logger:
+      - jwt:
+        - action:
+            secretOrPublicKey: ${JWT_SECRET}
+            checkCredentialExistence: false
       - proxy:
         - action:
             serviceEndpoint: sampleService
@@ -59,6 +80,10 @@ pipelines:
       - device
     policies:
       - egateway-logger:
+      - jwt:
+        - action:
+            secretOrPublicKey: ${JWT_SECRET}
+            checkCredentialExistence: false
       - proxy:
         - action:
             serviceEndpoint: deviceService
@@ -69,6 +94,10 @@ pipelines:
       - order
     policies:
       - egateway-logger:
+      - jwt:
+        - action:
+            secretOrPublicKey: ${JWT_SECRET}
+            checkCredentialExistence: false
       - proxy:
         - action:
             serviceEndpoint: orderService
@@ -79,6 +108,10 @@ pipelines:
       - admin
     policies:
       - egateway-logger:
+      - jwt:
+        - action:
+            secretOrPublicKey: ${JWT_SECRET}
+            checkCredentialExistence: false
       - proxy:
         - action:
             serviceEndpoint: adminService
