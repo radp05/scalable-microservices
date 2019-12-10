@@ -29,6 +29,7 @@ appConf.port = appConf.port || config.PORT;
 appConf.appName = appConf.appName || config.APP_NAME;
 
 // Init dbConnection
+mongoose.set('useCreateIndex', true);
 if(config.LOCAL != 'no') mongoConf = {};
 let dbUrl;
 let dbConf = {
@@ -47,13 +48,13 @@ if(dbConf.username != '' || dbConf.password != ''){
     mongoose.connect(dbUrl, { 
         "auth" : { "authSource": "admin" },
         "useNewUrlParser" : true, 
-        "useUnifiedTopology" : true 
+        "useUnifiedTopology" : true
     });
 }else{
     dbUrl = `mongodb://${dbConf.hostname}:${dbConf.port}/${dbConf.dbName}`;
     mongoose.connect(dbUrl, { 
         "useNewUrlParser" : true, 
-        "useUnifiedTopology" : true 
+        "useUnifiedTopology" : true
     });
 }
 mongoose.connection.once('open', () => {
