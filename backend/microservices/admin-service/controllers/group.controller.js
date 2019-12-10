@@ -1,5 +1,5 @@
 
-const helpers = require('../helpers/user.helper');
+const helpers = require('../helpers/group.helper');
 
 /**
  * @description This function is used for add new group

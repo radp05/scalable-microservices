@@ -1,5 +1,5 @@
 const Resource = require('../models/resource.model');
-const helpers = require('../helpers/user.helper');
+const helpers = require('../helpers/resource.helper');
 
 
 /**
