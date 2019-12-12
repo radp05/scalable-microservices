@@ -8,6 +8,12 @@
         }
     },
     "services":{
+        "authentication":{
+            "appName" : "Authentication Application",
+            "port":"4000",
+            "dbName":"authdb",
+            "apiBase":"/api/v1"
+        },
         "sample":{
             "appName" : "Sample Application",
             "port":"3000",
