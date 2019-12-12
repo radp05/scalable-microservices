@@ -19,7 +19,7 @@ exports.getAllUsers = async (filter, options = {}) => {
       $lookup: {
         from: "groups",
         localField: "groupId",
-        foreignField: "_id",
+        foreignField: "groupId",
         as: "groupDetails"
       }
     }
@@ -28,14 +28,14 @@ exports.getAllUsers = async (filter, options = {}) => {
 };
 
 exports.deleteUserById = async userId => {
-  return await User.findOneAndDelete({
-    _id: new ObjectID(userId)
+  return await User.findOneAndRemove({
+    userId: userId
   });
 };
 
 exports.getUserById = async (userId, options = {}) => {
   let filter = {
-    _id: mongoose.Types.ObjectId(userId)
+    userId: userId
   };
   let result = await User.aggregate([
     {
@@ -45,7 +45,7 @@ exports.getUserById = async (userId, options = {}) => {
       $lookup: {
         from: "groups",
         localField: "groupId",
-        foreignField: "_id",
+        foreignField: "groupId",
         as: "groupDetails"
       }
     }
@@ -62,24 +62,16 @@ exports.findUserByCriteria = async (criteria, options = {}) => {
 };
 
 exports.validateUserUpdate = async (form, userId) => {
-  if (typeof userId != "undefined" && userId != "") {
-    if (!ObjectID.isValid(userId)) {
-      throw new Error("userId is not valid");
-    }
-  } else {
-    throw new Error("userId is required");
-  }
-
   //check user is exist in database
-  let userDetails = await User.findById({
-    _id: mongoose.Types.ObjectId(userId)
+  let userDetails = await User.findOne({
+    userId: userId
   });
 
   if (!userDetails) {
     throw new Error("user not found");
   }
   let filter = {
-    _id: mongoose.Types.ObjectId(userId)
+    userId: userId
   };
   return await User.update(filter, form);
 };

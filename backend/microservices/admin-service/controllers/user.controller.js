@@ -8,7 +8,7 @@ exports.createUser = async (req, res) => {
 
   try {
     const form = req.body;
-    form.groupId = mongoose.Types.ObjectId(form.groupId);
+    form.groupId = form.groupId;
     let result = await helpers.createUsr(form);
     return res.status(200).json({
       status: "success",
@@ -17,6 +17,7 @@ exports.createUser = async (req, res) => {
     });
 
   } catch (error) {
+    console.log(error)
     return res.status(500).json({
       message: MESSAGES.INTERNAL_SERVER_ERR,
       error: error

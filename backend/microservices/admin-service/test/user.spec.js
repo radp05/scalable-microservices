@@ -1,7 +1,9 @@
 //process.env.NODE_ENV = test
 let chai = require('chai'),
   expect = chai.expect
-var helper = require('../helpers/user.helper')
+var userHelper = require('../helpers/user.helper')
+var resourceHelper = require('../helpers/resource.helper')
+var groupHelper = require('../helpers/group.helper')
 const CONSTANTS = require('../constant')
 const mongoose = require("mongoose");
 
@@ -14,7 +16,7 @@ describe('Create Resource ', () => {
     req['body'] = {
       resourceName: "Resource" + Math.floor(Math.random() * 90 + 10)
     }
-    let result = await helper.insertResource(req)
+    let result = await resourceHelper.insertResource(req)
     resourceDetails = result
     expect(result).to.include.property('_id');
     expect(result).to.include.property('resourceName');
@@ -23,14 +25,14 @@ describe('Create Resource ', () => {
 
 describe('GET API WITH RESOURCE DATA', () => {
   it('returns list ', async function () {
-    let result = await helper.getUserResources()
+    let result = await resourceHelper.getUserResources()
     expect(result[0]).to.include.property('_id');
     expect(result[0]).to.include.property('resourceName');
   });
   it('returns resource details', async function () {
     let req = {}
-    req.params = { "resourceId": resourceDetails._id }
-    let result = await helper.getUserResource(req)
+    req.params = { "resourceId": resourceDetails.resourceId }
+    let result = await resourceHelper.getUserResource(req)
     expect(result).to.include.property('_id');
     expect(result).to.include.property('resourceName');
   });
@@ -42,9 +44,9 @@ describe('UPDATE RESOURCE', () => {
     req['body'] = {
       resourceName: "Resource" + Math.floor(Math.random() * 90 + 10)
     }
-    req.params = { "resourceId": resourceDetails._id }
+    req.params = { "resourceId": resourceDetails.resourceId }
 
-    let result = await helper.editUserResources(req)
+    let result = await resourceHelper.editUserResources(req)
     expect(result).to.include.property('_id');
     expect(result).to.include.property('resourceName');
   })
@@ -57,9 +59,9 @@ describe('CREATE GROUP ', () => {
     let req = {}
     req['body'] = {
       groupName: "Group" + Math.floor(Math.random() * 90 + 10),
-      resourceIds: [resourceDetails._id]
+      resourceIds: [resourceDetails.resourceId]
     }
-    let result = await helper.addUserGroup(req)
+    let result = await groupHelper.addUserGroup(req)
     groupDetails = result
     expect(result).to.include.property('_id');
     expect(result).to.include.property('groupName');
@@ -69,14 +71,14 @@ describe('CREATE GROUP ', () => {
 
 describe('GET API WITH GROUPS DATA', () => {
   it('returns list ', async function () {
-    let result = await helper.getUserGroups()
+    let result = await groupHelper.getUserGroups()
     expect(result[0]).to.include.property('_id');
     expect(result[0]).to.include.property('groupName');
   });
   it('returns group details', async function () {
     let req = {}
-    req.params = { "groupId": groupDetails._id }
-    let result = await helper.getUserGroup(req)
+    req.params = { "groupId": groupDetails.groupId }
+    let result = await groupHelper.getUserGroup(req)
     expect(result[0]).to.include.property('_id');
     expect(result[0]).to.include.property('groupName');
   });
@@ -87,11 +89,11 @@ describe('UPDATE GROUP DETAILS', () => {
     let req = {}
     req['body'] = {
       resourceName: "Group" + Math.floor(Math.random() * 90 + 10),
-      resourceIds: [resourceDetails._id]
+      resourceIds: [resourceDetails.resourceId]
     }
-    req.params = { "groupId": groupDetails._id }
+    req.params = { "groupId": groupDetails.groupId }
 
-    let result = await helper.editUserGroup(req)
+    let result = await groupHelper.editUserGroup(req)
     expect(result).to.include.property('_id');
     expect(result).to.include.property('groupName');
   })
@@ -108,10 +110,10 @@ describe('CREATE USER ', () => {
       lastName: "kumar",
       email: "raj1" + Math.floor(Math.random() * 90 + 10) + "@gmail.com",
       role: "12333",
-      groupId: mongoose.Types.ObjectId(groupDetails._id),
+      groupId: groupDetails.groupId,
       userName: "rkv" + Math.floor(Math.random() * 90 + 10)
     }
-    let result = await helper.createUsr(doc)
+    let result = await userHelper.createUsr(doc)
     userDetails = result
     expect(result).to.include.property('_id');
     expect(result).to.include.property('firstName');
@@ -129,7 +131,7 @@ describe('GET API WITH USERS DATA', () => {
     let options = {};
     options.password = CONSTANTS.NON_RETRIVAL;
 
-    let result = await helper.getAllUsers(filter, options);
+    let result = await userHelper.getAllUsers(filter, options);
     expect(result[0]).to.include.property('_id');
     expect(result[0]).to.include.property('firstName');
     expect(result[0]).to.include.property('lastName');
@@ -141,7 +143,7 @@ describe('GET API WITH USERS DATA', () => {
     let options = {};
     options.password = CONSTANTS.NON_RETRIVAL;
 
-    let result = await helper.getUserById(userDetails._id, options);
+    let result = await userHelper.getUserById(userDetails.userId, options);
     expect(result[0]).to.include.property('_id');
     expect(result[0]).to.include.property('firstName');
     expect(result[0]).to.include.property('lastName');
@@ -160,11 +162,11 @@ describe('UPDATE USER DETAILS', () => {
       lastName: "kumar",
       email: "raj1" + Math.floor(Math.random() * 90 + 10) + "@gmail.com",
       role: "12333",
-      groupId: mongoose.Types.ObjectId(groupDetails._id),
+      groupId: groupDetails.groupId,
       userName: "rkv" + Math.floor(Math.random() * 90 + 10)
     }
 
-    let result = await helper.validateUserUpdate(form, userDetails._id);
+    let result = await userHelper.validateUserUpdate(form, userDetails.userId);
     expect(result).to.include.property('nModified');
     expect(result).to.include.property('ok');
   })
@@ -172,38 +174,39 @@ describe('UPDATE USER DETAILS', () => {
 
 describe('DELETE USER', () => {
   it('delete User a given _id', async function () {
-    let result = await helper.deleteUserById(userDetails._id)
+    let result = await userHelper.deleteUserById(userDetails.userId)
   })
-  it('It should give Null if group is already deleted', async function () {
-    let result = await helper.deleteUserById(userDetails._id)
+  it('It should give Null if user is already deleted', async function () {
+    let result = await userHelper.deleteUserById(userDetails.userId)
+    console.log(result)
     expect(result).to.be.a('null')
   })
 })
 describe('DELETE GROUP', () => {
   it('delete Group a given _id', async function () {
     let req = {}
-    req.params = { "groupId": groupDetails._id }
-    let result = await helper.deleteUserGroup(req)
+    req.params = { "groupId": groupDetails.groupId }
+    let result = await groupHelper.deleteUserGroup(req)
 
   })
   it('It should give Null if group is already deleted', async function () {
     let req = {}
-    req.params = { "groupId": groupDetails._id }
-    let result = await helper.deleteUserGroup(req)
+    req.params = { "groupId": groupDetails.groupId }
+    let result = await groupHelper.deleteUserGroup(req)
     expect(result).to.be.a('null')
   })
 })
 describe('DELETE RESOURCE', () => {
   it('delete Resource a given _id', async function () {
     let req = {}
-    req.params = { "resourceId": resourceDetails._id }
-    let result = await helper.deleteUserResources(req)
+    req.params = { "resourceId": resourceDetails.resourceId }
+    let result = await resourceHelper.deleteUserResources(req)
 
   })
   it('It should give Null if resource is already deleted', async function () {
     let req = {}
-    req.params = { "resourceId": resourceDetails._id }
-    let result = await helper.deleteUserResources(req)
+    req.params = { "resourceId": resourceDetails.resourceId }
+    let result = await resourceHelper.deleteUserResources(req)
     expect(result).to.be.a('null')
   })
 })
