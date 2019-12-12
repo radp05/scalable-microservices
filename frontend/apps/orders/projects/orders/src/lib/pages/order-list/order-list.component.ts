@@ -17,13 +17,13 @@ import { routerTransition } from '../../components/animation/animation.component
 })
 export class OrderListComponent implements OnInit {
 
-  displayedColumnsKey: string[] = ['position', 'product_name', 'product_Description', 'date', 'action'];
+  displayedColumnsKey: string[] = ['position', 'productName', 'productDescription', 'date', 'action'];
   displayCoulmnsLabel: any[] = [
     {
-      product_name: 'Order Name'
+      productName: 'Order Name'
     },
     {
-      product_Description: 'Product Description'
+      productDescription: 'Product Description'
     },
     {
       date: 'Order Date'
@@ -86,7 +86,7 @@ export class OrderListComponent implements OnInit {
 }
 
 export interface DataResponse {
-  product_name: string;
-  product_Description: number;
-  date: number;
+  productName: string;
+  productDescription: string;
+  date: Date;
 }
