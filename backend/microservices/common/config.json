@@ -7,12 +7,18 @@
             "password": "App123"
         }
     },
-    "services": {
-        "sample": {
-            "appName": "Sample Application",
-            "port": "3000",
-            "dbName": "sample",
-            "apiBase": "/api/v1/sample"
+    "services":{
+        "authentication":{
+            "appName" : "Authentication Application",
+            "port":"4000",
+            "dbName":"authdb",
+            "apiBase":"/api/v1"
+        },
+        "sample":{
+            "appName" : "Sample Application",
+            "port":"3000",
+            "dbName":"sample",
+            "apiBase":"/api/v1/sample"
         },
         "device": {
             "appName": "Device Application",

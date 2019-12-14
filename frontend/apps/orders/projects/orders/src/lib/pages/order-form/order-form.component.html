@@ -9,10 +9,10 @@
       <div class="label-header">{{formLabel}}</div>
       <div class="form-container" [ngClass]="{'disable-control': isViewForm}">
         <mat-form-field>
-          <input matInput placeholder="Product Name" required [(ngModel)]="order.product_name" name="productName">
+          <input matInput placeholder="Product Name" required [(ngModel)]="order.productName" name="productName">
         </mat-form-field>
         <mat-form-field>
-          <input matInput placeholder="Product Description" required [(ngModel)]="order.product_Description" name="productDescription">
+          <input matInput placeholder="Product Description" required [(ngModel)]="order.productDescription" name="productDescription">
         </mat-form-field>
         <mat-form-field>
           <input matInput [matDatepicker]="picker" [(ngModel)]="order.date"  placeholder="Choose a date">
