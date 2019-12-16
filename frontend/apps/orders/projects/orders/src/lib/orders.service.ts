@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { OrderModel } from './order-model';
 import { Observable } from 'rxjs';
 
-const URL = 'http://localhost:3002/orders';
+const URL = 'http://localhost:3002/api/v1/order';
 
 @Injectable({
   providedIn: 'root'
@@ -15,11 +15,11 @@ export class OrdersService {
   ) { }
 
   addOrder(payload: OrderModel): Observable<any> {
-    return this.http.post(`${URL}/add`, payload);
+    return this.http.post(`${URL}/createOrder`, payload);
   }
 
   updateOrder(payload: OrderModel): Observable<any> {
-    return this.http.patch(`${URL}/update`, payload);
+    return this.http.patch(`${URL}/updateOrder`, payload);
   }
 
   removeOrder(payload: object): Observable<any> {
@@ -32,7 +32,7 @@ export class OrdersService {
   }
 
   getAllOrders(): Observable<any> {
-    return this.http.get(`${URL}/get`);
+    return this.http.get(`${URL}/getAllOrders`);
   }
 
   getOneOrder(orderName: string): Observable<any> {
