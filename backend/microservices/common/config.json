@@ -31,6 +31,12 @@
             "port":"3003",
             "dbName":"users_db",
             "apiBase":"/api/v1/admin"
+        },
+        "notification":{
+            "appName" : "Notication Application",
+            "port":"3333",
+            "dbName":"users_db",
+            "apiBase":"/api/v1/notification"
         }
     }
 }
