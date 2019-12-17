@@ -24,7 +24,7 @@ const orderRoutes = require('./routes/routes');
 //Creating dependent folders
 mkdirp(config.LogStreamFilePath, function (err) {
     if (err) logger.error(err)
-    else logger.info('Dependent folders created!');
+    else logger.info('Dependent folders created!'); 
 }); 
 
 appConf.port = appConf.port || config.PORT;
@@ -73,6 +73,8 @@ mongoose.connection.on('reconnected', () => {
 mongoose.connection.on('error', (error) => {
     logger.error('MongoDB error :: ' + error);
 });
+
+mongoose.set('useFindAndModify', false);
 
 // App Middleware
 app.use(bodyParser.json());

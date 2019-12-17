@@ -1,9 +1,9 @@
 
 var mongoose = require('mongoose')
 const orderSchema = new mongoose.Schema({
-    order_id: {type: String},
-    product_name: {type: String },
-    date: { type: Date, default: Date.now }
+    orderId: {type: String},
+    productName: { type: String },
+    productDescription:{type:String},
    
   },{timestamps: true});
      
