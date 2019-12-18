@@ -15,6 +15,10 @@ let mongoConf = commonConf.databases.mongodb;
 // Add custom dependencies
 const config = require('./config/config');
 const deviceRoutes = require('./routes/routes');
+const authVerifier = require('./helpers/auth-verifier.helper');
+
+process.env.JWT_SECRET = commonConf.JWT_SECRET || config.JWT_SECRET;
+process.env.RESOURCE_ID = appConf.resourceId || config.resourceId;
 
 //creating folders where logs are stored
 mkdirp(config.LogStreamFilePath, function (err) {
@@ -101,7 +105,7 @@ const options = {
 app.use(`${appConf.apiBase}/api-docs`, swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
 
 // Add service routes
-console.log("API "+appConf.apiBase)
+app.use(authVerifier);
 app.use(appConf.apiBase, deviceRoutes);
 
 // Hanlde uncaughtExceptions here to prevent termination

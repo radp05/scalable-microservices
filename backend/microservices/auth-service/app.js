@@ -10,27 +10,25 @@ const morgan = require('morgan');
 const fs = require('fs');
 const path = require('path');
 const mkdirp = require('mkdirp');
-
 const commonConf = require('./../common/config.json');
-const logger = require('./helpers/logger.helper');
-
-process.env.JWT_SECRET = commonConf.JWT_SECRET;
-
-const appConf = commonConf.services.authentication;
+const appConf = commonConf.services.auth;
 let mongoConf = commonConf.databases.mongodb;
+const logger = require('./helpers/logger.helper');
 
 // Add custom dependencies
 const config = require('./config/config');
-const orderRoutes = require('./routes/routes');
+const authRoutes = require('./routes/routes');
+
+process.env.JWT_SECRET = commonConf.JWT_SECRET || config.JWT_SECRET;
+
+appConf.port = appConf.port || config.PORT;
+appConf.appName = appConf.appName || config.APP_NAME;
 
 //Creating dependent folders
 mkdirp(config.LogStreamFilePath, function (err) {
     if (err) logger.error(err)
     else logger.info('Dependent folders created!'); 
 }); 
-
-appConf.port = appConf.port || config.PORT;
-appConf.appName = appConf.appName || config.APP_NAME;
 
 // Init dbConnection
 if(config.LOCAL != 'no') mongoConf = {};
@@ -111,8 +109,7 @@ const options = {
 app.use(`${appConf.apiBase}/api-docs`, swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
 
 // Add service routes
-app.use(appConf.apiBase, orderRoutes);
-
+app.use(appConf.apiBase, authRoutes);
 
 // Hanlde uncaughtExceptions here to prevent termination
 process.on('uncaughtException', (error) => {

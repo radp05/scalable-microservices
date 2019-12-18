@@ -13,6 +13,10 @@ const appConf = commonConf.services.file;
 // Add custom dependencies
 const config = require('./config/config');
 const sampleRoutes = require('./routes/routes');
+const authVerifier = require('./helpers/auth-verifier.helper');
+
+process.env.JWT_SECRET = commonConf.JWT_SECRET || config.JWT_SECRET;
+process.env.RESOURCE_ID = appConf.resourceId || config.resourceId;
 
 appConf.port = appConf.port || config.PORT;
 appConf.appName = appConf.appName || config.APP_NAME;
@@ -90,6 +94,7 @@ const options = {
 app.use(`${appConf.apiBase}/api-docs`, swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
 
 // Add service routes
+app.use(authVerifier);
 app.use(appConf.apiBase, sampleRoutes);
 
 // Hanlde uncaughtExceptions here to prevent termination

@@ -9,12 +9,19 @@
         }
     },
     "services": {
-        "authentication": {
+        "auth": {
             "appName": "Authentication Service",
             "resourceId":"ms-auth",
             "port": "4000",
             "dbName": "auth_db",
-            "apiBase": "/api/v1"
+            "apiBase": "/api/v1/auth"
+        },
+        "admin":{
+            "appName" : "Admin Service",
+            "resourceId":"ms-admin",
+            "port":"8000",
+            "dbName":"admin_db",
+            "apiBase":"/api/v1/admin"
         },
         "sample": {
             "appName": "Sample Service",
@@ -25,31 +32,24 @@
         },
         "device": {
             "appName": "Device Service",
-            "resourceId":"ms-device",
+            "resourceId":"ms-devices",
             "port": "3001",
             "dbName": "devices_db",
             "apiBase": "/api/v1/device"
         },
         "order": {
             "appName": "Order Service",
-            "resourceId":"ms-order",
+            "resourceId":"ms-orders",
             "port": "3002",
             "dbName": "orders_db",
             "apiBase": "/api/v1/order"
         },
-        "admin":{
-            "appName" : "Admin Service",
-            "resourceId":"ms-admin",
-            "port":"3003",
-            "dbName":"admin_db",
-            "apiBase":"/api/v1/admin"
-        },
-        "notification":{
+        "notification": {
             "appName" : "Notication Service",
-            "resourceId":"ms-notify",
-            "port":"3333",
-            "dbName":"nofications_db",
-            "apiBase":"/api/v1/notification"
+            "resourceId": "ms-notifications",
+            "port": "3333",
+            "dbName": "nofications_db",
+            "apiBase": "/api/v1/notification"
         },
         "formBuilder": {
             "appName": "Form Builder Service",

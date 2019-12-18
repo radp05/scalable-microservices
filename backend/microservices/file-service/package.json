@@ -21,6 +21,7 @@
     "express": "^4.17.1",
     "font": "0.0.4",
     "helmet": "^3.21.2",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.7.7",
     "pdfmake": "^0.1.63",
     "swagger-ui-express": "^4.1.2"

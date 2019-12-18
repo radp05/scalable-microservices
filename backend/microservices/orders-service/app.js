@@ -10,16 +10,18 @@ const morgan = require('morgan');
 const fs = require('fs');
 const path = require('path');
 const mkdirp = require('mkdirp');
-
 const commonConf = require('./../common/config.json');
-const logger = require('./helpers/logger.helper');
-
 const appConf = commonConf.services.order;
 let mongoConf = commonConf.databases.mongodb;
+const logger = require('./helpers/logger.helper');
 
 // Add custom dependencies
 const config = require('./config/config'); 
 const orderRoutes = require('./routes/routes');
+const authVerifier = require('./helpers/auth-verifier.helper');
+
+process.env.JWT_SECRET = commonConf.JWT_SECRET || config.JWT_SECRET;
+process.env.RESOURCE_ID = appConf.resourceId || config.resourceId;
 
 //Creating dependent folders
 mkdirp(config.LogStreamFilePath, function (err) {
@@ -108,12 +110,9 @@ const options = {
 };
 app.use(`${appConf.apiBase}/api-docs`, swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
 
-
-const Authentication = require('../common/verify_auth.helper');
-app.use(Authentication);
 // Add service routes
+app.use(authVerifier);
 app.use(appConf.apiBase, orderRoutes);
-
 
 // Hanlde uncaughtExceptions here to prevent termination
 process.on('uncaughtException', (error) => {

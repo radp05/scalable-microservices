@@ -17,8 +17,8 @@ services :
         container_name: egateway
         working_dir: /home/app/express-gateway
         volumes: 
-            - ./egateway:/home/app/express-gateway
             - ./backend/microservices/common:/home/app/common
+            - ./egateway:/home/app/express-gateway
         environment:
             - NODE_ENV=production
         ports:
@@ -42,13 +42,31 @@ services :
             - './mongodb/data:/data/db'
         networks:
             - scalable_network
-
+    
+    ms-admin:
+        image: node:lts-alpine
+        container_name: admin
+        working_dir: /home/app/admin-service
+        volumes: 
+            - "./backend/microservices/common:/home/app/common"
+            - "./backend/microservices/admin-service:/home/app/admin-service"
+        environment:
+            - NODE_ENV=production
+            - LOCAL=no
+        ports:
+            - 8000:8000
+        command: sh -c "npm install && npm start"
+        depends_on: 
+            - mongodb
+        networks:
+            - scalable_network
+    
     ms-sample:
         image: node:lts-alpine
         container_name: sample
         working_dir: /home/app/sample-service
         volumes: 
-            - "./settings:/home/app/common"
+            - "./backend/microservices/common:/home/app/common"
             - "./backend/microservices/sample-service:/home/app/sample-service"
         environment:
             - NODE_ENV=production
@@ -61,30 +79,12 @@ services :
         networks:
             - scalable_network
 
-    ms-admin:
-        image: node:lts-alpine
-        container_name: admin
-        working_dir: /home/app/admin-service
-        volumes: 
-            - "./settings:/home/app/common"
-            - "./backend/microservices/admin-service:/home/app/admin-service"
-        environment:
-            - NODE_ENV=production
-            - LOCAL=no
-        ports:
-            - 3003:3003
-        command: sh -c "npm install && npm start"
-        depends_on: 
-            - mongodb
-        networks:
-            - scalable_network
-    
     ms-devices:
         image: node:lts-alpine
         container_name: device
         working_dir: /home/app/devices-service
         volumes: 
-            - "./settings:/home/app/common"
+            - "./backend/microservices/common:/home/app/common"
             - "./backend/microservices/devices-service:/home/app/devices-service"
         environment:
             - NODE_ENV=production
@@ -97,30 +97,12 @@ services :
         networks:
             - scalable_network
 
-    ms-devices:
-        image: node:lts-alpine
-        container_name: ticket
-        working_dir: /home/app/ticket-service
-        volumes: 
-            - "./backend/microservices/common:/home/app/common"
-            - "./backend/microservices/ticket-service:/home/app/ticket-service"
-        environment:
-            - NODE_ENV=production
-            - LOCAL=no
-        ports:
-            - 3004:3004
-        command: sh -c "npm install && npm start"
-        depends_on: 
-            - mongodb
-        networks:
-            - scalable_network
-        
     ms-orders:
         image: node:lts-alpine
         container_name: order
         working_dir: /home/app/orders-service
         volumes: 
-            - "./settings:/home/app/common"
+            - "./backend/microservices/common:/home/app/common"
             - "./backend/microservices/orders-service:/home/app/orders-service"
         environment:
             - NODE_ENV=production
@@ -132,6 +114,79 @@ services :
             - mongodb
         networks:
             - scalable_network
+    
+    ms-notifications:
+        image: node:lts-alpine
+        container_name: notification
+        working_dir: /home/app/notification-service
+        volumes: 
+            - "./backend/microservices/common:/home/app/common"
+            - "./backend/microservices/notification-service:/home/app/notification-service"
+        environment:
+            - NODE_ENV=production
+            - LOCAL=no
+        ports:
+            - 3333:3333
+        command: sh -c "npm install && npm start"
+        depends_on: 
+            - mongodb
+        networks:
+            - scalable_network
+    
+    ms-forms:
+        image: node:lts-alpine
+        container_name: form
+        working_dir: /home/app/form-builder-service
+        volumes: 
+            - "./backend/microservices/common:/home/app/common"
+            - "./backend/microservices/form-builder-service:/home/app/form-builder-service"
+        environment:
+            - NODE_ENV=production
+            - LOCAL=no
+        ports:
+            - 3004:3004
+        command: sh -c "npm install && npm start"
+        depends_on: 
+            - mongodb
+        networks:
+            - scalable_network
+            
+    ms-files:
+        image: node:lts-alpine
+        container_name: file
+        working_dir: /home/app/file-service
+        volumes: 
+            - "./backend/microservices/common:/home/app/common"
+            - "./backend/microservices/file-service:/home/app/file-service"
+        environment:
+            - NODE_ENV=production
+            - LOCAL=no
+        ports:
+            - 3005:3005
+        command: sh -c "npm install && npm start"
+        depends_on: 
+            - mongodb
+        networks:
+            - scalable_network
+        
+    ms-tickets:
+        image: node:lts-alpine
+        container_name: ticket
+        working_dir: /home/app/ticket-service
+        volumes: 
+            - "./backend/microservices/common:/home/app/common"
+            - "./backend/microservices/ticket-service:/home/app/ticket-service"
+        environment:
+            - NODE_ENV=production
+            - LOCAL=no
+        ports:
+            - 3006:3006
+        command: sh -c "npm install && npm start"
+        depends_on: 
+            - mongodb
+        networks:
+            - scalable_network
+    
         
     start_dependencies:
         image: dadarek/wait-for-dependencies
