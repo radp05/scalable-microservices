@@ -102,6 +102,8 @@ const options = {
 app.use(`${appConf.apiBase}/api-docs`, swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
 
 console.log("appConf.apiBase",appConf.apiBase)
+
+console.log("======" ,appConf.apiBase + '/api-docs');
 // Add service routes
 app.use(appConf.apiBase, userRoutes);
 
