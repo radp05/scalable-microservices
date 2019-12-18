@@ -132,24 +132,14 @@ describe('GET API WITH USERS DATA', () => {
     options.password = CONSTANTS.NON_RETRIVAL;
 
     let result = await userHelper.getAllUsers(filter, options);
-    expect(result[0]).to.include.property('_id');
-    expect(result[0]).to.include.property('firstName');
-    expect(result[0]).to.include.property('lastName');
     expect(result[0]).to.include.property('userName');
-    expect(result[0]).to.include.property('lastName');
-    expect(result[0]).to.include.property('email');
   });
   it('returns user details', async function () {
     let options = {};
     options.password = CONSTANTS.NON_RETRIVAL;
 
     let result = await userHelper.getUserById(userDetails.userId, options);
-    expect(result[0]).to.include.property('_id');
-    expect(result[0]).to.include.property('firstName');
-    expect(result[0]).to.include.property('lastName');
     expect(result[0]).to.include.property('userName');
-    expect(result[0]).to.include.property('lastName');
-    expect(result[0]).to.include.property('email');
   });
 })
 
