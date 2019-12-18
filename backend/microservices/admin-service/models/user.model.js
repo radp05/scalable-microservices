@@ -2,7 +2,19 @@
 
 const mongoose = require("mongoose");
 const CONSTANTS = require("../constant");
+var uuid = require('node-uuid');
+
 const userSchema = new mongoose.Schema({
+  groupId: {
+    type: String, default: function genUUID() {
+      return uuid.v1()
+    }
+  },
+  userId: {
+    type: String, default: function genUUID() {
+      return uuid.v1()
+    }
+  },
   firstName: {
     type: String
   },
@@ -23,12 +35,9 @@ const userSchema = new mongoose.Schema({
   role: {
     type: String
   },
-  groupId: {
-    type: mongoose.Schema.Types.ObjectId
-  },
   status: {
-    type: Number,
-    default: CONSTANTS.ACTIVE_STATUS
+    type: Boolean,
+    default: true
   },
   createdAt: {
     type: Date,

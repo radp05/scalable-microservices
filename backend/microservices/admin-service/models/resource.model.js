@@ -1,10 +1,20 @@
 
 'use strict'
 
-const mongoose = require('mongoose');
+var mongoose = require('mongoose');
+var uuid = require('node-uuid');
 
 const resourceSchema = new mongoose.Schema({
-    resourceName: { type: String , unique: true }
+    resourceId: {
+        type: String, default: function genUUID() {
+            return uuid.v1()
+        }
+    },
+    resourceName: { type: String, unique: true },
+    status: {
+        type: Boolean,
+        default: true
+    }
 });
 
 resourceSchema.set('timestamps', true); // this will add createdAt and updatedAt timestamps

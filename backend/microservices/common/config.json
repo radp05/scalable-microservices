@@ -1,10 +1,10 @@
 {
     "databases": {
-        "mongodb":{
-            "hostname":"mongodb",
-            "port":"27017",
-            "username":"appuser",
-            "password":"App123"
+        "mongodb": {
+            "hostname": "mongodb",
+            "port": "27017",
+            "username": "appuser",
+            "password": "App123"
         }
     },
     "services":{
@@ -20,17 +20,17 @@
             "dbName":"sample",
             "apiBase":"/api/v1/sample"
         },
-        "device":{
-            "appName" : "Device Application",
-            "port":"3001",
-            "dbName":"devices_db",
-            "apiBase":"/api/v1/device"
+        "device": {
+            "appName": "Device Application",
+            "port": "3001",
+            "dbName": "devices_db",
+            "apiBase": "/api/v1/device"
         },
-        "order":{
-            "appName" : "Order Application",
-            "port":"3002",
-            "dbName":"orders_db",
-            "apiBase":"/api/v1/order"
+        "order": {
+            "appName": "Order Application",
+            "port": "3002",
+            "dbName": "orders_db",
+            "apiBase": "/api/v1/order"
         },
         "admin":{
             "appName" : "Admin Application",
@@ -43,6 +43,12 @@
             "port":"3333",
             "dbName":"users_db",
             "apiBase":"/api/v1/notification"
+        },
+        "formBuilder": {
+            "appName": "Form Builder Application",
+            "port": "3004",
+            "dbName": "users_db",
+            "apiBase": "/api/v1/form"
         }
     }
 }
