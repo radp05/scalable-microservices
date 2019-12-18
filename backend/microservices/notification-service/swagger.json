@@ -1,0 +1,52 @@
+{
+    "swagger": "2.0",
+     "info": {
+       "description": "Kafka Notification Service",
+       "version": "1.0.0",
+       "title": "Notification Service"
+     },
+     "host": "localhost:3000",
+     "basePath": "/api/v1/notification",
+     "paths": {
+       "/send": {
+         "post": {
+           "tags": [
+             "Notification API"
+           ],
+           "summary": " /notification API",
+           "description": "",
+           "produces": [
+             "application/json"
+           ],
+           "responses": {
+             "200": {
+               "description": "Success"
+             },
+             "404": {
+               "description": "Not Found"
+             },
+             "500": {
+               "description": "Internal Error"
+             }
+           }
+         }
+       }
+     },
+     "definitions": {
+       "User": {
+         "type": "object",
+         "properties": {
+           "id": {
+             "type": "integer",
+             "format": "int64"
+           },
+           "name": {
+             "type": "string"
+           },
+           "email":{
+             "type":"string"
+           }
+         }
+       }
+     }
+   }
