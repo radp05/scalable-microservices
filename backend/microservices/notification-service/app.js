@@ -71,9 +71,9 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
     res.setHeader('Access-Control-Allow-Header', 'X-Requested-With, content-type, Authorization');
-    res.setTimeout(300000,function(){
-        res.status(408).json({success:false, message:"Request has timed out."})
-    });
+    // res.setTimeout(300000,function(){
+    //     res.status(408).json({success:false, message:"Request has timed out."})
+    // });
     next();
 });
 app.use(cors());
