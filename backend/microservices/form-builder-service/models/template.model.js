@@ -11,6 +11,7 @@ const templateSchema = new mongoose.Schema({
         }
     },
     templateName: { type: String, required: true },
+    templateDescription:{type: String, required: true },
     templateJson: { type: JSON, required: true },
     status: {
         type: Boolean,

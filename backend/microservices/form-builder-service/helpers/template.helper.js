@@ -4,6 +4,7 @@ exports.createTemplate = async (data) => {
     try {
         let template = new TemplateModel({
             templateName: data.templateName,
+            templateDescription:data.templateDescription,
             templateJson: data.templateJson
         });
         let doc = await template.save();
@@ -28,6 +29,15 @@ exports.fetchTemplateById = async (templateId) => {
         throw new Error(error);
     }
 }
+
+exports.deleteTemplateById = async (templateId) => {
+    try {
+        return await TemplateModel.deleteOne({ "templateId": templateId });
+    } catch (error) {
+        throw new Error(error);
+    }
+}
+
 
 exports.updateTemplate = async (templateId, templateData) => {
     try {

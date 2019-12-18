@@ -8,6 +8,7 @@ module.exports = (function () {
   router.post('/template', formBuilderController.createTemplate);
   router.get('/template', formBuilderController.fetchTemplates);
   router.get('/template/:templateId', formBuilderController.fetchTemplatesById);
+  router.delete('/template/:templateId', formBuilderController.deleteTemplates);
   router.patch('/template/:templateId', formBuilderController.updateTemplate);
   router.post('/configuration', configurationController.createConfiguration);
   return router;

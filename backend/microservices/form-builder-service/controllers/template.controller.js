@@ -1,9 +1,8 @@
-
-const templateHelper = require('../helpers/template.helper')
+const templateHelper = require("../helpers/template.helper");
 
 exports.createTemplate = async (req, res) => {
   try {
-    let result = await templateHelper.createTemplate(req.body)
+    let result = await templateHelper.createTemplate(req.body);
     res.status(200).json({
       message: "Successfully created.",
       data: result
@@ -13,7 +12,7 @@ exports.createTemplate = async (req, res) => {
       message: error.message
     });
   }
-}
+};
 
 exports.fetchTemplates = async (req, res) => {
   try {
@@ -31,7 +30,7 @@ exports.fetchTemplates = async (req, res) => {
       message: error.message
     });
   }
-}
+};
 
 exports.fetchTemplatesById = async (req, res) => {
   try {
@@ -49,11 +48,14 @@ exports.fetchTemplatesById = async (req, res) => {
       message: error.message
     });
   }
-}
+};
 exports.updateTemplate = async (req, res) => {
   try {
-    let result = await templateHelper.updateTemplate(req.params.templateId, req.body);
-    
+    let result = await templateHelper.updateTemplate(
+      req.params.templateId,
+      req.body
+    );
+
     res.status(200).json({
       message: "Successfully updated.",
       data: result
@@ -63,4 +65,17 @@ exports.updateTemplate = async (req, res) => {
       message: error.message
     });
   }
-}
+};
+exports.deleteTemplates = async (req, res) => {
+  try {
+    let result = await templateHelper.deleteTemplateById(req.params.templateId);
+    res.status(200).json({
+      message: "Successfully deleted.",
+      data: result
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message
+    });
+  }
+};
