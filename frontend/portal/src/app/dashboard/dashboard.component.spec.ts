@@ -30,6 +30,7 @@ describe('DashboardComponent', () => {
           { path: 'orders', component: DummyComponent, data: {breadcrumb: 'Orders'} },
           { path: 'users', component: DummyComponent, data: {breadcrumb: 'Users'} },
           { path: 'resources', component: DummyComponent, data: {breadcrumb: 'Resource'} }
+          { path: 'ticketing', component: DummyComponent, data: {breadcrumb: 'Ticketing'} }
         ])
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
@@ -81,6 +82,14 @@ describe('DashboardComponent', () => {
       .nativeElement.click();
     tick();
     expect(location.path()).toBe('/resources');
+  }));
+
+  it('should navigate to /ticketing route on click of ticketing card', fakeAsync(() => {
+    fixture.debugElement
+      .query(By.css('.ticketing'))
+      .nativeElement.click();
+    tick();
+    expect(location.path()).toBe('/ticketing');
   }));
 
 });

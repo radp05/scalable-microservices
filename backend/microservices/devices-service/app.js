@@ -97,6 +97,7 @@ const options = {
 app.use(`${appConf.apiBase}/api-docs`, swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
 
 // Add service routes
+console.log("API "+appConf.apiBase)
 app.use(appConf.apiBase, deviceRoutes);
 
 // Hanlde uncaughtExceptions here to prevent termination

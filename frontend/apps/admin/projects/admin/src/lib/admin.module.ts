@@ -28,12 +28,16 @@ import { GroupFormComponent } from './pages/groups/group-form/group-form.compone
 import { UserListComponent } from './pages/users/user-list/user-list.component';
 import { UserFormComponent } from './pages/users/user-form/user-form.component';
 import { CustomTooltipModule } from './components/custom-tooltip/custom-tooltip.module';
+import { TicketingFormComponent } from './pages/ticketing/ticketing-form/ticketing-form.component';
+import { TicketingListComponent } from './pages/ticketing/ticketing-list/ticketing-list.component';
 
 @NgModule({
   declarations: [
     AdminComponent,
     ResourceListComponent,
     ResourceFormComponent,
+    TicketingListComponent,
+    TicketingFormComponent,
     GroupListComponent,
     GroupFormComponent,
     UserListComponent,

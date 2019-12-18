@@ -15,6 +15,7 @@ import { OrdersModule } from 'orders';
 // import { HeaderComponent } from './header/header.component';
 // import { FooterComponent } from './footer/footer.component';
 import { AdminModule } from 'admin';
+import { TicketingModule } from 'tickets';
 import { MdePopoverModule } from '@material-extended/mde';
 
 @NgModule({
@@ -27,6 +28,7 @@ import { MdePopoverModule } from '@material-extended/mde';
     AppRoutingModule,
     OrdersModule,
     DevicesModule,
+    TicketingModule,
     AdminModule,
     BrowserAnimationsModule,
     SharedModule,

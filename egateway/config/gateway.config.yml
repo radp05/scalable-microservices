@@ -16,6 +16,8 @@ apiEndpoints:
     paths: '/api/v1/sample/*'
   device:
     paths: '/api/v1/device/*'
+  ticket:
+    paths: '/api/v1/ticket/*'
   order:
     paths: '/api/v1/order/*'
   admin:
@@ -30,6 +32,8 @@ serviceEndpoints:
     url: 'http://sample:3000'
   deviceService:
     url: 'http://device:3001'
+  ticketService:
+    url: 'http://device:3004'
   orderService:
     url: 'http://order:3002'
   adminService:
@@ -88,7 +92,19 @@ pipelines:
         - action:
             serviceEndpoint: deviceService
             changeOrigin: true
-
+  - name: ticket
+      apiEndpoints:
+        - ticket
+      policies:
+        - egateway-logger:
+        - jwt:
+          - action:
+              secretOrPublicKey: ${JWT_SECRET}
+              checkCredentialExistence: false
+        - proxy:
+          - action:
+              serviceEndpoint: ticketService
+              changeOrigin: true
   - name: order
     apiEndpoints:
       - order

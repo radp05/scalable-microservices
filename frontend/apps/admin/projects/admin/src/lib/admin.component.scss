@@ -41,7 +41,9 @@
             }
             &.users {
                 background-image: url('./assets/images/users.png');
-            }
+            }&.ticketing {
+              background-image: url('./assets/images/helpdesk.png');
+          }
         }
     }
   }
