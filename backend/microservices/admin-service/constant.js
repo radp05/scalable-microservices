@@ -1,4 +1,4 @@
-module.exports={
-'ACTIVE_STATUS':1,
- 'NON_RETRIVAL':0
+module.exports = {
+    'ACTIVE_STATUS': true,
+    'NON_RETRIVAL': 0
 };

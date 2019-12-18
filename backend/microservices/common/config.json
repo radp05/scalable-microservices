@@ -1,24 +1,24 @@
 {
     "databases": {
-        "mongodb":{
-            "hostname":"mongodb",
-            "port":"27017",
-            "username":"appuser",
-            "password":"App123"
+        "mongodb": {
+            "hostname": "mongodb",
+            "port": "27017",
+            "username": "appuser",
+            "password": "App123"
         }
     },
-    "services":{
-        "sample":{
-            "appName" : "Sample Application",
-            "port":"3000",
-            "dbName":"sample",
-            "apiBase":"/api/v1/sample"
+    "services": {
+        "authentication": {
+            "appName": "Authentication Application",
+            "port": "4000",
+            "dbName": "authdb",
+            "apiBase": "/api/v1"
         },
-        "device":{
-            "appName" : "Device Application",
-            "port":"3001",
-            "dbName":"devices_db",
-            "apiBase":"/api/v1/device"
+        "sample": {
+            "appName": "Sample Application",
+            "port": "3000",
+            "dbName": "sample",
+            "apiBase": "/api/v1/sample"
         },
         "ticket":{
             "appName" : "Ticket Application",
@@ -26,17 +26,40 @@
             "dbName":"tickets_db",
             "apiBase":"/api/v1/ticket"
         },
-        "order":{
-            "appName" : "Order Application",
-            "port":"3002",
-            "dbName":"orders_db",
-            "apiBase":"/api/v1/order"
+        "device": {
+            "appName": "Device Application",
+            "port": "3001",
+            "dbName": "devices_db",
+            "apiBase": "/api/v1/device"
+        },
+        "order": {
+            "appName": "Order Application",
+            "port": "3002",
+            "dbName": "orders_db",
+            "apiBase": "/api/v1/order"
         },
         "admin":{
             "appName" : "Admin Application",
             "port":"3003",
             "dbName":"users_db",
             "apiBase":"/api/v1/admin"
+        },
+        "notification":{
+            "appName" : "Notication Application",
+            "port":"3333",
+            "dbName":"users_db",
+            "apiBase":"/api/v1/notification"
+        },
+        "formBuilder": {
+            "appName": "Form Builder Application",
+            "port": "3004",
+            "dbName": "users_db",
+            "apiBase": "/api/v1/form"
+        },
+        "file": {
+            "appName": "File Application",
+            "port": "3005",
+            "apiBase": "/api/v1/file"
         }
     }
 }

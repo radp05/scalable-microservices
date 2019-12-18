@@ -19,8 +19,8 @@ export class OrderFormComponent implements OnInit {
   formLabel = 'Add Order';
   orderId: string;
   order: OrderModel = {
-    product_name: '',
-    product_Description: '',
+    productName: '',
+    productDescription: '',
     date: new Date()
   };
   beginProcess = false;
@@ -55,8 +55,8 @@ export class OrderFormComponent implements OnInit {
       const data = res.data;
       this.order = {
         _id: data._id,
-        product_name: data.product_name,
-        product_Description: data.product_Description,
+        productName: data.productName,
+        productDescription: data.productDescription,
         date: data.date
       };
     }, err => {

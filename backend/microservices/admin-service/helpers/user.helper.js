@@ -19,24 +19,166 @@ exports.getAllUsers = async (filter, options = {}) => {
       $lookup: {
         from: "groups",
         localField: "groupId",
-        foreignField: "_id",
+        foreignField: "groupId",
         as: "groupDetails"
+      }
+    },
+    { "$unwind": "$groupDetails" },
+    {
+      "$project": {
+        "_id": 0,
+        "userName": 1,
+        "userId": 1,
+        "groupId": 1,
+        "resourceIds": "$groupDetails.resourceIds"
       }
     }
   ]);
+  // let result = await User.aggregate([
+  //   {
+  //     $match: filter
+  //   },
+  //   {
+  //     $lookup: {
+  //       from: "groups",
+  //       localField: "groupId",
+  //       foreignField: "groupId",
+  //       as: "groupDetails"
+  //     }
+  //   },
+  //   {
+  //     "$unwind": "$groupDetails"
+  //   },
+  //   {
+  //     "$unwind": "$groupDetails.resourceIds"
+  //   },
+  //   {
+  //     $lookup: {
+  //       from: "resources",
+  //       localField: "groupDetails.resourceIds",
+  //       foreignField: "resourceId",
+  //       as: "resourceDetails"
+  //     }
+  //   },
+  //   {
+  //     "$unwind": "$resourceDetails"
+  //   },
+  //   {
+  //     "$group": {
+  //       "_id": "$_id",
+  //       "status": { $first: "$status" },
+  //       "password": { $first: "$password" },
+  //       "firstName": { $first: "$firstName" },
+  //       "lastName": { $first: "$lastName" },
+  //       "email": { $first: "$email" },
+  //       "groupId": { $first: "$groupId" },
+  //       "userName": { $first: "$userName" },
+  //       "userId": { $first: "$userId" },
+  //       "resourceDetails": { $push: "$resourceDetails" },
+  //       "groupDetails": { $first: "$groupDetails" },
+  //       "resourceIds": { $push: "$groupDetails.resourceIds" }
+  //     }
+  //   },
+  //   {
+  //     "$project": {
+  //       "_id": 1,
+  //       "status": 1,
+  //       "password": 1,
+  //       "firstName": 1,
+  //       "lastName": 1,
+  //       "email": 1,
+  //       "groupId": 1,
+  //       "userName": 1,
+  //       "userId": 1,
+  //       "groupDetails": {
+  //         "_id": "$groupDetails._id",
+  //         "groupId": "$groupDetails.groupId",
+  //         "groupName": "$groupDetails.groupName",
+  //         "resourceIds": "$resourceIds",
+  //         "resourceDetails": "$resourceDetails"
+  //       }
+  //     }
+  //   }
+  // ]);
   return result;
 };
 
 exports.deleteUserById = async userId => {
-  return await User.findOneAndDelete({
-    _id: new ObjectID(userId)
+  return await User.findOneAndRemove({
+    userId: userId
   });
 };
 
 exports.getUserById = async (userId, options = {}) => {
   let filter = {
-    _id: mongoose.Types.ObjectId(userId)
+    userId: userId
   };
+  // let result = await User.aggregate([
+  //   {
+  //     $match: filter
+  //   },
+  //   {
+  //     $lookup: {
+  //       from: "groups",
+  //       localField: "groupId",
+  //       foreignField: "groupId",
+  //       as: "groupDetails"
+  //     }
+  //   },
+  //   {
+  //     "$unwind": "$groupDetails"
+  //   },
+  //   {
+  //     "$unwind": "$groupDetails.resourceIds"
+  //   },
+  //   {
+  //     $lookup: {
+  //       from: "resources",
+  //       localField: "groupDetails.resourceIds",
+  //       foreignField: "resourceId",
+  //       as: "resourceDetails"
+  //     }
+  //   },
+  //   {
+  //     "$unwind": "$resourceDetails"
+  //   },
+  //   {
+  //     "$group": {
+  //       "_id": "$_id",
+  //       "status": { $first: "$status" },
+  //       "password": { $first: "$password" },
+  //       "firstName": { $first: "$firstName" },
+  //       "lastName": { $first: "$lastName" },
+  //       "email": { $first: "$email" },
+  //       "groupId": { $first: "$groupId" },
+  //       "userName": { $first: "$userName" },
+  //       "userId": { $first: "$userId" },
+  //       "resourceDetails": { $push: "$resourceDetails" },
+  //       "groupDetails": { $first: "$groupDetails" },
+  //       "resourceIds": { $push: "$groupDetails.resourceIds" }
+  //     }
+  //   },
+  //   {
+  //     "$project": {
+  //       "_id": 1,
+  //       "status": 1,
+  //       "password": 1,
+  //       "firstName": 1,
+  //       "lastName": 1,
+  //       "email": 1,
+  //       "groupId": 1,
+  //       "userName": 1,
+  //       "userId": 1,
+  //       "groupDetails": {
+  //         "_id": "$groupDetails._id",
+  //         "groupId": "$groupDetails.groupId",
+  //         "groupName": "$groupDetails.groupName",
+  //         "resourceIds": "$resourceIds",
+  //         "resourceDetails": "$resourceDetails"
+  //       }
+  //     }
+  //   }
+  // ]);
   let result = await User.aggregate([
     {
       $match: filter
@@ -45,12 +187,24 @@ exports.getUserById = async (userId, options = {}) => {
       $lookup: {
         from: "groups",
         localField: "groupId",
-        foreignField: "_id",
+        foreignField: "groupId",
         as: "groupDetails"
+      }
+    },
+    { "$unwind": "$groupDetails" },
+    {
+      "$project": {
+        "_id": 0,
+        "userName": 1,
+        "userId": 1,
+        "groupId": 1,
+        "resourceIds": "$groupDetails.resourceIds"
       }
     }
   ]);
   return result;
+
+
 };
 
 exports.updateUserById = async (filter, update, options = {}) => {
@@ -62,24 +216,16 @@ exports.findUserByCriteria = async (criteria, options = {}) => {
 };
 
 exports.validateUserUpdate = async (form, userId) => {
-  if (typeof userId != "undefined" && userId != "") {
-    if (!ObjectID.isValid(userId)) {
-      throw new Error("userId is not valid");
-    }
-  } else {
-    throw new Error("userId is required");
-  }
-
   //check user is exist in database
-  let userDetails = await User.findById({
-    _id: mongoose.Types.ObjectId(userId)
+  let userDetails = await User.findOne({
+    userId: userId
   });
 
   if (!userDetails) {
     throw new Error("user not found");
   }
   let filter = {
-    _id: mongoose.Types.ObjectId(userId)
+    userId: userId
   };
   return await User.update(filter, form);
 };
