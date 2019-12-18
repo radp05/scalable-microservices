@@ -23,6 +23,12 @@
             "dbName": "sample_db",
             "apiBase": "/api/v1/sample"
         },
+        "ticket":{
+            "appName" : "Ticket Application",
+            "port":"4000",
+            "dbName":"tickets_db",
+            "apiBase":"/api/v1/ticket"
+        },
         "device": {
             "appName": "Device Service",
             "resourceId":"ms-device",

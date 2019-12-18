@@ -96,6 +96,24 @@ services :
             - mongodb
         networks:
             - scalable_network
+
+    ms-devices:
+        image: node:lts-alpine
+        container_name: ticket
+        working_dir: /home/app/ticket-service
+        volumes: 
+            - "./backend/microservices/common:/home/app/common"
+            - "./backend/microservices/ticket-service:/home/app/ticket-service"
+        environment:
+            - NODE_ENV=production
+            - LOCAL=no
+        ports:
+            - 3004:3004
+        command: sh -c "npm install && npm start"
+        depends_on: 
+            - mongodb
+        networks:
+            - scalable_network
         
     ms-orders:
         image: node:lts-alpine

@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { DeviceModel } from './device-model';
 import { Observable } from 'rxjs';
 
-const URL = 'http://localhost:3001/devices';
+const URL = 'http://localhost:3001/api/v1/device';
 
 @Injectable({
   providedIn: 'root'
