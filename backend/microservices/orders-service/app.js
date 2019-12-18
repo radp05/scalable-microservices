@@ -18,7 +18,7 @@ const appConf = commonConf.services.order;
 let mongoConf = commonConf.databases.mongodb;
 
 // Add custom dependencies
-const config = require('./config/config');
+const config = require('./config/config'); 
 const orderRoutes = require('./routes/routes');
 
 //Creating dependent folders
@@ -108,6 +108,9 @@ const options = {
 };
 app.use(`${appConf.apiBase}/api-docs`, swaggerUi.serve, swaggerUi.setup(swaggerDocument, options));
 
+
+const Authentication = require('../common/verify_auth.helper');
+app.use(Authentication);
 // Add service routes
 app.use(appConf.apiBase, orderRoutes);
 

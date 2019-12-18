@@ -14,9 +14,7 @@ const mkdirp = require('mkdirp');
 const commonConf = require('./../common/config.json');
 const logger = require('./helpers/logger.helper');
 
-const settings = require('../../../settings/config.json');
-
-process.env.JWT_SECRET = settings.JWT_SECRET;
+process.env.JWT_SECRET = commonConf.JWT_SECRET;
 
 const appConf = commonConf.services.authentication;
 let mongoConf = commonConf.databases.mongodb;

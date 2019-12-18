@@ -5,7 +5,7 @@ var ordersControler = {}
 
 ordersControler.placeOrder = async (req, res) => {
     
-    let result = await OrdersHelper.placeOrder(req, res);
+    let result = await OrdersHelper.placeOrder(req.body);
        
     if (result.data) {
         return res.status(200).json({

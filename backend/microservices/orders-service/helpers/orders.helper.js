@@ -2,13 +2,14 @@ var OrdersModel = require('../models/orders.model');
 
 var ordersHelper = {}
 
-ordersHelper.placeOrder = async (req, res) => {
+ordersHelper.placeOrder = async (data) => {
+    console.log("order place initiated");
     
     try {
         let order = new OrdersModel({
-            orderId: req.body.orderId,
-            productName: req.body.productName,
-            productDescription:req.body.productDescription
+            orderId: data.orderId,
+            productName: data.productName,
+            productDescription:data.productDescription
         });
         let result = await order.save();
         console.log(result)

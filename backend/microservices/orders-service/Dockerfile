@@ -2,7 +2,7 @@
 FROM node:lts-alpine
 
 # Labels
-LABEL Repository="saibabanadh/sample-service" Creater="Sai Baba Nadh Konda" email="saibabanadh@gmail.com"
+LABEL Repository="saibabanadh/orders-service" Creater="Sai Baba Nadh Konda" email="saibabanadh@gmail.com"
 
 # Work Directory
 WORKDIR /home/app

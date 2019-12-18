@@ -13,7 +13,8 @@ authControler.verifyUser = async (req, res) => {
     }
     
     let result = await AuthHelper.verifyUser(req, res);
-    let token = jwt.sign(req.body.userName, process.env.JWT_SECRET);
+    
+    let token = jwt.sign({"resourceIds":["resource_orders"]}, process.env.JWT_SECRET);
        
     if (result.data) {
         return res.status(200).json({
