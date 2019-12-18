@@ -9,6 +9,9 @@ import { MatSnackBarModule } from '@angular/material';
     CommonModule,
     MatSnackBarModule
   ],
-  exports: [SnackbarComponent]
+  exports: [SnackbarComponent],
+  //checks to see if it resolves No provider for InjectionToken MatSnackBarData error
+  //verdict:doesn't
+  entryComponents: [SnackbarComponent]
 })
 export class SnackbarModule { }

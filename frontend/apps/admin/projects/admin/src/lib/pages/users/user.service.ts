@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { UserModel } from './user.model';
 import { Observable } from 'rxjs';
 
-const URL = 'http://localhost:3003/api/v1';
+const URL = 'http://localhost:3003/api/v1/admin';
 
 @Injectable({
     providedIn: 'root'

@@ -41,8 +41,11 @@ if(dbConf.username != '' || dbConf.password != ''){
     if(dbConf.replicaSet){
         dbUrl += `?replicaSet=${dbConf.replicaSet}`;
     }
+
+
     mongoose.connect(dbUrl, { 
         "auth" : { "authSource": "admin" },
+        "useCreateIndex": true ,
         "useNewUrlParser" : true, 
         "useUnifiedTopology" : true 
     });
@@ -50,7 +53,8 @@ if(dbConf.username != '' || dbConf.password != ''){
     dbUrl = `mongodb://${dbConf.hostname}:${dbConf.port}/${dbConf.dbName}`;
     mongoose.connect(dbUrl, { 
         "useNewUrlParser" : true, 
-        "useUnifiedTopology" : true 
+        "useUnifiedTopology" : true ,
+        "useCreateIndex": true 
     });
 }
 mongoose.connection.once('open', () => {

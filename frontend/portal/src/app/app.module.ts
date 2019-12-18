@@ -17,11 +17,13 @@ import { OrdersModule } from 'orders';
 import { AdminModule } from 'admin';
 import { TicketingModule } from 'tickets';
 import { MdePopoverModule } from '@material-extended/mde';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,7 +39,7 @@ import { MdePopoverModule } from '@material-extended/mde';
     ReactiveFormsModule,
     MdePopoverModule
   ],
-  providers: [],
+  providers: [MaterialModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
