@@ -18,6 +18,7 @@ services :
         working_dir: /home/app/express-gateway
         volumes: 
             - ./egateway:/home/app/express-gateway
+            - ./backend/microservices/common:/home/app/common
         environment:
             - NODE_ENV=production
         ports:
@@ -47,7 +48,7 @@ services :
         container_name: sample
         working_dir: /home/app/sample-service
         volumes: 
-            - "./backend/microservices/common:/home/app/common"
+            - "./settings:/home/app/common"
             - "./backend/microservices/sample-service:/home/app/sample-service"
         environment:
             - NODE_ENV=production
@@ -65,7 +66,7 @@ services :
         container_name: admin
         working_dir: /home/app/admin-service
         volumes: 
-            - "./backend/microservices/common:/home/app/common"
+            - "./settings:/home/app/common"
             - "./backend/microservices/admin-service:/home/app/admin-service"
         environment:
             - NODE_ENV=production
@@ -83,7 +84,7 @@ services :
         container_name: device
         working_dir: /home/app/devices-service
         volumes: 
-            - "./backend/microservices/common:/home/app/common"
+            - "./settings:/home/app/common"
             - "./backend/microservices/devices-service:/home/app/devices-service"
         environment:
             - NODE_ENV=production
@@ -101,7 +102,7 @@ services :
         container_name: order
         working_dir: /home/app/orders-service
         volumes: 
-            - "./backend/microservices/common:/home/app/common"
+            - "./settings:/home/app/common"
             - "./backend/microservices/orders-service:/home/app/orders-service"
         environment:
             - NODE_ENV=production

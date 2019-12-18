@@ -1,4 +1,5 @@
 {
+    "JWT_SECRET": "My-Jwt-Secret-For-Servives-Gateway",
     "databases": {
         "mongodb": {
             "hostname": "mongodb",
@@ -9,51 +10,67 @@
     },
     "services": {
         "authentication": {
-            "appName": "Authentication Application",
+            "appName": "Authentication Service",
+            "resourceId":"ms-auth",
             "port": "4000",
-            "dbName": "authdb",
+            "dbName": "auth_db",
             "apiBase": "/api/v1"
         },
         "sample": {
-            "appName": "Sample Application",
+            "appName": "Sample Service",
+            "resourceId":"ms-sample",
             "port": "3000",
-            "dbName": "sample",
+            "dbName": "sample_db",
             "apiBase": "/api/v1/sample"
         },
         "device": {
-            "appName": "Device Application",
+            "appName": "Device Service",
+            "resourceId":"ms-device",
             "port": "3001",
             "dbName": "devices_db",
             "apiBase": "/api/v1/device"
         },
         "order": {
-            "appName": "Order Application",
+            "appName": "Order Service",
+            "resourceId":"ms-order",
             "port": "3002",
             "dbName": "orders_db",
             "apiBase": "/api/v1/order"
         },
         "admin":{
-            "appName" : "Admin Application",
+            "appName" : "Admin Service",
+            "resourceId":"ms-admin",
             "port":"3003",
-            "dbName":"users_db",
+            "dbName":"admin_db",
             "apiBase":"/api/v1/admin"
         },
         "notification":{
-            "appName" : "Notication Application",
+            "appName" : "Notication Service",
+            "resourceId":"ms-notify",
             "port":"3333",
-            "dbName":"users_db",
+            "dbName":"nofications_db",
             "apiBase":"/api/v1/notification"
         },
         "formBuilder": {
-            "appName": "Form Builder Application",
+            "appName": "Form Builder Service",
+            "resourceId":"ms-forms",
             "port": "3004",
-            "dbName": "users_db",
+            "dbName": "forms_db",
             "apiBase": "/api/v1/form"
         },
         "file": {
-            "appName": "File Application",
+            "appName": "File Service",
+            "resourceId":"ms-files",
             "port": "3005",
+            "dbName":"files_db",
             "apiBase": "/api/v1/file"
+        },
+        "ticket": {
+            "appName": "Ticket Service",
+            "resourceId":"ms-tickets",
+            "port": "3006",
+            "dbName":"tickets_db",
+            "apiBase": "/api/v1/ticket"
         }
     }
 }
