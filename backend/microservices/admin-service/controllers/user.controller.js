@@ -1,6 +1,7 @@
 "use strict";
 const mongoose = require("mongoose");
 const helpers = require("../helpers/user.helper");
+const bcryptHelpers = require('../helpers/bcrypt.helper')
 const CONSTANTS = require("../constant");
 const MESSAGES = require("../messages");
 
@@ -8,7 +9,9 @@ exports.createUser = async (req, res) => {
 
   try {
     const form = req.body;
-    form.groupId = mongoose.Types.ObjectId(form.groupId);
+    form.groupId = form.groupId;
+    let hash = bcryptHelpers.generatePassword(form.password)
+    form.password = hash
     let result = await helpers.createUsr(form);
     return res.status(200).json({
       status: "success",

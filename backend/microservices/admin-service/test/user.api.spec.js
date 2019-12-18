@@ -31,7 +31,7 @@ describe('Users', function () {
     it('Update resource info and returns a 200 response:', (done) => {
       chai
         .request(server)
-        .patch("/api/v1/admin/resources/" + resourceDetails._id)
+        .patch("/api/v1/admin/resources/" + resourceDetails.resourceId)
         .send({ resourceName: "application Test" + Math.floor(Math.random() * 90 + 10) })
         .end((err, res) => {
           if (err)
@@ -62,7 +62,7 @@ describe('Users', function () {
     it('Display resource Details and returns a 200 response', (done) => {
       chai
         .request(server)
-        .get("/api/v1/admin/resources/" + resourceDetails._id)
+        .get("/api/v1/admin/resources/" + resourceDetails.resourceId)
         .end((err, res) => {
 
           if (err)
@@ -80,7 +80,7 @@ describe('Users', function () {
       chai
         .request(server)
         .post("/api/v1/admin/groups")
-        .send({ groupName: "Group Test" + Math.floor(Math.random() * 90 + 10), "resourceIds": [mongoose.Types.ObjectId(resourceDetails._id)] })
+        .send({ groupName: "Group Test" + Math.floor(Math.random() * 90 + 10), "resourceIds": [resourceDetails.resourceId] })
         .end((err, res) => {
           if (err)
             res.should.have.status(400);
@@ -95,8 +95,10 @@ describe('Users', function () {
     it('Update group info and returns a 200 response:', (done) => {
       chai
         .request(server)
-        .patch("/api/v1/admin/groups/" + groupDetails._id)
-        .send({ groupName: "Group Test" + Math.floor(Math.random() * 90 + 10), "resourceIds": [mongoose.Types.ObjectId(resourceDetails._id)] })
+        .patch("/api/v1/admin/groups/" + groupDetails.groupId)
+        .send({
+          groupName: "Group Test" + Math.floor(Math.random() * 90 + 10), "resourceIds": [resourceDetails.resourceId]
+        })
         .end((err, res) => {
           if (err)
             res.should.have.status(400);
@@ -126,7 +128,7 @@ describe('Users', function () {
     it('Display resource Details and returns a 200 response', (done) => {
       chai
         .request(server)
-        .get("/api/v1/admin/groups/" + groupDetails._id)
+        .get("/api/v1/admin/groups/" + groupDetails.groupId)
         .end((err, res) => {
 
           if (err)
@@ -151,7 +153,7 @@ describe('Users', function () {
           lastName: "kumar",
           email: "raj1" + Math.floor(Math.random() * 90 + 10) + "@gmail.com",
           role: "12333",
-          groupId: mongoose.Types.ObjectId(groupDetails._id),
+          groupId: groupDetails.groupId,
           userName: "rkv" + Math.floor(Math.random() * 90 + 10)
         })
         .end((err, res) => {
@@ -169,7 +171,7 @@ describe('Users', function () {
     it('Update user info and returns a 200 response:', (done) => {
       chai
         .request(server)
-        .patch("/api/v1/admin/users/" + userDetails._id)
+        .patch("/api/v1/admin/users/" + userDetails.userId)
         .send({
           firstName: "raju",
           lastName: "kumar",
@@ -205,7 +207,7 @@ describe('Users', function () {
     it('Display user Details and returns a 200 response', (done) => {
       chai
         .request(server)
-        .get("/api/v1/admin/users/" + userDetails._id)
+        .get("/api/v1/admin/users/" + userDetails.userId)
         .end((err, res) => {
 
           if (err)
@@ -222,7 +224,7 @@ describe('Users', function () {
     it('Delete user and returns a 200 response', (done) => {
       chai
         .request(server)
-        .delete("/api/v1/admin/users/" + userDetails._id)
+        .delete("/api/v1/admin/users/" + userDetails.userId)
         .end((err, res) => {
           if (err)
             res.should.have.status(400);
@@ -236,7 +238,7 @@ describe('Users', function () {
     it('User Should return 404 respnse', (done) => {
       chai
         .request(server)
-        .get("/api/v1/admin/users/" + userDetails._id)
+        .get("/api/v1/admin/users/" + userDetails.userId)
         .end((err, res) => {
           if (err)
             res.should.have.status(400);
@@ -252,7 +254,7 @@ describe('Users', function () {
     it('Delete group and returns a 200 response', (done) => {
       chai
         .request(server)
-        .delete("/api/v1/admin/groups/" + groupDetails._id)
+        .delete("/api/v1/admin/groups/" + groupDetails.groupId)
         .end((err, res) => {
 
           if (err)
@@ -267,7 +269,7 @@ describe('Users', function () {
     it('Group Should return 200 respnse', (done) => {
       chai
         .request(server)
-        .get("/api/v1/admin/groups/" + groupDetails._id)
+        .get("/api/v1/admin/groups/" + groupDetails.groupId)
         .end((err, res) => {
           if (err)
             res.should.have.status(400);
@@ -283,7 +285,7 @@ describe('Users', function () {
     it('Delete group and returns a 200 response', (done) => {
       chai
         .request(server)
-        .delete("/api/v1/admin/resources/" + resourceDetails._id)
+        .delete("/api/v1/admin/resources/" + resourceDetails.resourceId)
         .end((err, res) => {
 
           if (err)
@@ -298,7 +300,7 @@ describe('Users', function () {
     it('Resource Should return 404 respnse', (done) => {
       chai
         .request(server)
-        .get("/api/v1/admin/resources/" + resourceDetails._id)
+        .get("/api/v1/admin/resources/" + resourceDetails.resourceId)
         .end((err, res) => {
           if (err)
             res.should.have.status(400);
