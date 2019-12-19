@@ -16,6 +16,9 @@ backend/*/*/node_modules
 backend/*/logs
 backend/*/logs*
 
+#camunda
+camunda/data
+
 #egateway
 egateway/node_modules
 egateway/.yo-rc.json
