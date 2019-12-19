@@ -1,5 +1,6 @@
 {
     "JWT_SECRET": "My-Jwt-Secret-For-Servives-Gateway",
+    "CAMUNDA_ENGINE": "http://camunda-engine:8051/engine-rest",
     "databases": {
         "mongodb": {
             "hostname": "mongodb",

@@ -2,7 +2,7 @@ version : '3'
 services :
     mysqldb:
         image: mysql:5
-        container_name: camunda_mysql
+        container_name: mysqldb
         ports:
             - '8050:3306'
         environment:
@@ -206,6 +206,24 @@ services :
         networks:
             - scalable_network
     
+    ms-camunda:
+        image: node:lts-alpine
+        container_name: camunda
+        working_dir: /home/app/camunda-service
+        volumes: 
+            - "./configuration:/home/app/common"
+            - "./backend/camunda-service:/home/app/camunda-service"
+        environment:
+            - NODE_ENV=production
+            - LOCAL=no
+        ports:
+            - 8052:8052
+        command: sh -c "npm install && npm start"
+        depends_on: 
+            - mongodb
+        networks:
+            - scalable_network
+                  
     start_dependencies:
         image: dadarek/wait-for-dependencies
         container_name: wait-for-it
