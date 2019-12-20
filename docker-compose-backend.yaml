@@ -1,29 +1,48 @@
 version : '3'
 services :
-    portal:
-        image: nginx:alpine
-        container_name: portal
-        working_dir: /usr/share/nginx/html
+    mysqldb:
+        image: mysql:5
+        container_name: mysqldb
+        ports:
+            - '8050:3306'
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_USER: root
+            MYSQL_DATABASE: camunda_db
         volumes:
-            - "./frontend/nginx.conf:/etc/nginx/nginx.conf"
-            - "./frontend/portal/dist/portal:/usr/share/nginx/html"
-        ports: 
-            - 4200:80
+            - './camunda/data/mysqldb/:/var/lib/mysql'
         networks:
             - scalable_network
-
+    
+    camunda-engine: 
+        image: camunda/camunda-bpm-platform
+        container_name: camunda-engine
+        depends_on:
+            - 'mysqldb'
+        ports:
+            - '8051:8080'
+        environment:
+            DB_DRIVER: com.mysql.jdbc.Driver
+            DB_URL: jdbc:mysql://mysqldb:3306/camunda_db?autoReconnect:true
+            DB_USERNAME: root
+            DB_PASSWORD: root
+            WAIT_FOR: mysqldb:3306
+            WAIT_FOR_TIMEOUT: 100
+        networks:
+            - scalable_network
+      
     egateway:
         image: express-gateway
         container_name: egateway
         working_dir: /home/app/express-gateway
         volumes: 
-            - ./backend/microservices/common:/home/app/common
+            - ./configuration:/home/app/common
             - ./egateway:/home/app/express-gateway
         environment:
             - NODE_ENV=production
         ports:
-            - 80:80
-            - 443:443
+            - 9000:80
+            - 9001:443
         command: sh -c "npm install && npm start"
         networks:
             - scalable_network
@@ -48,8 +67,8 @@ services :
         container_name: admin
         working_dir: /home/app/admin-service
         volumes: 
-            - "./backend/microservices/common:/home/app/common"
-            - "./backend/microservices/admin-service:/home/app/admin-service"
+            - "./configuration:/home/app/common"
+            - "./backend/admin-service:/home/app/admin-service"
         environment:
             - NODE_ENV=production
             - LOCAL=no
@@ -66,8 +85,8 @@ services :
         container_name: sample
         working_dir: /home/app/sample-service
         volumes: 
-            - "./backend/microservices/common:/home/app/common"
-            - "./backend/microservices/sample-service:/home/app/sample-service"
+            - "./configuration:/home/app/common"
+            - "./backend/sample-service:/home/app/sample-service"
         environment:
             - NODE_ENV=production
             - LOCAL=no
@@ -81,11 +100,11 @@ services :
 
     ms-devices:
         image: node:lts-alpine
-        container_name: device
+        container_name: devices
         working_dir: /home/app/devices-service
         volumes: 
-            - "./backend/microservices/common:/home/app/common"
-            - "./backend/microservices/devices-service:/home/app/devices-service"
+            - "./configuration:/home/app/common"
+            - "./backend/devices-service:/home/app/devices-service"
         environment:
             - NODE_ENV=production
             - LOCAL=no
@@ -99,11 +118,11 @@ services :
 
     ms-orders:
         image: node:lts-alpine
-        container_name: order
+        container_name: orders
         working_dir: /home/app/orders-service
         volumes: 
-            - "./backend/microservices/common:/home/app/common"
-            - "./backend/microservices/orders-service:/home/app/orders-service"
+            - "./configuration:/home/app/common"
+            - "./backend/orders-service:/home/app/orders-service"
         environment:
             - NODE_ENV=production
             - LOCAL=no
@@ -117,11 +136,11 @@ services :
     
     ms-notifications:
         image: node:lts-alpine
-        container_name: notification
+        container_name: notifications
         working_dir: /home/app/notification-service
         volumes: 
-            - "./backend/microservices/common:/home/app/common"
-            - "./backend/microservices/notification-service:/home/app/notification-service"
+            - "./configuration:/home/app/common"
+            - "./backend/notification-service:/home/app/notification-service"
         environment:
             - NODE_ENV=production
             - LOCAL=no
@@ -135,11 +154,11 @@ services :
     
     ms-forms:
         image: node:lts-alpine
-        container_name: form
+        container_name: forms
         working_dir: /home/app/form-builder-service
         volumes: 
-            - "./backend/microservices/common:/home/app/common"
-            - "./backend/microservices/form-builder-service:/home/app/form-builder-service"
+            - "./configuration:/home/app/common"
+            - "./backend/form-builder-service:/home/app/form-builder-service"
         environment:
             - NODE_ENV=production
             - LOCAL=no
@@ -153,11 +172,11 @@ services :
             
     ms-files:
         image: node:lts-alpine
-        container_name: file
+        container_name: files
         working_dir: /home/app/file-service
         volumes: 
-            - "./backend/microservices/common:/home/app/common"
-            - "./backend/microservices/file-service:/home/app/file-service"
+            - "./configuration:/home/app/common"
+            - "./backend/file-service:/home/app/file-service"
         environment:
             - NODE_ENV=production
             - LOCAL=no
@@ -171,11 +190,11 @@ services :
         
     ms-tickets:
         image: node:lts-alpine
-        container_name: ticket
+        container_name: tickets
         working_dir: /home/app/ticket-service
         volumes: 
-            - "./backend/microservices/common:/home/app/common"
-            - "./backend/microservices/ticket-service:/home/app/ticket-service"
+            - "./configuration:/home/app/common"
+            - "./backend/ticket-service:/home/app/ticket-service"
         environment:
             - NODE_ENV=production
             - LOCAL=no
@@ -187,7 +206,24 @@ services :
         networks:
             - scalable_network
     
-        
+    ms-camunda:
+        image: node:lts-alpine
+        container_name: camunda
+        working_dir: /home/app/camunda-service
+        volumes: 
+            - "./configuration:/home/app/common"
+            - "./backend/camunda-service:/home/app/camunda-service"
+        environment:
+            - NODE_ENV=production
+            - LOCAL=no
+        ports:
+            - 8052:8052
+        command: sh -c "npm install && npm start"
+        depends_on: 
+            - mongodb
+        networks:
+            - scalable_network
+                  
     start_dependencies:
         image: dadarek/wait-for-dependencies
         container_name: wait-for-it
@@ -199,3 +235,5 @@ services :
 
 networks:
     scalable_network:
+        external:
+            name: scalable_network

@@ -1,5 +1,6 @@
 {
     "JWT_SECRET": "My-Jwt-Secret-For-Servives-Gateway",
+    "CAMUNDA_ENGINE": "http://camunda-engine:8051/engine-rest",
     "databases": {
         "mongodb": {
             "hostname": "mongodb",
@@ -71,6 +72,13 @@
             "port": "3006",
             "dbName":"tickets_db",
             "apiBase": "/api/v1/ticket"
+        },
+        "camunda": {
+            "appName": "Camunda Service",
+            "resourceId":"ms-camunda",
+            "port": "8052",
+            "dbName":"camunda_db",
+            "apiBase": "/api/v1/camunda"
         }
     }
 }

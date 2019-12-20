@@ -22,24 +22,32 @@ apiEndpoints:
     paths: '/api/v1/order/*'
   admin:
     paths: '/api/v1/admin/*'
-  portal:
-    paths: '/*'
+  forms:
+    paths: '/api/v1/forms/*'
+  files:
+    paths: '/api/v1/files/*'
+  auth:
+    paths: '/api/v1/auth/*'
 
 serviceEndpoints:
   # httpbin:
   #   url: 'https://httpbin.org'
   sampleService:
     url: 'http://sample:3000'
+  authService:
+    url: 'http://auth:4000'
   deviceService:
-    url: 'http://device:3001'
+    url: 'http://devices:3001'
   ticketService:
-    url: 'http://device:3004'
+    url: 'http://tickets:3006'
   orderService:
-    url: 'http://order:3002'
+    url: 'http://orders:3002'
   adminService:
-    url: 'http://admin:3003'
-  portalService:
-    url: 'http://portal:80'
+    url: 'http://admin:8000'
+  fileService:
+    url: 'http://files:3004'
+  formService:
+    url: 'http://forms:3005'
 
 policies:
   - basic-auth
@@ -70,15 +78,21 @@ pipelines:
       - sample
     policies:
       - egateway-logger:
-      - jwt:
-        - action:
-            secretOrPublicKey: ${JWT_SECRET}
-            checkCredentialExistence: false
       - proxy:
         - action:
             serviceEndpoint: sampleService
             changeOrigin: true
   
+  - name: auth
+    apiEndpoints:
+      - auth
+    policies:
+      - egateway-logger:
+      - proxy:
+        - action:
+            serviceEndpoint: authService
+            changeOrigin: true
+          
   - name: device
     apiEndpoints:
       - device
@@ -92,19 +106,49 @@ pipelines:
         - action:
             serviceEndpoint: deviceService
             changeOrigin: true
+
+  - name: forms
+    apiEndpoints:
+      - forms
+    policies:
+      - egateway-logger:
+      - jwt:
+        - action:
+            secretOrPublicKey: ${JWT_SECRET}
+            checkCredentialExistence: false
+      - proxy:
+        - action:
+            serviceEndpoint: formService
+            changeOrigin: true
+    
+  - name: files
+    apiEndpoints:
+      - files
+    policies:
+      - egateway-logger:
+      - jwt:
+        - action:
+            secretOrPublicKey: ${JWT_SECRET}
+            checkCredentialExistence: false
+      - proxy:
+        - action:
+            serviceEndpoint: fileService
+            changeOrigin: true
+
   - name: ticket
-      apiEndpoints:
-        - ticket
-      policies:
-        - egateway-logger:
-        - jwt:
-          - action:
-              secretOrPublicKey: ${JWT_SECRET}
-              checkCredentialExistence: false
-        - proxy:
-          - action:
-              serviceEndpoint: ticketService
-              changeOrigin: true
+    apiEndpoints:
+      - ticket
+    policies:
+      - egateway-logger:
+      - jwt:
+        - action:
+            secretOrPublicKey: ${JWT_SECRET}
+            checkCredentialExistence: false
+      - proxy:
+        - action:
+            serviceEndpoint: ticketService
+            changeOrigin: true
+
   - name: order
     apiEndpoints:
       - order
@@ -131,13 +175,4 @@ pipelines:
       - proxy:
         - action:
             serviceEndpoint: adminService
-            changeOrigin: true
-  
-  - name: portal
-    apiEndpoints:
-      - portal
-    policies:
-      - proxy:
-        - action:
-            serviceEndpoint: portalService
             changeOrigin: true
