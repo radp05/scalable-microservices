@@ -8,8 +8,11 @@ import { UtilService } from 'src/app/services/util.service';
 })
 export class HeaderComponent implements OnInit {
 
+  notificationCount = 0;
   isThemeDark = false;
   activeTheme = 'indigo-pink';
+
+  nofitifications = [];
 
   @Output() sidenavStatus = new EventEmitter();
   constructor(private utilService: UtilService) { }
