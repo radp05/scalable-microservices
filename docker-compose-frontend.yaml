@@ -1,0 +1,20 @@
+version : '3'
+services :
+    portal:
+        image: nginx:alpine
+        container_name: portal
+        working_dir: /usr/share/nginx/html
+        volumes:
+            - "./frontend/certs:/etc/ssl"
+            - "./frontend/nginx.conf:/etc/nginx/nginx.conf"
+            - "./frontend/portal/dist/portal:/usr/share/nginx/html"
+        ports: 
+            - 80:80
+            - 443:443
+        networks:
+            - scalable_network
+
+networks:
+    scalable_network:
+        external:
+            name: scalable_network

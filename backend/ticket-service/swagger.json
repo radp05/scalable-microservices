@@ -1,0 +1,197 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a ticket-service server",
+    "version": "1.0.0",
+    "title": "Ticket Service"
+  },
+  "host": "localhost:3004",
+  "basePath": "/tickets",
+  "paths": {
+    "/get": {
+      "get": {
+        "tags": [
+          "get","list"
+        ],  
+        "summary": " lists all the tickets",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Error"
+          }
+        }
+      }
+    },
+    "/getRecord": {
+      "get": {
+        "tags": [
+          "get","single record"
+        ],
+        "summary": " lists a record",
+        "description": "",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Error"
+          }
+        }
+      }
+    },
+    "/add": {
+      "post": {
+        "tags": [
+          "add","create","insert"
+        ],
+        "summary": "adds a ticket",
+        "description": "inserts a ticket to mongoDB",
+        "operationId": "AddTicket",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Ticket object",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/Ticket"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Error"
+          }
+        }
+      }
+    },
+    "/update": {
+      "patch": {
+        "tags": [
+          "update"
+        ],
+        "summary": "Updates a ticket",
+        "description": "updates a given ticket into mongoDB",
+        "operationId": "UpdateTicket",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Ticket object",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/Ticket"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Error"
+          }
+        }
+      }
+    },
+    "/delete": {
+      "post": {
+        "tags": [
+          "delete"
+        ],
+        "summary": "Deletes a ticket",
+        "description": "deletes a ticket based on the ticketName",
+        "operationId": "DeleteTicket",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Ticket object",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "items": {
+                "$ref": "#/definitions/Ticket"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Error"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Ticket": {
+      "type": "object",
+      "properties": {
+        "ticketName": {
+          "type": "string"
+        },
+        "ticketType": {
+          "type": "string"
+        },
+        "ticketIp": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

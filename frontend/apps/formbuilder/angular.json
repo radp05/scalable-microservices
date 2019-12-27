@@ -1,0 +1,43 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "formbuilder": {
+      "root": "projects/formbuilder",
+      "sourceRoot": "projects/formbuilder/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/formbuilder/tsconfig.lib.json",
+            "project": "projects/formbuilder/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/formbuilder/src/test.ts",
+            "tsConfig": "projects/formbuilder/tsconfig.spec.json",
+            "karmaConfig": "projects/formbuilder/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/formbuilder/tsconfig.lib.json",
+              "projects/formbuilder/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "formbuilder"
+}

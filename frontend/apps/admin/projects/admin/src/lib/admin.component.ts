@@ -24,7 +24,8 @@ export class AdminComponent implements OnInit {
     this.cards = [
       { title: 'Resources', targetLink: '/admin/resources', cssClass: 'resources' },
       { title: 'Groups', targetLink: '/admin/groups', cssClass: 'groups' },
-      { title: 'Users', targetLink: '/admin/users', cssClass: 'users' }
+      { title: 'Users', targetLink: '/admin/users', cssClass: 'users' },
+      { title: 'Ticketing', targetLink: '/admin/ticket', cssClass: 'ticketing' }
     ]
   }
 

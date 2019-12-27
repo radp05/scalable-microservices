@@ -3,6 +3,11 @@ import { NgModule } from '@angular/core';
 import { AdminComponent } from './admin.component';
 import { ResourceFormComponent } from './pages/resources/resource-form/resource-form.component';
 import { ResourceListComponent } from './pages/resources/resource-list/resource-list.component';
+
+import { TicketingFormComponent } from './pages/ticketing/ticketing-form/ticketing-form.component';
+import { TicketingListComponent } from './pages/ticketing/ticketing-list/ticketing-list.component';
+
+
 import { GroupListComponent } from './pages/groups/group-list/group-list.component';
 import { GroupFormComponent } from './pages/groups/group-form/group-form.component';
 import { UserListComponent } from './pages/users/user-list/user-list.component';
@@ -62,6 +67,41 @@ const ROUTES: Routes = [
                         component: ResourceFormComponent,
                         data: {
                             breadcrumb: 'View Resource'
+                        }
+                    }
+                ]
+            },
+            {
+                path: 'ticketing',
+                data: {
+                    breadcrumb: 'Ticketing'
+                },
+                children: [
+                    {
+                        path: 'ticket/add',
+                        component: TicketingFormComponent,
+                        data: {
+                            breadcrumb: 'Add Ticket'
+                        }
+                    },{
+                        path: '',
+                        component: TicketingListComponent,
+                        data: {
+                            breadcrumb: 'Ticketing'
+                        }
+                    },
+                    {
+                        path: 'ticket/edit/:ticketId',
+                        component: TicketingFormComponent,
+                        data: {
+                            breadcrumb: 'Edit Resource'
+                        }
+                    },
+                    {
+                        path: 'ticket/view/:ticketId',
+                        component: TicketingFormComponent,
+                        data: {
+                            breadcrumb: 'View Ticket'
                         }
                     }
                 ]

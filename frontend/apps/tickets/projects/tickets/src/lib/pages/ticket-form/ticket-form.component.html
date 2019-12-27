@@ -1,0 +1,63 @@
+<div class="custom-container">
+  <div class="btn-position-left">
+    <button mat-fab color="primary" [routerLink]="['/ticket']" [@routerTransition]>
+      <mat-icon aria-label="Back Icon">arrow_back</mat-icon>
+    </button>
+  </div>
+  <form #form="ngForm" [@routerTransition]>
+    <div class="mat-elevation-z8">
+      <div class="label-header">{{formLabel}}</div>
+      <div class="form-container" [ngClass]="{'disable-control': isViewForm}">
+        <mat-form-field>
+          <input matInput placeholder="Ticket Id" required [(ngModel)]="ticket.ticketId" name="ticketId">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Reported Date" required [(ngModel)]="ticket.reportedDate" name="reportedDate">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Title" required [(ngModel)]="ticket.title" name="title">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Type" required [(ngModel)]="ticket.ticketType" name="ticketType">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Reported By" required [(ngModel)]="ticket.reportedBy" name="reportedBy">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Application" required [(ngModel)]="ticket.application" name="application">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Version" required [(ngModel)]="ticket.version" name="version">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Site" required [(ngModel)]="ticket.site" name="site">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Resolution Type" required [(ngModel)]="ticket.resolutionType" name="resolutionType">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Priority" required [(ngModel)]="ticket.priority" name="priority">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Status" required [(ngModel)]="ticket.status" name="status">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Release Date" required [(ngModel)]="ticket.releaseDate" name="releaseDate">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Description" required [(ngModel)]="ticket.description" name="description">
+        </mat-form-field>
+        </div>
+      <div class="text-center padd-1">
+        <button *ngIf="!isViewForm" [disabled]="!form.valid || beginProcess" mat-flat-button color="primary"
+          class="btn-style-1" (click)="onClickTicketBtn()">
+          <span *ngIf="!beginProcess">{{btnLabel}}</span>
+          <load-spinner *ngIf="beginProcess"></load-spinner>
+        </button>
+        <button mat-stroked-button color="primary" class="btn-style-1" [routerLink]="'/tickets'">
+          Close
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
