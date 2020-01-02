@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { UtilService } from 'src/app/services/util.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -15,7 +16,10 @@ export class HeaderComponent implements OnInit {
   nofitifications = [];
 
   @Output() sidenavStatus = new EventEmitter();
-  constructor(private utilService: UtilService) { }
+  constructor(
+    private utilService: UtilService,
+    private authService: AuthService
+    ) { }
 
   themes: string[] = [
     'deeppurple-amber',
@@ -41,6 +45,10 @@ export class HeaderComponent implements OnInit {
   setActiveTheme(theme: string, darkness: boolean = null) {
     this.activeTheme = theme;
     this.utilService.themeStatus.next({ theme: theme, darkness: darkness });
+  }
+
+  logout() {
+    this.authService.logout();
   }
 
 }

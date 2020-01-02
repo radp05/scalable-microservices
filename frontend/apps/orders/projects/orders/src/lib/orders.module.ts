@@ -19,26 +19,25 @@ import {
 import { OrderFormComponent } from './pages/order-form/order-form.component';
 import { ConfirmDialogModule } from './components/confirm-dialog/confirm-dialog.module';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
-import { SnackbarModule } from './components/snackbar/snackbar.module';
-import { SnackbarComponent } from './components/snackbar/snackbar.component';
 import { CommonModule } from '@angular/common';
 import { SpinnerModule } from './components/spinner/spinner.module';
 import { CustomTooltipModule } from './components/custom-tooltip/custom-tooltip.module';
+import { SnackbarComponent } from './components/snackbar/snackbar.component';
 
 @NgModule({
   declarations: [
     OrdersComponent,
     OrderListComponent,
-    OrderFormComponent
+    OrderFormComponent,
+    SnackbarComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     HttpClientModule,
-     OrdersRoutingModule ,
+    OrdersRoutingModule ,
     ConfirmDialogModule,
     CustomTooltipModule,
-    SnackbarModule,
     MatTableModule,
     MatPaginatorModule,
     MatButtonModule,

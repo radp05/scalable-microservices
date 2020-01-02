@@ -103,7 +103,7 @@ export class TicketFormComponent implements OnInit {
     this.ticketService.addTicket(payload).subscribe(res => {
       console.log('res', res);
       this.snackbarService.success('Successfully added');
-      this.router.navigate(['/ticket']);
+      this.router.navigate(['/tickets'], {relativeTo: this.route.parent});
     }, (err: HttpErrorResponse) => {
       this.snackbarService.error(err.message);
     }).add(() => {
@@ -116,7 +116,7 @@ export class TicketFormComponent implements OnInit {
     console.log('???payload', payload);
     this.ticketService.updateTicket(payload).subscribe(res => {
       this.snackbarService.success('Successfully updated');
-      this.router.navigate(['/ticket']);
+      this.router.navigate(['/tickets'], {relativeTo: this.route.parent});
     }, (err: HttpErrorResponse) => {
       this.snackbarService.error(err.message);
     }, () => {

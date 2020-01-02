@@ -21,7 +21,7 @@ export class TicketingListComponent implements OnInit {
 displayedColumnsKey: string[] = ['ticketId', 'reportedDate', 'title','ticketType','reportedBy','application','version','site','resolutionType','priority','status','releaseDate','Description'];
   displayCoulmnsLabel: any[] = [
     {
-      TicketId: 'Ticket ID',
+      ticketId: 'Ticket ID',
       reportedDate: 'Reported Date',
       title: 'Title',
       ticketType:'Ticket Type',

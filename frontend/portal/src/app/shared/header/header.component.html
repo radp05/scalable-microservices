@@ -2,7 +2,7 @@
   <mat-toolbar-row class="toolbar">
     <div class="brand">
       <mat-icon (click)="toggle()">menu</mat-icon>
-      <div class="link" [routerLink]="'/'">Portal</div>
+      <div class="link" [routerLink]="'/home'">Portal</div>
     </div>
     <!-- <div>
       <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
@@ -52,6 +52,7 @@
           </mat-card-content>
         </mat-card>
       </mat-menu>
+      <button mat-button (click)="logout()">Logout</button>
     </div>
   </mat-toolbar-row>
 </mat-toolbar>

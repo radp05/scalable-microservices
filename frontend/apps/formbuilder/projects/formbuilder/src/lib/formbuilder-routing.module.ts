@@ -6,12 +6,38 @@ import { UserTemplatesComponent } from './user-templates/user-templates.componen
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const ROUTES: Routes = [
-    { path: "", component: AdminTemplatesComponent },
-    { path: "admin-templates/add", component: EditAppComponent },
-    { path: "user-template", component: UserTemplatesComponent },
-    { path: "admin-templates", component: AdminTemplatesComponent },
-    { path: "**", component: PageNotFoundComponent }
-  ];
+    {
+        path: 'form-builder',
+        component: AdminTemplatesComponent,
+        data: {
+            breadcrumb: 'Form Builder'
+        }
+    },
+    {
+        path: 'add-templates',
+        component: EditAppComponent,
+        data: {
+            breadcrumb: 'Admin Templates'
+        }
+    },
+    {
+        path: 'user-template',
+        component: UserTemplatesComponent, data: {
+            breadcrumb: 'User Templates'
+        }
+    },
+    {
+        path: 'admin-templates',
+        component: AdminTemplatesComponent, data: {
+            breadcrumb: 'Admin Templates'
+        }
+    },
+    {
+        path: '',
+        redirectTo: 'form-builder',
+        pathMatch: 'full'
+    }
+];
 
 @NgModule({
     imports: [

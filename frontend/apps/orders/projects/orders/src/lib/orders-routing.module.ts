@@ -21,21 +21,21 @@ const ROUTES: Routes = [
         }
     },
     {
-        path: 'order/add',
+        path: 'add-order',
         component: OrderFormComponent,
         data: {
             breadcrumb: 'Add Order'
         }
     },
     {
-        path: 'order/edit/:id',
+        path: 'edit-order/:id',
         component: OrderFormComponent,
         data: {
             breadcrumb: 'Edit Order'
         }
     },
     {
-        path: 'order/view/:id',
+        path: 'view-order/:id',
         component: OrderFormComponent,
         data: {
             breadcrumb: 'View Order'
