@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { AdminComponent } from './admin.component';
 import {
   MatGridListModule,
@@ -66,4 +66,11 @@ import { FormsModule } from '@angular/forms';
   ],
   exports: [AdminComponent]
 })
-export class AdminModule { }
+export class AdminModule {
+  static forRoot(env: any): ModuleWithProviders {
+    return {
+      ngModule: AdminModule,
+      providers: [{ provide: 'env', useValue: env }]
+    };
+  }
+}

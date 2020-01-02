@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
-  apiEndPoint: 'http://localhost:',
+  apiEndPoint: '',
   login: {
-    api: '4000/api/v1/login'
+    api: 'api/v1/login'
   }
 };

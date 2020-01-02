@@ -16,13 +16,15 @@ import { MaterialModule } from '../material.module';
 import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from '../dashboard/dashboard.component';
 
+import { environment } from '../../environments/environment';
+
 @NgModule({
   imports: [
-    OrdersModule,
-    DevicesModule,
-    AdminModule,
-    TicketingModule,
-    FormbuilderModule
+    OrdersModule.forRoot(environment),
+    DevicesModule.forRoot(environment),
+    AdminModule.forRoot(environment),
+    TicketingModule.forRoot(environment),
+    FormbuilderModule.forRoot(environment)
   ]
 })
 export class WrapperModule {}

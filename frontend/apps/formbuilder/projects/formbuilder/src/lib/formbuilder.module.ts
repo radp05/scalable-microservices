@@ -1,5 +1,5 @@
 
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { FormbuilderRoutingModule } from './formbuilder-routing.module';
 import { UserTemplatesComponent } from './user-templates/user-templates.component';
 import { EditAppComponent } from './edit-app/edit-app.component';
@@ -107,7 +107,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ]
 })
 
-export class FormbuilderModule { }
+export class FormbuilderModule { 
+  static forRoot(env: any): ModuleWithProviders {
+    console.log(env);
+    return {
+      ngModule: FormbuilderModule,
+      providers: [{ provide: 'env', useValue: env }]
+    };
+  }
+}
 
 
 

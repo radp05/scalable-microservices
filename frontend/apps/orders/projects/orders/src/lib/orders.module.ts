@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { OrdersComponent } from './orders.component';
@@ -57,4 +57,12 @@ import { SnackbarComponent } from './components/snackbar/snackbar.component';
   ],
   exports: [OrdersComponent]
 })
-export class OrdersModule { }
+export class OrdersModule { 
+  static forRoot(env: any): ModuleWithProviders {
+    console.log(env);
+    return {
+      ngModule: OrdersModule,
+      providers: [{ provide: 'env', useValue: env }]
+    };
+  }
+}
