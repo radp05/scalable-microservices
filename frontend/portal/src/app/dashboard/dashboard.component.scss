@@ -9,13 +9,10 @@
   .item {
     cursor: pointer;
     .mat-card {
-      height: 75px;
+      height: 100px;
     }
   }
-
-  mat-card {
-    width: 250px;
-  }
+  
   .flex {
     display: flex;
     align-items: center;

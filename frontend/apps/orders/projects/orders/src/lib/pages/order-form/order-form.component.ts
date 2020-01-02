@@ -82,7 +82,7 @@ export class OrderFormComponent implements OnInit {
     this.ordersService.addOrder(payload).subscribe(res => {
       console.log('res', res);
       this.snackbarService.success('Successfully added');
-      this.router.navigate(['/orders']);
+      this.router.navigate(['../orders']);
     }, (err: HttpErrorResponse) => {
       this.snackbarService.error(err.message);
     }).add(() => {
@@ -95,7 +95,7 @@ export class OrderFormComponent implements OnInit {
     console.log('???payload', payload);
     this.ordersService.updateOrder(payload).subscribe(res => {
       this.snackbarService.success('Successfully updated');
-      this.router.navigate(['/orders']);
+      this.router.navigate(['../orders']);
     }, (err: HttpErrorResponse) => {
       this.snackbarService.error(err.message);
     }, () => {

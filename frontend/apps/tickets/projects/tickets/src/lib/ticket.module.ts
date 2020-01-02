@@ -23,6 +23,8 @@ import { SnackbarComponent } from './components/snackbar/snackbar.component';
 import { CommonModule } from '@angular/common';
 import { SpinnerModule } from './components/spinner/spinner.module';
 import { CustomTooltipModule } from './components/custom-tooltip/custom-tooltip.module';
+import { ModuleWithProviders } from '@angular/compiler/src/core';
+
 
 @NgModule({
   declarations: [
@@ -55,4 +57,12 @@ import { CustomTooltipModule } from './components/custom-tooltip/custom-tooltip.
   ],
   exports: [TicketComponent]
 })
-export class TicketingModule { }
+export class TicketingModule { 
+  static forRoot(env: any): ModuleWithProviders {
+    console.log(env);
+    return {
+      ngModule: TicketingModule,
+      providers: [{ provide: 'env', useValue: env }]
+    };
+  }
+}

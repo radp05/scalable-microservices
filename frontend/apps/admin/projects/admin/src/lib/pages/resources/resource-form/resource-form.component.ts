@@ -74,7 +74,7 @@ export class ResourceFormComponent implements OnInit {
     const payload: ResourceModel = this.resource;
     this.resourceService.addResource(payload).subscribe(res => {
       this.snackbarService.success('Successfully added');
-      this.router.navigate(['/admin/resources']);
+      this.router.navigate(['resources'], {relativeTo: this.route.parent});
     }, (err: HttpErrorResponse) => {
       this.snackbarService.error(err);
     }).add(() => {
@@ -86,7 +86,7 @@ export class ResourceFormComponent implements OnInit {
     const payload: ResourceModel = this.resource;
     this.resourceService.updateResource(payload, this.resourceId).subscribe(res => {
       this.snackbarService.success('Successfully updated');
-      this.router.navigate(['/admin/resources']);
+      this.router.navigate(['resources'], {relativeTo: this.route.parent});
     }, (err: HttpErrorResponse) => {
       this.snackbarService.error(err);
     }, () => {
