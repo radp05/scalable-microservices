@@ -82,7 +82,7 @@ export class DeviceFormComponent implements OnInit {
     this.devicesService.addDevice(payload).subscribe(res => {
       console.log('res', res);
       this.snackbarService.success('Successfully added');
-      this.router.navigate(['/devices']);
+      this.router.navigate(['../devices']);
     }, (err: HttpErrorResponse) => {
       this.snackbarService.error(err.message);
     }).add(() => {
@@ -95,7 +95,7 @@ export class DeviceFormComponent implements OnInit {
     console.log('???payload', payload);
     this.devicesService.updateDevice(payload).subscribe(res => {
       this.snackbarService.success('Successfully updated');
-      this.router.navigate(['/devices']);
+      this.router.navigate(['../devices']);
     }, (err: HttpErrorResponse) => {
       this.snackbarService.error(err.message);
     }, () => {

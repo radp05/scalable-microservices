@@ -14,28 +14,28 @@ const ROUTES: Routes = [
         }
     },
     {
-        path: 'ticket',
+        path: 'tickets',
         component: TicketListComponent,
         data: {
             breadcrumb: 'Ticket'
         }
     },
     {
-        path: 'ticket/add',
+        path: 'add-tickets',
         component: TicketFormComponent,
         data: {
             breadcrumb: 'Add Ticket'
         }
     },
     {
-        path: 'ticket/edit/:_id',
+        path: 'edit-tickets/:_id',
         component: TicketFormComponent,
         data: {
             breadcrumb: 'Edit Ticket'
         }
     },
     {
-        path: 'ticket/view/:_id',
+        path: 'view-tickets/:_id',
         component: TicketFormComponent,
         data: {
             breadcrumb: 'View Tickets'

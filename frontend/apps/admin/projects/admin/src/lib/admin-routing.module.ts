@@ -15,170 +15,128 @@ import { UserFormComponent } from './pages/users/user-form/user-form.component';
 
 const ROUTES: Routes = [
     {
-        path: '',
-        redirectTo: 'admin',
-        pathMatch: 'full',
-        data: {
-            breadcrumb: ''
-        }
-    },
-    {
         path: 'admin',
+        component: AdminComponent,
         data: {
             breadcrumb: 'Admin'
         },
-        children: [
-            {
-                path: '',
-                component: AdminComponent,
-                data: {
-                    breadcrumb: 'Admin'
-                }
-            },
-            {
-                path: 'resources',
-                data: {
-                    breadcrumb: 'Resources'
-                },
-                children: [
-                    {
-                        path: '',
-                        component: ResourceListComponent,
-                        data: {
-                            breadcrumb: 'Resources'
-                        }
-                    },
-                    {
-                        path: 'add',
-                        component: ResourceFormComponent,
-                        data: {
-                            breadcrumb: 'Add Resource'
-                        }
-                    },
-                    {
-                        path: 'edit/:id',
-                        component: ResourceFormComponent,
-                        data: {
-                            breadcrumb: 'Edit Resource'
-                        }
-                    },
-                    {
-                        path: 'view/:id',
-                        component: ResourceFormComponent,
-                        data: {
-                            breadcrumb: 'View Resource'
-                        }
-                    }
-                ]
-            },
-            {
-                path: 'ticketing',
-                data: {
-                    breadcrumb: 'Ticketing'
-                },
-                children: [
-                    {
-                        path: 'ticket/add',
-                        component: TicketingFormComponent,
-                        data: {
-                            breadcrumb: 'Add Ticket'
-                        }
-                    },{
-                        path: '',
-                        component: TicketingListComponent,
-                        data: {
-                            breadcrumb: 'Ticketing'
-                        }
-                    },
-                    {
-                        path: 'ticket/edit/:ticketId',
-                        component: TicketingFormComponent,
-                        data: {
-                            breadcrumb: 'Edit Resource'
-                        }
-                    },
-                    {
-                        path: 'ticket/view/:ticketId',
-                        component: TicketingFormComponent,
-                        data: {
-                            breadcrumb: 'View Ticket'
-                        }
-                    }
-                ]
-            },
-            {
-                path: 'groups',
-                data: {
-                    breadcrumb: 'Groups'
-                },
-                children: [
-                    {
-                        path: '',
-                        component: GroupListComponent,
-                        data: {
-                            breadcrumb: 'Groups'
-                        }
-                    },
-                    {
-                        path: 'add',
-                        component: GroupFormComponent,
-                        data: {
-                            breadcrumb: 'Add Group'
-                        }
-                    },
-                    {
-                        path: 'edit/:id',
-                        component: GroupFormComponent,
-                        data: {
-                            breadcrumb: 'Edit Group'
-                        }
-                    },
-                    {
-                        path: 'view/:id',
-                        component: GroupFormComponent,
-                        data: {
-                            breadcrumb: 'View Group'
-                        }
-                    }
-                ]
-            },
-            {
-                path: 'users',
-                data: {
-                    breadcrumb: 'Users'
-                },
-                children: [
-                    {
-                        path: '',
-                        component: UserListComponent,
-                        data: {
-                            breadcrumb: 'Users'
-                        }
-                    },
-                    {
-                        path: 'add',
-                        component: UserFormComponent,
-                        data: {
-                            breadcrumb: 'Add User'
-                        }
-                    },
-                    {
-                        path: 'edit/:id',
-                        component: UserFormComponent,
-                        data: {
-                            breadcrumb: 'Edit User'
-                        }
-                    },
-                    {
-                        path: 'view/:id',
-                        component: UserFormComponent,
-                        data: {
-                            breadcrumb: 'View User'
-                        }
-                    }
-                ]
-            }
-        ]
+    },
+
+    /***********************************/
+    {
+        path: 'resources',
+        component: ResourceListComponent,
+        data: {
+            breadcrumb: 'Resources'
+        }
+    },
+    {
+        path: 'resources-add',
+        component: ResourceFormComponent,
+        data: {
+            breadcrumb: 'Add Resource'
+        }
+    },
+    {
+        path: 'resources-edit/:id',
+        component: ResourceFormComponent,
+        data: {
+            breadcrumb: 'Edit Resource'
+        }
+    },
+    {
+        path: 'resources-view/:id',
+        component: ResourceFormComponent,
+        data: {
+            breadcrumb: 'View Resource'
+        }
+    },
+    /*********************************** */
+    {
+        path: 'ticket',
+        component: TicketingListComponent,
+        data: {
+            breadcrumb: 'Ticketing'
+        }
+    },
+    {
+        path: 'add-ticket',
+        component: TicketingFormComponent,
+        data: {
+            breadcrumb: 'Add Ticket'
+        }
+    },
+    {
+        path: 'edit-ticket/:ticketId',
+        component: TicketingFormComponent,
+        data: {
+            breadcrumb: 'Edit Resource'
+        }
+    },
+    {
+        path: 'view-ticket/:ticketId',
+        component: TicketingFormComponent,
+        data: {
+            breadcrumb: 'View Ticket'
+        }
+    },
+    /*********************************** */
+    {
+        path: 'groups',
+        component: GroupListComponent,
+        data: {
+            breadcrumb: 'Groups'
+        }
+    },
+    {
+        path: 'add-group',
+        component: GroupFormComponent,
+        data: {
+            breadcrumb: 'Add Group'
+        }
+    },
+    {
+        path: 'edit-group/:id',
+        component: GroupFormComponent,
+        data: {
+            breadcrumb: 'Edit Group'
+        }
+    },
+    {
+        path: 'view-group/:id',
+        component: GroupFormComponent,
+        data: {
+            breadcrumb: 'View Group'
+        }
+    },
+    /*********************************** */
+    {
+        path: 'users',
+        component: UserListComponent,
+        data: {
+            breadcrumb: 'Users'
+        }
+    },
+    {
+        path: 'add-user',
+        component: UserFormComponent,
+        data: {
+            breadcrumb: 'Add User'
+        }
+    },
+    {
+        path: 'edit-user/:id',
+        component: UserFormComponent,
+        data: {
+            breadcrumb: 'Edit User'
+        }
+    },
+    {
+        path: 'view-user/:id',
+        component: UserFormComponent,
+        data: {
+            breadcrumb: 'View User'
+        }
     }
 ];
 
