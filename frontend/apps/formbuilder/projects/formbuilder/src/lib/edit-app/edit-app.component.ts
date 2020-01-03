@@ -376,7 +376,7 @@ export class EditAppComponent implements OnInit {
       console.log("Done!!!!", response);
       this.openSnackBar("Template has been successfully added.", "snackbar-success");
       this.ngOnInit();
-      this.router.navigate(['admin-templates'])
+      this.router.navigate(['../admin-templates'])
     });
   }
   /**

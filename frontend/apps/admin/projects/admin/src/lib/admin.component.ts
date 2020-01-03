@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { scaleTransition } from './components/animation/animation.component';
 
 @Component({
@@ -13,7 +13,8 @@ export class AdminComponent implements OnInit {
   cards: object[];
 
   constructor(
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
@@ -22,15 +23,15 @@ export class AdminComponent implements OnInit {
 
   initCards(): void {
     this.cards = [
-      { title: 'Resources', targetLink: '/admin/resources', cssClass: 'resources' },
-      { title: 'Groups', targetLink: '/admin/groups', cssClass: 'groups' },
-      { title: 'Users', targetLink: '/admin/users', cssClass: 'users' },
-      { title: 'Ticketing', targetLink: '/admin/ticket', cssClass: 'ticketing' }
-    ]
+      { title: 'Resources', targetLink: 'resources', cssClass: 'resources' },
+      { title: 'Groups', targetLink: 'groups', cssClass: 'groups' },
+      { title: 'Users', targetLink: 'users', cssClass: 'users' },
+      { title: 'Ticketing', targetLink: 'ticket', cssClass: 'ticketing' }
+    ];
   }
 
   goto(targetLink: string): void {
-    this.router.navigate([targetLink]);
+    this.router.navigate([targetLink], {relativeTo: this.route.parent});
   }
 
 }

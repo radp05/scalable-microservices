@@ -91,7 +91,7 @@ export class GroupFormComponent implements OnInit {
     this.groupService.addGroup(payload).subscribe(res => {
       console.log('res', res);
       this.snackbarService.success('Successfully added');
-      this.router.navigate(['/admin/groups']);
+      this.router.navigate(['groups'], {relativeTo: this.route.parent});
     }, (err: HttpErrorResponse) => {
       this.snackbarService.error(err);
     }).add(() => {
@@ -103,7 +103,7 @@ export class GroupFormComponent implements OnInit {
     const payload: GroupModel = this.group;
     this.groupService.updateGroup(payload, this.groupId).subscribe(res => {
       this.snackbarService.success('Successfully updated');
-      this.router.navigate(['/admin/groups']);
+      this.router.navigate(['groups'], {relativeTo: this.route.parent});
     }, (err: HttpErrorResponse) => {
       this.snackbarService.error(err);
     }, () => {
