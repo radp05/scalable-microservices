@@ -21,21 +21,21 @@ const ROUTES: Routes = [
         }
     },
     {
-        path: 'device/add',
+        path: 'add-device',
         component: DeviceFormComponent,
         data: {
             breadcrumb: 'Add Device'
         }
     },
     {
-        path: 'device/edit/:id',
+        path: 'edit-device/:id',
         component: DeviceFormComponent,
         data: {
             breadcrumb: 'Edit Device'
         }
     },
     {
-        path: 'device/view/:id',
+        path: 'view-device/:id',
         component: DeviceFormComponent,
         data: {
             breadcrumb: 'View Device'

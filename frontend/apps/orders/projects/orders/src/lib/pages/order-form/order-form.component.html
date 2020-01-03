@@ -1,6 +1,6 @@
 <div class="custom-container">
   <div class="btn-position-left">
-    <button mat-fab color="primary" [routerLink]="['/orders']" [@routerTransition]>
+    <button mat-fab color="primary" [routerLink]="['../orders']" [@routerTransition]>
       <mat-icon aria-label="Back Icon">arrow_back</mat-icon>
     </button>
   </div>
@@ -15,7 +15,7 @@
           <input matInput placeholder="Product Description" required [(ngModel)]="order.productDescription" name="productDescription">
         </mat-form-field>
         <mat-form-field>
-          <input matInput [matDatepicker]="picker" [(ngModel)]="order.date"  placeholder="Choose a date">
+          <input matInput name="orderDate" [matDatepicker]="picker" [(ngModel)]="order.date"  placeholder="Choose a date">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
@@ -26,7 +26,7 @@
           <span *ngIf="!beginProcess">{{btnLabel}}</span>
           <load-spinner *ngIf="beginProcess"></load-spinner>
         </button>
-        <button mat-stroked-button color="primary" class="btn-style-1" [routerLink]="'/orders'">
+        <button mat-stroked-button color="primary" class="btn-style-1" [routerLink]="'../orders'">
           Close
         </button>
       </div>
