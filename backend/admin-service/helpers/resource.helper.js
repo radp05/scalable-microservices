@@ -6,7 +6,8 @@ const Resource = require("../models/resource.model");
 
 exports.insertResource = async (req) => {
   let resource = new Resource({
-    resourceName: req.body.resourceName
+    resourceName: req.body.resourceName,
+    resourceId: req.body.resourceId
   })
   return await resource.save();
 }

@@ -16,7 +16,7 @@ describe('Users', function () {
       chai
         .request(server)
         .post("/api/v1/admin/resources")
-        .send({ resourceName: "application Test" + Math.floor(Math.random() * 90 + 10) })
+        .send({ resourceId : "ms-admin" , resourceName: "application Test" + Math.floor(Math.random() * 90 + 10) })
         .end((err, res) => {
           if (err)
             res.should.have.status(400);
