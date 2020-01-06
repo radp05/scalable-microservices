@@ -1,5 +1,5 @@
 <div class="grid-container">
-  <div class="item devices" [routerLink]="'devices'" [@routerTransition]>
+  <div class="item devices" [routerLink]="'../lib/devices'" [@routerTransition]>
     <mat-card>
       <div class="flex">
         <mat-icon class="icon" color="primary">widgets</mat-icon>
@@ -7,7 +7,7 @@
       </div>
     </mat-card>
   </div>
-  <div class="item orders" [routerLink]="'orders'" [@routerTransition]>
+  <div class="item orders" [routerLink]="'../lib/orders'" [@routerTransition]>
     <mat-card>
       <div class="flex">
         <mat-icon class="icon" color="primary">group_work</mat-icon>
@@ -15,7 +15,7 @@
       </div>
     </mat-card>
   </div>
-  <div class="item users" [routerLink]="'admin'" [@routerTransition]>
+  <div class="item users" [routerLink]="'../lib/admin'" [@routerTransition]>
     <mat-card>
       <div class="flex">
         <mat-icon class="icon" color="primary">face</mat-icon>
@@ -23,7 +23,7 @@
       </div>
     </mat-card>
   </div>
-  <div class="item resources" [routerLink]="'resources'" [@routerTransition]>
+  <div class="item resources" [routerLink]="'../lib/resources'" [@routerTransition]>
     <mat-card>
       <div class="flex">
         <mat-icon class="icon" color="primary">web</mat-icon>
@@ -31,11 +31,19 @@
       </div>
     </mat-card>
   </div>
-  <div class="item ticket" [routerLink]="'ticket'" [@routerTransition]>
+  <div class="item ticket" [routerLink]="'../lib/ticket'" [@routerTransition]>
     <mat-card>
       <div class="flex">
         <mat-icon class="icon" color="primary">web</mat-icon>
         <p class="title">Ticketing</p>
+      </div>
+    </mat-card>
+  </div>
+  <div class="item ticket" [routerLink]="'../lib/form-builder'" [@routerTransition]>
+    <mat-card>
+      <div class="flex">
+        <mat-icon class="icon" color="primary">post_add</mat-icon>
+        <p class="title">Form Builder</p>
       </div>
     </mat-card>
   </div>

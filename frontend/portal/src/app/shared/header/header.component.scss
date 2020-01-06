@@ -107,3 +107,60 @@
   .link {
     cursor: pointer;
   }
+
+  ::ng-deep .mat-menu-content {
+    padding: 0 !important;
+  }
+
+  .example-card {
+    max-height: 250px;
+    width: 240px;
+    overflow: hidden;
+    border: none;
+    box-shadow: none !important;
+    padding: 16px 5px;
+    ::ng-deep mat-list-item {
+      .mat-list-item-content {
+        padding: 0 5px;
+      }
+    }
+  }
+  
+  mat-menu-content {
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
+
+    
+  mat-menu-content::-webkit-scrollbar {
+    width: 1em;
+  }
+
+  mat-menu-content::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  }
+
+  mat-menu-content::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+  }
+
+  // mat-menu-content::-webkit-scrollbar {
+  //   width: 4px;
+  // }
+  
+  // /* Track */
+  // mat-menu-content::-webkit-scrollbar-track {
+  //   background: #f1f1f1; 
+  // }
+   
+  // /* Handle */
+  // mat-menu-content::-webkit-scrollbar-thumb {
+  //   background: #888; 
+  // }
+  
+  // /* Handle on hover */
+  // mat-menu-content::-webkit-scrollbar-thumb:hover {
+  //   background: #555; 
+  // }

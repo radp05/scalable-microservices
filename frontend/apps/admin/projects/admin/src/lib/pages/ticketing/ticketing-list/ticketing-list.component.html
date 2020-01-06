@@ -22,10 +22,10 @@
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef> Action </th>
         <td mat-cell *matCellDef="let element; let actionIndex=index">
-          <button mat-icon-button [routerLink]="'/admin/ticketing/view/' + element._id">
+          <button mat-icon-button [routerLink]="'../view-ticket/' + element._id">
             <mat-icon aria-label="View icon">remove_red_eye</mat-icon>
           </button>
-          <button mat-icon-button color="primary" [routerLink]="'/admin/ticketing/edit/' + element._id">
+          <button mat-icon-button color="primary" [routerLink]="'../edit-ticket/' + element._id">
             <mat-icon aria-label="Edit icon">edit</mat-icon>
           </button>
           <button [disabled]="beginProcess" mat-icon-button color="warn"

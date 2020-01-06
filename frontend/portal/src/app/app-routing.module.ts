@@ -1,18 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { LoginComponent } from './login/login.component';
-import { AuthService } from './login/login.service'
+import { LoginComponent } from './auth/login/login.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
-  {
-    path: 'home',
-    component: DashboardComponent,
-    canActivate: [AuthService],
-    data: {
-      breadcrumb: 'Home'
-    }
-  },
   {
     path: 'login',
     component: LoginComponent,
@@ -21,10 +12,17 @@ const routes: Routes = [
     }
   },
   {
+    path: 'home',
+    loadChildren: './home/home.module#HomeModule',
+    canActivate: [AuthGuard],
+    data: {
+      breadcrumb: 'Home'
+    }
+  },
+  {
     path: '',
-    redirectTo: '/home',
+    redirectTo: 'login',
     pathMatch: 'full',
-    canActivate: [AuthService],
   }
 
 ];

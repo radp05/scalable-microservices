@@ -102,7 +102,7 @@ export class TicketingFormComponent implements OnInit {
     const payload: TicketingModel = this.ticketing;
     this.ticketingService.addTicket(payload).subscribe(res => {
       this.snackbarService.success('Successfully added');
-      this.router.navigate(['/admin/ticketing']);
+      this.router.navigate(['ticket'], {relativeTo: this.route.parent});
     }, (err: HttpErrorResponse) => {
       this.snackbarService.error(err);
     }).add(() => {
@@ -115,7 +115,7 @@ export class TicketingFormComponent implements OnInit {
     const payload: TicketingModel = this.ticketing;
     this.ticketingService.updateTicket(payload, this.ticketing.ticketId).subscribe(res => {
       this.snackbarService.success('Successfully updated');
-      this.router.navigate(['/admin/ticketing']);
+      this.router.navigate(['ticket'], {relativeTo: this.route.parent});
     }, (err: HttpErrorResponse) => {
       this.snackbarService.error(err);
     }, () => {

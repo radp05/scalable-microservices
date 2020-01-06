@@ -1,6 +1,6 @@
 <div class="custom-container">
   <div class="btn-position-right">
-    <button mat-fab color="primary" [routerLink]="['/order/add']" [@routerTransition]>
+    <button mat-fab color="primary" [routerLink]="['/home/lib/add-order']" [@routerTransition]>
       <mat-icon aria-label="Add Icon">add</mat-icon>
     </button>
   </div>
@@ -27,10 +27,10 @@
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef> Action </th>
         <td mat-cell *matCellDef="let element; let actionIndex=index">
-          <button mat-icon-button [routerLink]="'/order/view/' + element._id">
+          <button mat-icon-button [routerLink]="'/home/lib/view-order/' + element._id">
             <mat-icon aria-label="View icon">remove_red_eye</mat-icon>
           </button>
-          <button mat-icon-button color="primary" [routerLink]="'/order/edit/' + element._id">
+          <button mat-icon-button color="primary" [routerLink]="'/home/lib/edit-order/' + element._id">
             <mat-icon aria-label="Edit icon">edit</mat-icon>
           </button>
           <button [disabled]="beginProcess" mat-icon-button color="warn"

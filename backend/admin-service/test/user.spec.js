@@ -14,7 +14,8 @@ describe('Create Resource ', () => {
   it('returns inserted object', async function () {
     let req = {}
     req['body'] = {
-      resourceName: "Resource" + Math.floor(Math.random() * 90 + 10)
+      resourceName: "Resource" + Math.floor(Math.random() * 90 + 10),
+      resourceId : "ms-admin"
     }
     let result = await resourceHelper.insertResource(req)
     resourceDetails = result

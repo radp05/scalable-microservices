@@ -1,0 +1,69 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "var\\logs\\.f68be8d2876ef86b0437f792e94d3b2beb0a562a-audit.json",
+    "files": [
+        {
+            "date": 1575525600254,
+            "name": "var\\logs\\application-2019-12-05-11.log",
+            "hash": "949f6b75aa583a4075f0dc7f48dec4d0"
+        },
+        {
+            "date": 1575527420928,
+            "name": "var\\logs\\application-2019-12-05-12.log",
+            "hash": "3a6d378dba72aad4744416731dee5652"
+        },
+        {
+            "date": 1575531018726,
+            "name": "var\\logs\\application-2019-12-05-13.log",
+            "hash": "d527362897e99a548598df80a43c2325"
+        },
+        {
+            "date": 1575535034527,
+            "name": "var\\logs\\application-2019-12-05-14.log",
+            "hash": "6e0906d515d08b2d71090c04b5c463a6"
+        },
+        {
+            "date": 1575538234112,
+            "name": "var\\logs\\application-2019-12-05-15.log",
+            "hash": "861aea70d2d9be60d49c4717dec6b61d"
+        },
+        {
+            "date": 1575548299138,
+            "name": "var\\logs\\application-2019-12-05-17.log",
+            "hash": "b0b8166d008266e79fbb7c06dd4eb1a0"
+        },
+        {
+            "date": 1575554792401,
+            "name": "var\\logs\\application-2019-12-05-19.log",
+            "hash": "fb69b054ad509161003a2ca77db239b9"
+        },
+        {
+            "date": 1575564400191,
+            "name": "var\\logs\\application-2019-12-05-22.log",
+            "hash": "da30e91472708f03e1361b6a4bab0653"
+        },
+        {
+            "date": 1575568279148,
+            "name": "var\\logs\\application-2019-12-05-23.log",
+            "hash": "6d0ab0920dddd0ed0b868e28bb3dd8b7"
+        },
+        {
+            "date": 1575609234755,
+            "name": "var\\logs\\application-2019-12-06-10.log",
+            "hash": "46fef59c483828ae2554da7bf48587f2"
+        },
+        {
+            "date": 1575610200776,
+            "name": "var\\logs\\application-2019-12-06-11.log",
+            "hash": "e782d5421bf11b327517057e0c6d75d4"
+        },
+        {
+            "date": 1575613971892,
+            "name": "var\\logs\\application-2019-12-06-12.log",
+            "hash": "357434aea2425e9d34880272b47a79b0"
+        }
+    ]
+}

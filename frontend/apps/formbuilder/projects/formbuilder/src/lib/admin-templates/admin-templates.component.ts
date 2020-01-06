@@ -3,7 +3,7 @@ import { ApiService } from '../api.service';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import { MatSnackBar, MatDialog } from '@angular/material';
-import {  Router } from '@angular/router';
+import {  Router, ActivatedRoute } from '@angular/router';
 import { UserTemplatesComponent } from '../user-templates/user-templates.component';
 import { EditAppComponent } from '../edit-app/edit-app.component';
 
@@ -26,7 +26,11 @@ export class AdminTemplatesComponent implements OnInit {
   displayedColumns: string[] = ['name', 'attributes', 'status', 'description','actions'];
   dataSource = new MatTableDataSource<PeriodicElement>(this.ELEMENT_DATA)
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  constructor(public dialog: MatDialog,private router: Router,public apiService:ApiService,public _snackBar:MatSnackBar) { }
+  constructor(public dialog: MatDialog,
+    private router: Router,
+    private route: ActivatedRoute,
+    public apiService:ApiService,
+    public _snackBar:MatSnackBar) { }
 
   ngOnInit() {
     this.getAllAdminTemplates();
@@ -106,7 +110,7 @@ export class AdminTemplatesComponent implements OnInit {
    * navigateAddTemp
    */
   public navigateAddTemp() {
-    this.router.navigate(['admin-templates/add'])
+    this.router.navigate(['add-templates'], { relativeTo: this.route.parent});
   }
 }
 

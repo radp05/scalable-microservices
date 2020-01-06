@@ -99,7 +99,7 @@ export class UserFormComponent implements OnInit {
     this.userService.addUser(payload).subscribe(res => {
       console.log('res', res);
       this.snackbarService.success('Successfully added');
-      this.router.navigate(['/admin/users']);
+      this.router.navigate(['../users'], {relativeTo: this.route.parent});
     }, (err: HttpErrorResponse) => {
       this.snackbarService.error(err);
     }).add(() => {
@@ -111,7 +111,7 @@ export class UserFormComponent implements OnInit {
     const payload: UserModel = this.user;
     this.userService.updateUser(payload, this.userId).subscribe(res => {
       this.snackbarService.success('Successfully updated');
-      this.router.navigate(['/admin/users']);
+      this.router.navigate(['../users'], {relativeTo: this.route.parent});
     }, (err: HttpErrorResponse) => {
       this.snackbarService.error(err);
     }, () => {
