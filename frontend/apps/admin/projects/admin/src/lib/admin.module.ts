@@ -10,13 +10,13 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatDialogModule,
-  MatSelectModule
+  MatSelectModule,
+  MAT_SNACK_BAR_DATA
 } from '@angular/material';
 import { AdminRoutingModule } from './admin-routing.module';
 import { ResourceListComponent } from './pages/resources/resource-list/resource-list.component';
 import { SnackbarComponent } from './components/snackbar/snackbar.component';
 import { SpinnerModule } from './components/spinner/spinner.module';
-import { ConfirmDialogModule } from './components/confirm-dialog/confirm-dialog.module';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { ResourceFormComponent } from './pages/resources/resource-form/resource-form.component';
 import { GroupListComponent } from './pages/groups/group-list/group-list.component';
@@ -28,6 +28,12 @@ import { TicketingFormComponent } from './pages/ticketing/ticketing-form/ticketi
 import { TicketingListComponent } from './pages/ticketing/ticketing-list/ticketing-list.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { GroupService } from './pages/groups/group.service';
+import { ResourceService } from './pages/resources/resource.service';
+import { TicketingService } from './pages/ticketing/ticketing.service';
+import { UserService } from './pages/users/user.service';
+import { SnackbarService } from './services/snackbar.service';
+
 
 @NgModule({
   declarations: [
@@ -40,14 +46,14 @@ import { FormsModule } from '@angular/forms';
     GroupFormComponent,
     UserListComponent,
     UserFormComponent,
-    SnackbarComponent
+    SnackbarComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     AdminRoutingModule,
     SpinnerModule,
-    ConfirmDialogModule,
     CustomTooltipModule,
     MatGridListModule,
     MatIconModule,
@@ -70,7 +76,15 @@ export class AdminModule {
   static forRoot(env: any): ModuleWithProviders {
     return {
       ngModule: AdminModule,
-      providers: [{ provide: 'env', useValue: env }]
+      providers: [
+        { provide: 'env', useValue: env },
+        { provide: MAT_SNACK_BAR_DATA, useValue: {} },
+        SnackbarService,
+        GroupService,
+        ResourceService,
+        TicketingService,
+        UserService
+      ]
     };
   }
 }

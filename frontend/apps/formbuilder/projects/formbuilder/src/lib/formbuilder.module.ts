@@ -47,6 +47,7 @@ import { AdminTemplatesComponent } from './admin-templates/admin-templates.compo
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { FormbuilderComponent } from './formbuilder.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ApiService } from './api.service';
 
 @NgModule({
   declarations: [
@@ -109,10 +110,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 export class FormbuilderModule { 
   static forRoot(env: any): ModuleWithProviders {
-    console.log(env);
     return {
       ngModule: FormbuilderModule,
-      providers: [{ provide: 'env', useValue: env }]
+      providers: [{ provide: 'env', useValue: env },
+      ApiService
+    ]
     };
   }
 }

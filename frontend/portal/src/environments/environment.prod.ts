@@ -1,7 +1,12 @@
 export const environment = {
   production: true,
-  apiEndPoint: '',
-  login: {
-    api: 'api/v1/login'
+  apiEndPoint: 'http://localhost:8080/',
+  apis: {
+    admin: 'api/v1/admin',
+    auth: 'api/v1/auth',
+    ticket: 'api/v1/ticket',
+    device: 'api/v1/device',
+    formBuilder: 'api/v1/form',
+    order: 'api/v1/order'
   }
 };

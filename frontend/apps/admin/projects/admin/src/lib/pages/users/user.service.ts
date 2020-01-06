@@ -1,36 +1,38 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { UserModel } from './user.model';
 import { Observable } from 'rxjs';
 
-const URL = 'http://localhost:3003/api/v1/admin';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class UserService {
 
+    url: string;
     constructor(
-        private http: HttpClient
-    ) { }
+        private http: HttpClient,
+        @Inject('env') private env: any
+    ) {
+        this.url = `${this.env.apiEndPoint}${this.env.apis.admin}`;
+        console.log(this.url);
+    }
 
     addUser(payload: UserModel): Observable<any> {
-        return this.http.post(`${URL}/users`, payload);
+        return this.http.post(`${this.url}/users`, payload);
     }
 
     updateUser(payload: UserModel, userId: string): Observable<any> {
-        return this.http.patch(`${URL}/users/${userId}`, payload);
+        return this.http.patch(`${this.url}/users/${userId}`, payload);
     }
 
     removeUser(userId: string): Observable<any> {
-        return this.http.delete(`${URL}/users/${userId}`);
+        return this.http.delete(`${this.url}/users/${userId}`);
     }
 
     getAllUser(): Observable<any> {
-        return this.http.get(`${URL}/users`);
+        return this.http.get(`${this.url}/users`);
     }
 
     getOneUser(userId: string): Observable<any> {
-        return this.http.get(`${URL}/users/${userId}`);
+        return this.http.get(`${this.url}/users/${userId}`);
     }
 }

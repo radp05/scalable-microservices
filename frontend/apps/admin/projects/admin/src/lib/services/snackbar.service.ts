@@ -3,9 +3,7 @@ import { MatSnackBar } from '@angular/material';
 import { SnackbarComponent } from '../components/snackbar/snackbar.component';
 import { HttpErrorResponse } from '@angular/common/http';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class SnackbarService {
 
   durationInSeconds = 5;
@@ -23,11 +21,14 @@ export class SnackbarService {
   }
 
   error(error: HttpErrorResponse) {
-    let message: string = ''
+    let message: string;
     if (error.error) {
       message = error.error.message;
     } else {
       message = error.message;
+    }
+    if (typeof message !== 'string') {
+      message = 'Something went wrong!';
     }
     this.snackBar.openFromComponent(SnackbarComponent, {
       duration: this.durationInSeconds * 1000,

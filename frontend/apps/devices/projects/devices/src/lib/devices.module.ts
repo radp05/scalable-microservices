@@ -13,7 +13,8 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatDialogModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MAT_SNACK_BAR_DATA
 } from '@angular/material';
 import { DeviceFormComponent } from './pages/device-form/device-form.component';
 import { ConfirmDialogModule } from './components/confirm-dialog/confirm-dialog.module';
@@ -24,6 +25,8 @@ import { CommonModule } from '@angular/common';
 import { SpinnerModule } from './components/spinner/spinner.module';
 import { CustomTooltipModule } from './components/custom-tooltip/custom-tooltip.module';
 import { ModuleWithProviders } from '@angular/compiler/src/core';
+import { SnackbarService } from './services/snackbar.service';
+import { DevicesService } from './devices.service';
 
 @NgModule({
   declarations: [
@@ -58,10 +61,14 @@ import { ModuleWithProviders } from '@angular/compiler/src/core';
 })
 export class DevicesModule {
   static forRoot(env: any): ModuleWithProviders {
-    console.log(env);
     return {
       ngModule: DevicesModule,
-      providers: [{ provide: 'env', useValue: env }]
+      providers: [
+        { provide: 'env', useValue: env },
+        { provide: MAT_SNACK_BAR_DATA, useValue: {} },
+        SnackbarService,
+        DevicesService
+      ]
     };
   }
 }
