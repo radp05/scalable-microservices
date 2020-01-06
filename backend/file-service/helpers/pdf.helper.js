@@ -40,9 +40,11 @@ function _generatePDF(docDefinition) {
 function _formatTableData(tableData) {
     return new Promise((resolve, reject) => {
         tData = {}
+        tData['widths'] = [];
         tHeader = []
         tableData.header.forEach((val) => {
             tHeader.push({ text: val, fontSize: 15, bold: true })
+            tData['widths'].push('*')
         })
 
         tRows = []
@@ -76,16 +78,16 @@ function _formatPDF(pdfData) {
         pdfData.data.forEach(async (object) => {
             switch (object.type) {
                 case 'heading':
-                    content.push({ text: object.data, fontSize: 18, bold: true });
+                    content.push({ text: object.data, fontSize: 18, bold: true, alignment: 'center' });
                     break;
                 case 'subheading':
-                    content.push({ text: object.data, fontSize: 15, bold: true });
+                    content.push({ text: object.data, fontSize: 15, bold: true, alignment: 'center' });
                     break;
                 case 'text':
-                    content.push({ text: object.data });
+                    content.push({ text: object.data, alignment: 'justify' });
                     break;
                 case 'image':
-                    content.push({ image: object.data, width: 200, height: 200 });
+                    content.push({ image: object.data, width: 200, height: 200 , alignment: 'center'});
                     break;
                 case 'table':
                     try {
