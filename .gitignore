@@ -33,3 +33,7 @@ mongodb/setup
 mongodb/keys
 mongodb/certs
 .git
+
+#swagger
+swagger/node_modules
+swagger/logs
