@@ -1,36 +1,38 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Injectable, Inject} from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { GroupModel } from './group.model';
 import { Observable } from 'rxjs';
 
-const URL = 'http://localhost:3003/api/v1/admin';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class GroupService {
 
+    url: string;
+
     constructor(
-        private http: HttpClient
-    ) { }
+        private http: HttpClient,
+        @Inject('env') private env: any
+    ) {
+        this.url = `${this.env.apiEndPoint}${this.env.apis.admin}`;
+    }
 
     addGroup(payload: GroupModel): Observable<any> {
-        return this.http.post(`${URL}/groups`, payload);
+        return this.http.post(`${this.url}/groups`, payload);
     }
 
     updateGroup(payload: GroupModel, groupId: string): Observable<any> {
-        return this.http.patch(`${URL}/groups/${groupId}`, payload);
+        return this.http.patch(`${this.url}/groups/${groupId}`, payload);
     }
 
     removeGroup(groupId: string): Observable<any> {
-        return this.http.delete(`${URL}/groups/${groupId}`);
+        return this.http.delete(`${this.url}/groups/${groupId}`);
     }
 
     getAllGroups(): Observable<any> {
-        return this.http.get(`${URL}/groups`);
+        return this.http.get(`${this.url}/groups`);
     }
 
     getOneGroup(groupId: string): Observable<any> {
-        return this.http.get(`${URL}/groups/${groupId}`);
+        return this.http.get(`${this.url}/groups/${groupId}`);
     }
 }
