@@ -15,7 +15,9 @@ module.exports = (req, res, next) => {
                     "msg":"You are not authorized"
                 })
             } else {
-                if ( decoded.resourceIds.includes(process.env.RESOURCE_ID) ) {
+                console.log("decoded::::")
+                console.log(decoded.resourceIds)
+                if (  decoded.resourceIds.includes(process.env.RESOURCE_ID) || decoded.resourceIds.includes('ms-admin') ) {
                     next()
                 } else {
                     res.status(401);
