@@ -14,7 +14,7 @@ import {
   MatInputModule,
   MatDialogModule,
   MatSnackBarModule,
-  MatDatepickerModule, MatNativeDateModule
+  MatDatepickerModule, MatNativeDateModule, MAT_SNACK_BAR_DATA
 } from '@angular/material';
 import { OrderFormComponent } from './pages/order-form/order-form.component';
 import { ConfirmDialogModule } from './components/confirm-dialog/confirm-dialog.module';
@@ -23,6 +23,8 @@ import { CommonModule } from '@angular/common';
 import { SpinnerModule } from './components/spinner/spinner.module';
 import { CustomTooltipModule } from './components/custom-tooltip/custom-tooltip.module';
 import { SnackbarComponent } from './components/snackbar/snackbar.component';
+import { SnackbarService } from './services/snackbar.service';
+import { OrdersService } from './orders.service';
 
 @NgModule({
   declarations: [
@@ -57,12 +59,16 @@ import { SnackbarComponent } from './components/snackbar/snackbar.component';
   ],
   exports: [OrdersComponent]
 })
-export class OrdersModule { 
+export class OrdersModule {
   static forRoot(env: any): ModuleWithProviders {
-    console.log(env);
     return {
       ngModule: OrdersModule,
-      providers: [{ provide: 'env', useValue: env }]
+      providers: [
+        { provide: 'env', useValue: env },
+        { provide: MAT_SNACK_BAR_DATA, useValue: {} },
+        SnackbarService,
+        OrdersService
+      ]
     };
   }
 }

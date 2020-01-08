@@ -1,26 +1,27 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { TicketModel } from './ticket-model';
 import { Observable } from 'rxjs';
 
-const URL = 'http://localhost:3004/api/v1/ticket';
-
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class TicketService {
 
+  url: string;
+
   constructor(
-    private http: HttpClient
-  ) { }
+      private http: HttpClient,
+      @Inject('env') private env: any
+  ) {
+      this.url = `${this.env.apiEndPoint}${this.env.apis.ticket}`;
+  }
 
   addTicket(payload: TicketModel): Observable<any> {
     console.log("Entered frontend addTicket")
-    return this.http.post(`${URL}/add`, payload);
+    return this.http.post(`${this.url}/add`, payload);
   }
 
   updateTicket(payload: TicketModel): Observable<any> {
-    return this.http.patch(`${URL}/update`, payload);
+    return this.http.patch(`${this.url}/update`, payload);
   }
 
   removeTicket(payload: object): Observable<any> {
@@ -29,16 +30,16 @@ export class TicketService {
       body: payload
     };
 
-    return this.http.delete(`${URL}/delete`, httpOptions);
+    return this.http.delete(`${this.url}/delete`, httpOptions);
   }
 
   getAllTickets(): Observable<any> {
-    console.log(`${URL}` +"getAllTickets")
-    return this.http.get(`${URL}/get`);
+    console.log(`${this.url}` +"getAllTickets")
+    return this.http.get(`${this.url}/get`);
   }
 
   getOneTicket(ticketId: string): Observable<any> {
     const param = new HttpParams().set('ticketId', ticketId);
-    return this.http.get(`${URL}/getRecord`, { params: param });
+    return this.http.get(`${this.url}/getRecord`, { params: param });
   }
 }

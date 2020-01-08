@@ -22,13 +22,11 @@ export class AuthService {
     }
     // localStorage.setItem('access_token', username);
     // this.router.navigate(['/home']);
-    this.http.post(environment.apiEndPoint + environment.login.api, data)
+    this.http.post(`${environment.apiEndPoint}${environment.apis.auth}`, data)
     .subscribe((response) => {
       localStorage.setItem('access_token', response['token']);
         this.router.navigate(['/home']);
     }, err => {
-      console.log(err);
-      console.log(err.message);
        this.errorService.thorwError('Invalid username or password!');
     });
   }

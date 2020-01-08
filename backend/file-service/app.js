@@ -6,7 +6,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const swaggerUi = require('swagger-ui-express');
 // const mongoose = require('mongoose');
-const commonConf = require('./../common/config.json');
+const commonConf = require('./../../configuration/config.json');
 const appConf = commonConf.services.file;
 // let mongoConf = commonConf.databases.mongodb;
 

@@ -1,17 +1,21 @@
-import { Injectable } from "@angular/core";
+import { Injectable, Inject } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 
-@Injectable({
-  providedIn: "root"
-})
+@Injectable()
 export class ApiService {
-  constructor(public http: HttpClient) {}
+
+  url: string;
+
+  constructor(
+      private http: HttpClient,
+      @Inject('env') private env: any
+  ) {
+      this.url = `${this.env.apiEndPoint}${this.env.apis.ticket}`;
+  }
 
   public createTemplate(form) {
 
-    console.log("form",form);
-    
-    return this.http.post("http://localhost:3004/api/v1/form/template", {
+    return this.http.post(`${this.url}/template`, {
       templateName: form.name,
       templateDescription: form.description,
       templateJson: form
@@ -21,38 +25,38 @@ export class ApiService {
    * getAllUserTemplates
    */
   public getAllUserTemplates() {
-    return this.http.get("http://localhost:3004/api/v1/form/template");
+    return this.http.get(`${this.url}/template`);
   }
 
 /**
  * getAllAdminTemplates
  */
 public getAllAdminTemplates() {
-  return this.http.get("http://localhost:3004/api/v1/form/template");
+  return this.http.get(`${this.url}/template`);
 }
 
   public getUserTemplate(templateId) {
-    return this.http.get(`http://localhost:3004/api/v1/form/template/${templateId}`);
+    return this.http.get(`${this.url}/template/${templateId}`);
   }
 
   /**
    * createUserConfiguration
    */
   public createUserConfiguration(form) {
-    return this.http.post("http://localhost:3004/api/v1/form/configuration",form);
+    return this.http.post(`${this.url}/configuration`,form);
   }
 
   /**
    * deleteTemplate
    */
   public deleteTemplate(templateId) {
-    return this.http.delete(`http://localhost:3004/api/v1/form/template/${templateId}`);
+    return this.http.delete(`${this.url}/template/${templateId}`);
   }
 
   /**
    * editTemplate
    */
-  public editTemplate(form :any) {
-    return this.http.patch(`http://localhost:3004/api/v1/form/template/${form.templateId}`,form);
+  public editTemplate(form: any) {
+    return this.http.patch(`${this.url}/template/${form.templateId}`,form);
   }
 }
