@@ -2,7 +2,7 @@ module.exports = {
 	APP_NAME: "Admin App",
 	PORT: "3003",
 	LOCAL: process.env.LOCAL,
-	SALT_ROUND: 10,
+	SECRET_KEY: 'INCEDO_SECRET_KEY_FOR_ADMIN_MICRO_SERVICE',
 	MONGO:{
 		"hostname":"localhost",
 		"dbName":"user_db",

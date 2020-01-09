@@ -1,7 +1,7 @@
-const bcrypt = require('bcryptjs');
-const saltRounds = 10;
+var CryptoJS = require("crypto-js");
+const config = require('../config/config.js');
 
 exports.generatePassword = (password) => {
-    var hash = bcrypt.hashSync(password, saltRounds);
+    const hash = CryptoJS.AES.encrypt(JSON.stringify(password), config.SECRET_KEY);
     return hash
 }
