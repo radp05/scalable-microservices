@@ -152,7 +152,6 @@ describe('Users', function () {
           firstName: "raju",
           lastName: "kumar",
           email: "raj1" + Math.floor(Math.random() * 90 + 10) + "@gmail.com",
-          role: "12333",
           groupId: groupDetails.groupId,
           userName: "rkv" + Math.floor(Math.random() * 90 + 10)
         })
