@@ -2,7 +2,9 @@ const kafka = require('kafka-node');
 const Producer = kafka.Producer;
 const config = require('../config/config');
 
-exports.saveMessage = (req, res) => {
+const notificationHelper = require('../helpers/notification.helper');
+
+exports.saveMessage = async (req, res) => {
     const client = new kafka.KafkaClient(config.KAFKA_SERVER_URL);
     const producer = new Producer(client);
     try {
@@ -13,17 +15,21 @@ exports.saveMessage = (req, res) => {
         producer.on('ready', async function () {
             producer.createTopics([topic], (error, result) => {
                 if (!error) {
-                    producer.send(payloads, (err, data) => {
+                    producer.send(payloads, async (err, data) => {
                         if (!err) {
+                            const notify = await notificationHelper.insertNotification({
+                                message: req.body.message,
+                                status: false,
+                                userId: req.body.userId
+                            })
+                            console.log(notify);
                             res.status(200).json({ message: req.body.message });
                             producer.close();
                             client.close();
-                            console.log(data);
                         } else {
                             res.status(400).json({ message: req.body.message });
                             producer.close();
                             client.close();
-                            console.log(err);
                         }
                     });
                 } else {

@@ -6,7 +6,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const swaggerUi = require('swagger-ui-express');
 const mongoose = require('mongoose');
-const commonConf = require('./../common/config.json');
+const commonConf = require('./../../configuration/config.json');
 const appConf = commonConf.services.notification;
 let mongoConf = commonConf.databases.mongodb;
 
@@ -95,7 +95,8 @@ app.use(`${appConf.apiBase}/api-docs`, swaggerUi.serve, swaggerUi.setup(swaggerD
 
 
 // Add service routes
-app.use(authVerifier);
+// app.use(authVerifier);
+
 app.use(appConf.apiBase, notificationRoutes);
 
 // Hanlde uncaughtExceptions here to prevent termination
