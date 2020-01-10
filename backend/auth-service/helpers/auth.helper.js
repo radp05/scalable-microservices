@@ -1,6 +1,8 @@
 const AuthModel = require('../models/auth.model');
 const bcrypt = require('bcryptjs');
-const saltSound = 10;
+const config = require('../config/config');
+const CryptoJS = require("crypto-js");
+const SecretKey = config.SECRET_KEY;
 
 var authHelper = {};
 let result;
@@ -23,10 +25,14 @@ authHelper.verifyUser = async (req,res) => {
           };
     } 
     
-        let passwordStatus = await bcrypt.compare(req.body.password, result.password);
-        console.log("password Status::::::::::::::::::::::");
-        console.log(passwordStatus);
-        if (passwordStatus) {
+    //let passwordStatus = await bcrypt.compare(req.body.password, result.password);
+    
+    // Decrypt
+var bytes  = CryptoJS.AES.decrypt(result.password.toString(), SecretKey);
+var decryptedData = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+        console.log("decrypted data::::::::::::::::::::::"+decryptedData);
+        console.log( req.body.password);
+        if (decryptedData === req.body.password ) {
             return {
                     message: "success",
                     data:result
