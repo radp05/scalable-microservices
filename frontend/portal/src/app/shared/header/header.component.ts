@@ -13,7 +13,48 @@ export class HeaderComponent implements OnInit {
   isThemeDark = false;
   activeTheme = 'indigo-pink';
 
-  nofitifications = [];
+  nofitifications = [
+    {
+      uuid: 'eask2340mdsznkljrerwr2344',
+      message: 'Hi there!',
+      status: false
+    },
+    {
+      uuid: 'lkl2340mdsznkljrerwr2344',
+      message: 'You got new message',
+      status: false
+    },
+    {
+      uuid: 'af2340mdsznkljrerwr2344',
+      message: 'Something happening',
+      status: false
+    },
+    {
+      uuid: 'aadf2340mdsznkljrerwr2344',
+      message: 'You got this.',
+      status: true
+    },
+    {
+      uuid: 'eask2340mdsznkljrerwr2344',
+      message: 'Hi there!',
+      status: false
+    },
+    {
+      uuid: 'lkl2340mdsznkljrerwr2344',
+      message: 'You got new message',
+      status: false
+    },
+    {
+      uuid: 'af2340mdsznkljrerwr2344',
+      message: 'Something happening',
+      status: false
+    },
+    {
+      uuid: 'aadf2340mdsznkljrerwr2344',
+      message: 'You got this.',
+      status: true
+    }
+  ];
 
   @Output() sidenavStatus = new EventEmitter();
   constructor(
@@ -29,6 +70,7 @@ export class HeaderComponent implements OnInit {
   ];
 
   ngOnInit() {
+    this.notificationCount = this.nofitifications.filter(n => !n.status).length;
   }
 
   toggle() {
