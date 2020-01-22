@@ -14,48 +14,7 @@ export class HeaderComponent implements OnInit {
   isThemeDark = false;
   activeTheme = 'indigo-pink';
 
-  nofitifications = [
-    {
-      uuid: 'eask2340mdsznkljrerwr2344',
-      message: 'Hi there!',
-      status: false
-    },
-    {
-      uuid: 'lkl2340mdsznkljrerwr2344',
-      message: 'You got new message',
-      status: false
-    },
-    {
-      uuid: 'af2340mdsznkljrerwr2344',
-      message: 'Something happening',
-      status: false
-    },
-    {
-      uuid: 'aadf2340mdsznkljrerwr2344',
-      message: 'You got this.',
-      status: true
-    },
-    {
-      uuid: 'eask2340mdsznkljrerwr2344',
-      message: 'Hi there!',
-      status: false
-    },
-    {
-      uuid: 'lkl2340mdsznkljrerwr2344',
-      message: 'You got new message',
-      status: false
-    },
-    {
-      uuid: 'af2340mdsznkljrerwr2344',
-      message: 'Something happening',
-      status: false
-    },
-    {
-      uuid: 'aadf2340mdsznkljrerwr2344',
-      message: 'You got this.',
-      status: true
-    }
-  ];
+  nofitifications = [];
 
   @Output() sidenavStatus = new EventEmitter();
   constructor(
@@ -72,16 +31,17 @@ export class HeaderComponent implements OnInit {
   ];
 
   ngOnInit() {
-    this.notificationCount = this.nofitifications.filter(n => !n.status).length;
-    const userId = '57654654';
-    this.sharedService.fetchNotifications(userId).subscribe(res => {
+    const userId = '123123';
+    this.sharedService.fetchNotifications(userId).subscribe((res: any) => {
+      this.nofitifications = JSON.parse(res.data);
+      this.notificationCount = this.nofitifications.filter(n => !n.status).length;
+      console.log(JSON.parse(res.data));
       console.log(res);
     })
   }
 
   toggle() {
     this.sidenavStatus.emit();
-    // this.utilService.changeSiberStatus.next();
   }
 
   toggleDarkness() {

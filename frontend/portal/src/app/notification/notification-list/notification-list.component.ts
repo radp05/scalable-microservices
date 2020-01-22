@@ -24,7 +24,7 @@ export class NotificationListComponent implements OnInit, AfterViewInit {
   }
 
   fetchNotification() {
-    const userId = '57654654';
+    const userId = '123123';
     this.notificationService.fetchNotifications(userId)
     .subscribe((response: any) => {
       this.dataSource = new MatTableDataSource<any>([...response.data.notifications]);
