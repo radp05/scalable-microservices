@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { UtilService } from 'src/app/services/util.service';
 import { AuthService } from 'src/app/auth/auth.service';
+import { SharedService } from '../shared.service';
 
 @Component({
   selector: 'app-header',
@@ -59,7 +60,8 @@ export class HeaderComponent implements OnInit {
   @Output() sidenavStatus = new EventEmitter();
   constructor(
     private utilService: UtilService,
-    private authService: AuthService
+    private authService: AuthService,
+    private sharedService: SharedService
     ) { }
 
   themes: string[] = [
@@ -71,6 +73,10 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.notificationCount = this.nofitifications.filter(n => !n.status).length;
+    const userId = '57654654';
+    this.sharedService.fetchNotifications(userId).subscribe(res => {
+      console.log(res);
+    })
   }
 
   toggle() {
