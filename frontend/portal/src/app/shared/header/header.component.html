@@ -27,10 +27,19 @@
       </mat-menu>
     </div> -->
     <div class="bell">
-      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <!-- <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" [ngClass]="{'notify_count': notificationCount>0}">
         <mat-icon *ngIf="notificationCount===0">notifications_none</mat-icon>
         <mat-icon *ngIf="notificationCount>=1">notifications</mat-icon>
-      </button>
+      </button> -->
+      <div class="notification-box" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <span class="notification-count" *ngIf="notificationCount>0">{{ notificationCount }}</span>
+        <div class="notification-bell">
+          <span class="bell-top"></span>
+          <span class="bell-middle"></span>
+          <span class="bell-bottom"></span>
+          <span class="bell-rad"></span>
+        </div>
+      </div>
       <mat-menu #menu="matMenu">
         <mat-card class="example-card">
           <mat-card-header>
@@ -39,17 +48,17 @@
           </mat-card-header>
           <mat-divider></mat-divider>
           <mat-card-content>
-            <mat-list role="list">
-              <mat-list-item role="listitem" *ngFor="let notification of nofitifications;">
-                <div mat-card-avatar class="">
-                  <mat-icon>face</mat-icon>
-                </div>
-                <mat-card-title>
-                  <p>{{notification}}</p>
-                </mat-card-title>
-              </mat-list-item>
-            </mat-list>
+            <div class="notifications">
+              <div class="notification" *ngFor="let notification of nofitifications;" [ngClass]="{ 'notify': !notification.status }">
+                {{ notification.message }}
+              </div>
+              <p class="empty_string" *ngIf="nofitifications.length===0">No Messages</p>
+            </div>
+            <p class="list" *ngIf="nofitifications.length>0" [routerLink]="'/home/notifications'">Show All</p>
           </mat-card-content>
+          <!-- <mat-card-footer>
+            <p class="list">Show All</p>
+          </mat-card-footer> -->
         </mat-card>
       </mat-menu>
       <button mat-button (click)="logout()">Logout</button>

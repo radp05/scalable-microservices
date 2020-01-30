@@ -20,15 +20,15 @@ export class AuthService {
       username,
       password
     }
-    // localStorage.setItem('access_token', username);
-    // this.router.navigate(['/home']);
-    this.http.post(`${environment.apiEndPoint}${environment.apis.auth}`, data)
-    .subscribe((response) => {
-      localStorage.setItem('access_token', response['token']);
-        this.router.navigate(['/home']);
-    }, err => {
-       this.errorService.thorwError('Invalid username or password!');
-    });
+    localStorage.setItem('access_token', username);
+    this.router.navigate(['/home']);
+    // this.http.post(`${environment.apiEndPoint}${environment.apis.auth}`, data)
+    // .subscribe((response) => {
+    //   localStorage.setItem('access_token', response['token']);
+    //     this.router.navigate(['/home']);
+    // }, err => {
+    //    this.errorService.thorwError('Invalid username or password!');
+    // });
   }
 
   isAuthenticated() {

@@ -17,6 +17,10 @@ const routes: Routes = [
         }
       },
       {
+        path: 'notifications',
+        loadChildren: '../notification/notification.module#NotificationModule'
+      },
+      {
         path: 'lib',
         loadChildren: './home.module#WrapperModule',
         data: {

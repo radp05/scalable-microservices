@@ -6,6 +6,7 @@ const eventSource = require('../helpers/stream');
 module.exports = (function () {
   const router = express.Router();
 
+  router.get('/:userId', consumer.fetchAllNotification);
   router.post('/send', producer.saveMessage);
   router.get('/user/:userId', eventSource.sseMiddleware, consumer.messageByUserId);
   router.get('/admin/:userId', eventSource.sseMiddleware,consumer.messageForAdmin);

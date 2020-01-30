@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { UtilService } from 'src/app/services/util.service';
 import { AuthService } from 'src/app/auth/auth.service';
+import { SharedService } from '../shared.service';
 
 @Component({
   selector: 'app-header',
@@ -18,7 +19,8 @@ export class HeaderComponent implements OnInit {
   @Output() sidenavStatus = new EventEmitter();
   constructor(
     private utilService: UtilService,
-    private authService: AuthService
+    private authService: AuthService,
+    private sharedService: SharedService
     ) { }
 
   themes: string[] = [
@@ -29,11 +31,17 @@ export class HeaderComponent implements OnInit {
   ];
 
   ngOnInit() {
+    const userId = '123123';
+    this.sharedService.fetchNotifications(userId).subscribe((res: any) => {
+      this.nofitifications = JSON.parse(res.data);
+      this.notificationCount = this.nofitifications.filter(n => !n.status).length;
+      console.log(JSON.parse(res.data));
+      console.log(res);
+    })
   }
 
   toggle() {
     this.sidenavStatus.emit();
-    // this.utilService.changeSiberStatus.next();
   }
 
   toggleDarkness() {

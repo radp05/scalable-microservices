@@ -7,6 +7,7 @@ export const environment = {
     ticket: 'api/v1/ticket',
     device: 'api/v1/device',
     formBuilder: 'api/v1/form',
-    order: 'api/v1/order'
+    order: 'api/v1/order',
+    notification: 'api/v1/notification'
   }
 };

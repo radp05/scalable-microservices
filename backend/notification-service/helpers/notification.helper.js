@@ -10,4 +10,14 @@ exports.insertNotification = async (data) => {
         notification.userId = data.userId;
     }
     return await notification.save();
-  }
+}
+
+exports.fetchNotification = async () => {
+    let notifications = await Notification.find();
+    return notifications;
+}
+
+exports.fetchNotificationByLimit = async (userId, skip, limit) => {
+    let notifications = await Notification.find({ userId: userId }).skip(skip).limit(limit);
+    return notifications;
+}
