@@ -50,7 +50,9 @@
             "resourceId": "ms-notifications",
             "port": "3333",
             "dbName": "nofications_db",
-            "apiBase": "/api/v1/notification"
+            "apiBase": "/api/v1/notification",
+            "zookeeperUrl":"http://zookeeper:2181"
+
         },
         "formBuilder": {
             "appName": "Form Builder Service",

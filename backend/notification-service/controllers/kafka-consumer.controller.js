@@ -1,5 +1,4 @@
 const kafka = require('kafka-node');
-const config = require('../config/config');
 const Consumer = kafka.Consumer;
 
 const notificationHelper = require('../helpers/notification.helper');
@@ -9,7 +8,7 @@ exports.messageByUserId = (req, res) => {
 
     const userId = req.params.userId;
  
-    const client = new kafka.KafkaClient(config.KAFKA_SERVER_URL);
+    const client = new kafka.KafkaClient(process.env.ZOOKEEPER_URL);
     const consumer = new Consumer(client, [{ topic: userId }], { autoCommit: false, fromOffset: 'latest' });
 
     consumer.on('message', async (message) => {
@@ -28,7 +27,7 @@ exports.messageByUserId = (req, res) => {
 exports.messageForAdmin = (req, res) => {
     const userId = req.params.userId;
 
-    const client = new kafka.KafkaClient(config.KAFKA_SERVER_URL);
+    const client = new kafka.KafkaClient(process.env.ZOOKEEPER_URL);
     const consumer = new Consumer(client, [{ topic: userId }], { autoCommit: false, fromOffset: 'latest' });
 
     consumer.on('message', function (message) {
@@ -46,7 +45,7 @@ exports.messageForAdmin = (req, res) => {
 
 exports.allMessages = (req, res) => {
 
-    const client = new kafka.KafkaClient(config.KAFKA_SERVER_URL);
+    const client = new kafka.KafkaClient(process.env.ZOOKEEPER_URL);
     const consumer = new Consumer(client, [{ topic: 'allMessages' }], { autoCommit: false, fromOffset: 'latest' });
 
     consumer.on('message', function (message) {

@@ -17,6 +17,7 @@ const authVerifier = require('./helpers/auth-verifier.helper');
 
 process.env.JWT_SECRET = commonConf.JWT_SECRET || config.JWT_SECRET;
 process.env.RESOURCE_ID = appConf.resourceId || config.resourceId;
+process.env.ZOOKEEPER_URL = appConf.zookeeperUrl || config.ZOOKEEPER_URL;
 
 appConf.port = appConf.port || config.PORT;
 appConf.appName = appConf.appName || config.APP_NAME;
@@ -95,7 +96,7 @@ app.use(`${appConf.apiBase}/api-docs`, swaggerUi.serve, swaggerUi.setup(swaggerD
 
 
 // Add service routes
-// app.use(authVerifier);
+app.use(authVerifier);
 
 app.use(appConf.apiBase, notificationRoutes);
 

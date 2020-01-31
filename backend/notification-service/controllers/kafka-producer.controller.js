@@ -1,11 +1,10 @@
 const kafka = require('kafka-node');
 const Producer = kafka.Producer;
-const config = require('../config/config');
 
 const notificationHelper = require('../helpers/notification.helper');
 
 exports.saveMessage = async (req, res) => {
-    const client = new kafka.KafkaClient(config.KAFKA_SERVER_URL);
+    const client = new kafka.KafkaClient(process.env.ZOOKEEPER_URL);
     const producer = new Producer(client);
     try {
         const message = JSON.stringify(req.body.message);
