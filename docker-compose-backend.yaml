@@ -30,7 +30,26 @@ services :
             WAIT_FOR_TIMEOUT: 100
         networks:
             - scalable_network
-      
+
+    zookeeper:
+        image: wurstmeister/zookeeper
+        container_name: zookeeper
+        ports:
+            - "2181:2181"
+        networks:
+            - scalable_network
+ 
+    kafka:
+        image: wurstmeister/kafka
+        container_name: kafka
+        environment:
+        KAFKA_ADVERTISED_HOST_NAME: localhost
+        KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+        ports:
+            - "9092:9092"
+        networks:
+            - scalable_network
+
     egateway:
         image: express-gateway
         container_name: egateway
@@ -80,6 +99,24 @@ services :
         networks:
             - scalable_network
     
+    ms-auth:
+        image: node:lts-alpine
+        container_name: auth
+        working_dir: /home/app/auth-service
+        volumes: 
+            - "./configuration:/home/app/common"
+            - "./backend/auth-service:/home/app/auth-service"
+        environment:
+            - NODE_ENV=production
+            - LOCAL=no
+        ports:
+            - 4000:4000
+        command: sh -c "npm install && npm start"
+        depends_on: 
+            - mongodb
+        networks:
+            - scalable_network
+
     ms-sample:
         image: node:lts-alpine
         container_name: sample
@@ -143,6 +180,7 @@ services :
             - "./backend/notification-service:/home/app/notification-service"
         environment:
             - NODE_ENV=production
+            - ZOOKEEPER_URL=http://zookeeper:2181
             - LOCAL=no
         ports:
             - 3333:3333
