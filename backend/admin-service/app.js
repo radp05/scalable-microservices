@@ -10,6 +10,7 @@ const swaggerUi = require('swagger-ui-express');
 const mongoose = require('mongoose');
 const logger = require('./helpers/logger.helper');
 const commonConf = require('./../../configuration/config.json');
+const migration = require('./migrations')
 
 const appConf = commonConf.services.admin;
 let mongoConf = commonConf.databases.mongodb;
@@ -61,8 +62,9 @@ if (dbConf.username != '' || dbConf.password != '') {
         "useUnifiedTopology": true
     });
 }
-mongoose.connection.once('open', () => {
+mongoose.connection.once('open', async () => {
     logger.info("Connected to MongoDB Successfully.")
+    await migration.createUser();
 });
 mongoose.connection.on('connected', () => {
     logger.info('MongoDB connected');

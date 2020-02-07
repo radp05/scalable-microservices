@@ -13,7 +13,7 @@ exports.addUserGroup = async req => {
 
   let resourceDetails = await Resource.find({ resourceId: { $in: req.body.resourceIds } });
 
-  if (resourceDetails.length == 0) {
+  if (resourceDetails.length == 0 && req.body.resourceIds[0] != '*') {
     throw "This resource is not exist.";
   }
   let group = new Group({
@@ -65,7 +65,7 @@ exports.getUserGroups = async () => {
         resourceDetails: 1,
         createdAt: 1,
         updatedAt: 1,
-        groupId : 1
+        groupId: 1
       }
     }
   ]);
@@ -95,7 +95,7 @@ exports.getUserGroup = async req => {
         resourceDetails: 1,
         createdAt: 1,
         updatedAt: 1,
-        groupId : 1
+        groupId: 1
       }
     }
   ]);
