@@ -19,7 +19,7 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "exceljs": "^3.5.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "font": "0.0.4",
     "helmet": "^3.21.2",
     "jsonwebtoken": "^8.5.1",
